@@ -1,0 +1,9 @@
+enum SERVICES {
+  UNKNOWN = 'UNKNOWN',
+  FACEBOOK = 'FACEBOOK',
+  DISCORD = 'DISCORD',
+  REDDIT = 'REDDIT',
+  GOOGLE = 'GOOGLE',
+}
+
+export default SERVICES
