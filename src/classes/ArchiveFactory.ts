@@ -2,6 +2,7 @@ import Archive, { OUTPUT_DIR } from './Archive/Archive'
 import ArchivePlugins from './Archive'
 import SERVICES from '../types/SERVICES'
 import Standardizer from './Standardizer/Standardizer'
+import Unknown from './Archive/Unknown'
 
 export default class ArchiveFactory {
   path: string
@@ -29,6 +30,8 @@ export default class ArchiveFactory {
     return Promise.any(
       this.archivePlugins.map(plugin => plugin.identifyService()),
     )
+      // Return Unknown archive plugin if anyone else is found
+      .catch(() => new Unknown(this.path))
   }
 
   async getStandardizer(): Promise<Standardizer> {
