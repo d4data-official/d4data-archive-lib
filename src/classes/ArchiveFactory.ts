@@ -21,6 +21,10 @@ export default class ArchiveFactory {
       .then(archive => archive.service)
   }
 
+  getArchivePluginFromService(service: SERVICES): Archive | undefined {
+    return this.archivePlugins.find(plugin => plugin.service === service)
+  }
+
   async getArchivePlugin(): Promise<Archive> {
     return Promise.any(
       this.archivePlugins.map(plugin => plugin.identifyService()),
