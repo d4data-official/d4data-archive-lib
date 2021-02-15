@@ -9,7 +9,6 @@ export default abstract class Standardizer {
 
   /**
    * Get the Service type associated to this Standardizer
-   * @return {SERVICES}
    */
   abstract get service(): SERVICES
 
