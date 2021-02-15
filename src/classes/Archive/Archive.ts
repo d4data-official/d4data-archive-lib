@@ -30,9 +30,9 @@ export default abstract class Archive {
   abstract get service(): SERVICES
 
   /**
-   * Return service's standardizer if archive has been extracted
+   * Return service's standardizer if archive has been extracted or throw an error
    */
-  abstract get standardizer(): Standardizer | null
+  abstract get standardizer(): Standardizer
 
   /**
    * Explore non extracted archive to guess the source service
