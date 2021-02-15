@@ -1,6 +1,7 @@
 import Archive, { OUTPUT_DIR } from './Archive/Archive'
 import ArchivePlugins from './Archive'
 import SERVICES from '../types/SERVICES'
+import Standardizer from './Standardizer/Standardizer'
 
 export default class ArchiveFactory {
   path: string
@@ -24,5 +25,11 @@ export default class ArchiveFactory {
     return Promise.any(
       this.archivePlugins.map(plugin => plugin.identifyService()),
     )
+  }
+
+  async getStandardizer(): Promise<Standardizer> {
+    return this.getArchivePlugin()
+      .then(archive => archive.extract())
+      .then(archive => archive.standardizer)
   }
 }
