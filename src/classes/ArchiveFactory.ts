@@ -8,12 +8,11 @@ export default class ArchiveFactory {
 
   outputDir: string
 
-  archivePlugins: Array<Archive>
+  archivePlugins: Array<Archive> = ArchivePlugins.map(archivePlugin => new archivePlugin(this.path, this.outputDir))
 
   constructor(archivePath: string, outputDir?: string) {
     this.path = archivePath
     this.outputDir = outputDir ?? OUTPUT_DIR
-    this.archivePlugins = ArchivePlugins.map(ArchivePlugin => new ArchivePlugin(this.path, this.outputDir))
   }
 
   async identify(): Promise<SERVICES> {
