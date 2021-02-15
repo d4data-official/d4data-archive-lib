@@ -1,8 +1,10 @@
-# Basic archive processing example
+# Examples
 
-## Get archive normalized data
+## Basic examples
 
-Example of **profile** retrieval from the archive with the library
+### Get archive normalized data (profile)
+
+Example of **profile** retrieval from an archive with the library
 
 ```typescript
 import { ArchiveFactory } from 'd4data-archive-lib'
@@ -18,3 +20,6 @@ new ArchiveFactory('<archive_path>')
   // Catch any error during the process
   .catch(error => console.error(error))
 ```
+
+## Advanced examples
+*maybe one day*
