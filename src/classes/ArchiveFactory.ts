@@ -8,6 +8,7 @@ export default class ArchiveFactory {
 
   outputDir: string
 
+  // @ts-ignore
   archivePlugins: Array<Archive> = ArchivePlugins.map(archivePlugin => new archivePlugin(this.path, this.outputDir))
 
   constructor(archivePath: string, outputDir?: string) {
