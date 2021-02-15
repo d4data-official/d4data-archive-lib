@@ -49,7 +49,8 @@ export default abstract class Archive {
   /**
    * Extract archive to given path
    */
-  async extract(options?: ExtractOptions & { outputDir?: string }): Promise<void> {
+  async extract(options?: ExtractOptions & { outputDir?: string }): Promise<Archive> {
     return extractArchive(this.path, options?.outputDir ?? this.outputDir, options)
+      .then(() => this)
   }
 }
