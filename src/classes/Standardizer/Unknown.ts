@@ -1,12 +1,12 @@
 import Standardizer from './Standardizer'
-import SERVICES from '../../types/SERVICES'
+import Services from '../../types/Services'
 
 export default class Unknown extends Standardizer {
-  get service(): SERVICES {
-    return SERVICES.UNKNOWN
+  get service(): Services {
+    return Services.UNKNOWN
   }
 
-  get subServices(): Array<SERVICES> {
+  get subServices(): Array<Services> {
     return [];
   }
 

@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import SERVICES from '../../types/SERVICES'
+import Services from '../../types/Services'
 
 export default abstract class Standardizer {
   path: string
@@ -12,12 +12,12 @@ export default abstract class Standardizer {
   /**
    * Get the Service type associated to this Standardizer
    */
-  abstract get service(): SERVICES
+  abstract get service(): Services
 
   /**
    * Get sub-service list of this standardizer service
    */
-  abstract get subServices(): Array<SERVICES>
+  abstract get subServices(): Array<Services>
 
   /**
    * Get sub-standardizer list of this standardizer service

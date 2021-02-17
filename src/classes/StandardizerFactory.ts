@@ -1,4 +1,4 @@
-import SERVICES from '../types/SERVICES'
+import Services from '../types/Services'
 import Standardizer from './Standardizer/Standardizer'
 
 export default class StandardizerFactory {
@@ -11,7 +11,7 @@ export default class StandardizerFactory {
     this.path = extractedArchivePath
   }
 
-  getStandardizerFromService(service: SERVICES): Standardizer | undefined {
+  getStandardizerFromService(service: Services): Standardizer | undefined {
     return this.standardizers.find(standardizer => standardizer.service === service)
   }
 }

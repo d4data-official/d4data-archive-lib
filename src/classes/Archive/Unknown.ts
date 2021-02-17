@@ -1,5 +1,5 @@
 import Archive from './Archive'
-import SERVICES from '../../types/SERVICES'
+import Services from '../../types/Services'
 import Standardizer from '../Standardizer/Standardizer'
 import UnknownStandardizer from '../Standardizer/Unknown'
 
@@ -8,8 +8,8 @@ export default class Unknown extends Archive {
     return Promise.resolve(this)
   }
 
-  get service(): SERVICES {
-    return SERVICES.UNKNOWN
+  get service(): Services {
+    return Services.UNKNOWN
   }
 
   get standardizer(): Standardizer {

@@ -1,4 +1,4 @@
-enum SERVICES {
+enum Services {
   UNKNOWN = 'UNKNOWN',
   FACEBOOK = 'FACEBOOK',
   DISCORD = 'DISCORD',
@@ -6,4 +6,4 @@ enum SERVICES {
   GOOGLE = 'GOOGLE',
 }
 
-export default SERVICES
+export default Services
