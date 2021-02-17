@@ -5,4 +5,12 @@ export default class Unknown extends Standardizer {
   get service(): SERVICES {
     return SERVICES.UNKNOWN
   }
+
+  get subServices(): Array<SERVICES> {
+    return [];
+  }
+
+  get subStandardizers(): Array<Standardizer> {
+    return [];
+  }
 }

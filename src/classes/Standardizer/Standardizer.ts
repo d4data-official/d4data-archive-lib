@@ -12,6 +12,16 @@ export default abstract class Standardizer {
    */
   abstract get service(): SERVICES
 
+  /**
+   * Get sub-service list of this standardizer service
+   */
+  abstract get subServices(): Array<SERVICES>
+
+  /**
+   * Get sub-standardizer list of this standardizer service
+   */
+  abstract get subStandardizers(): Array<Standardizer>
+
   async getProfile(): Promise<object | null> {
     return Promise.resolve(null)
   }
