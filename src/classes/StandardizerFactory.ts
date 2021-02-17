@@ -1,11 +1,11 @@
 import SERVICES from '../types/SERVICES'
-import StandardizerList from './Standardizer'
 import Standardizer from './Standardizer/Standardizer'
 
 export default class StandardizerFactory {
   path: string
 
-  standardizers: Array<Standardizer> = StandardizerList.map(standardizer => new standardizer(this.path))
+  // @ts-ignore
+  standardizers: Array<Standardizer> = Standardizer.getPluginsSync().map(standardizer => new standardizer(this.path))
 
   constructor(extractedArchivePath: string) {
     this.path = extractedArchivePath

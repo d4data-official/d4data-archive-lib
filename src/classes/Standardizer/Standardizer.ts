@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import SERVICES from '../../types/SERVICES'
 
 export default abstract class Standardizer {
@@ -110,5 +112,24 @@ export default abstract class Standardizer {
     const excludedKeys = ['constructor']
     return Object.getOwnPropertyNames(Standardizer.prototype)
       .filter(propertyName => !excludedKeys.includes(propertyName))
+  }
+
+  /**
+   * List all Standardizer plugins contained in the services sub-directory asynchronously
+   */
+  static getPlugins(): Promise<Array<typeof Standardizer>> {
+    return fs.promises.readdir(path.resolve(__dirname, 'services'))
+      .then(dirContent => dirContent.map(service => import(path.resolve(__dirname, 'services', service))))
+      .then(promiseArr => Promise.all(promiseArr))
+  }
+
+  /**
+   * List all Standardizer plugins contained in the services sub-directory synchronously
+   */
+  static getPluginsSync(): Array<typeof Standardizer> {
+    return fs.readdirSync(path.resolve(__dirname, 'services')).map(
+      // eslint-disable-next-line import/no-dynamic-require,global-require
+      service => require(path.resolve(__dirname, 'services', service)),
+    )
   }
 }

@@ -1,5 +1,4 @@
 import Archive, { OUTPUT_DIR } from './Archive/Archive'
-import ArchivePlugins from './Archive'
 import SERVICES from '../types/SERVICES'
 import Standardizer from './Standardizer/Standardizer'
 import Unknown from './Archive/Unknown'
@@ -9,8 +8,9 @@ export default class ArchiveFactory {
 
   outputDir: string
 
-  // @ts-ignore
-  archivePlugins: Array<Archive> = ArchivePlugins.map(archivePlugin => new archivePlugin(this.path, this.outputDir))
+  archivePlugins: Array<Archive> = Archive.getPluginsSync()
+    // @ts-ignore
+    .map(archivePlugin => new archivePlugin(this.path, this.outputDir))
 
   constructor(archivePath: string, outputDir?: string) {
     this.path = archivePath
