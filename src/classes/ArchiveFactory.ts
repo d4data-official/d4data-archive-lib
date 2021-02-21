@@ -1,6 +1,6 @@
 import Archive, { OUTPUT_DIR } from './Archive/Archive'
 import ArchivePlugins from './Archive'
-import SERVICES from '../types/SERVICES'
+import { Services } from '../types/Services'
 import Standardizer from './Standardizer/Standardizer'
 import Unknown from './Archive/Unknown'
 
@@ -17,12 +17,12 @@ export default class ArchiveFactory {
     this.outputDir = outputDir ?? OUTPUT_DIR
   }
 
-  async identify(): Promise<SERVICES> {
+  async identify(): Promise<Services> {
     return this.getArchivePlugin()
       .then(archive => archive.service)
   }
 
-  getArchivePluginFromService(service: SERVICES): Archive | undefined {
+  getArchivePluginFromService(service: Services): Archive | undefined {
     return this.archivePlugins.find(plugin => plugin.service === service)
   }
 
