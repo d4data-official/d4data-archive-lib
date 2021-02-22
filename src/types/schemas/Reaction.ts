@@ -8,12 +8,6 @@ import { Media } from './Media';
  */
 export class Reaction extends ASchema<Reaction> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'reaction';
-
-  /**
    * name of reaction
    */
   @IsString()
@@ -41,5 +35,5 @@ export class Reaction extends ASchema<Reaction> {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Media)
-  medias?: Array<Omit<Media, 'isValid'>>;
+  medias?: Array<Media>;
 }

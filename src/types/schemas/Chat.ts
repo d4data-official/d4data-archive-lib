@@ -6,12 +6,6 @@ import { Reaction } from './Reaction';
 
 class ChatMessage {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'chatMessage';
-
-  /**
  * The name of the sender
  */
   @IsString()
@@ -39,19 +33,13 @@ class ChatMessage {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Reaction)
-  reactions?: Array<Omit<Reaction, 'isValid'>>;
+  reactions?: Array<Reaction>;
 }
 
 /**
  * JSON Schema definition of one chat
  */
 export class Chat extends ASchema<Chat> {
-  /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'chat';
-
   /**
    * List of chat participants
    */

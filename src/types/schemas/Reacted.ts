@@ -11,12 +11,6 @@ import { Reaction } from './Reaction';
  */
 export class Reacted extends ASchema<Reacted> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'reacted';
-
-  /**
    * name of the entity's type
    */
   @IsString()
@@ -33,7 +27,7 @@ export class Reacted extends ASchema<Reacted> {
       ],
     },
   })
-  entity!: Omit<Media, 'isValid'> | Omit<Post, 'isValid'> | Omit<Community, 'isValid'> | null;
+  entity!: Media | Post | Community | null;
 
   /**
    * JSON Schema definition of reaction property
@@ -41,5 +35,5 @@ export class Reacted extends ASchema<Reacted> {
   @IsOptional()
   @ValidateNested()
   @Type(() => Reaction)
-  reaction?: Omit<Reaction, 'isValid'>;
+  reaction?: Reaction;
 }

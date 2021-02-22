@@ -14,12 +14,6 @@ enum FollowingType {
  */
 export class Following extends ASchema<Following> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'following';
-
-  /**
    * name of the entity's type
    */
   @IsOptional()
@@ -40,5 +34,5 @@ export class Following extends ASchema<Following> {
       ],
     },
   })
-  entity?: Omit<Community, 'isValid'> | Omit<Contact, 'isValid'>
+  entity?: Community | Contact
 }

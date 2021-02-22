@@ -7,12 +7,6 @@ import { ASchema } from './ASchema';
  */
 export class AuthorizedDevice extends ASchema<AuthorizedDevice> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'authorizedDevice';
-
-  /**
    * name of device
    */
   @IsString()

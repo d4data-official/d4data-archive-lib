@@ -12,12 +12,6 @@ enum MediaType {
  */
 export class Media extends ASchema<Media> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'media';
-
-  /**
    * Absolute path on the host
    */
   @IsString()

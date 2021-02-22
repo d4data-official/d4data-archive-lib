@@ -8,12 +8,6 @@ import { Services } from '../Services';
  */
 export class Archive extends ASchema<Archive> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'archive';
-
-  /**
    * Archive size in bytes
    */
   @IsOptional()

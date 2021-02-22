@@ -5,12 +5,6 @@ import { ASchema } from './ASchema';
 
 class AbsolutePosition {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'absoluteLocation';
-
-  /**
    * Latitude of the absolute position
    */
   @IsLatitude()
@@ -24,12 +18,6 @@ class AbsolutePosition {
 }
 
 class RelativePosition {
-  /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'relativeLocation';
-
   /**
    * Raw human-readable address
    */
@@ -69,12 +57,6 @@ class RelativePosition {
  * JSON Schema definition of location
  */
 export class Location extends ASchema<Location> {
-  /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'location';
-
   /**
    * Position using latitude and longitude absolute coordinates
    */

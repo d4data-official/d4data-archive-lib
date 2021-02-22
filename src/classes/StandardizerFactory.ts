@@ -5,7 +5,7 @@ import { Services } from '../types/Services'
 export default class StandardizerFactory {
   path: string
 
-  standardizers: Array<Standardizer> = StandardizerList.map(standardizer => new standardizer(this.path))
+  standardizers: Array<Standardizer> = (StandardizerList as any[]).map(standardizer => new standardizer(this.path))
 
   constructor(extractedArchivePath: string) {
     this.path = extractedArchivePath

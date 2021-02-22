@@ -6,12 +6,6 @@ import { ASchema } from '../ASchema';
 
 class AccountLinked {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'accountLinkedDiscord';
-
-  /**
  * Platform link to account
  */
   @IsOptional()
@@ -38,12 +32,6 @@ class AccountLinked {
  * JSON Schema definition of Discord profile extra properties
  */
 export class ProfilExtra extends ASchema<ProfilExtra> {
-  /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'profileExtraDicord';
-
   /**
    * Time until end of premium (timestamp)
    */

@@ -8,17 +8,11 @@ import { Location } from './Location';
  */
 export class Whereabout extends ASchema<Whereabout> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'whereabout';
-
-  /**
    * Reference to location
    */
   @ValidateNested()
   @Type(() => Location)
-  location!: Omit<Location, 'isValid'>;
+  location!: Location;
 
   /**
    * Timestamp of recorded position

@@ -6,12 +6,6 @@ import { ASchema } from './ASchema';
  */
 export class Setting extends ASchema<Setting> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'setting';
-
-  /**
    * name of setting
    */
   @IsString()

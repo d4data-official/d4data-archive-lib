@@ -8,12 +8,6 @@ import { Location } from './Location';
  */
 export class Connection extends ASchema<Connection> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'connection';
-
-  /**
    * IP Address where the connection has been intiated
    */
   @IsString()
@@ -26,7 +20,7 @@ export class Connection extends ASchema<Connection> {
   @IsOptional()
   @ValidateNested()
   @Type(() => Location)
-  location?: Omit<Location, 'isValid'>;
+  location?: Location;
 
   /**
    * Browser agent + computer name detected by service

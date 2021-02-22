@@ -7,12 +7,6 @@ import { ASchema } from './ASchema';
  */
 export class Transaction extends ASchema<Transaction> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'transaction';
-
-  /**
    * date of transaction (timestamp)
    */
   @IsOptional()

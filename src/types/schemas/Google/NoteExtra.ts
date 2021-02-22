@@ -8,12 +8,6 @@ import { ASchema } from '../ASchema';
  */
 export class NoteExtra extends ASchema<NoteExtra> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'noteExtraGoogle';
-
-  /**
    * content of the note
    */
   @IsString()

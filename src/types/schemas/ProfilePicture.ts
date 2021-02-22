@@ -10,12 +10,6 @@ import { Media } from './Media';
 
 export class ProfilePicture extends ASchema<ProfilePicture> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'profilePicture';
-
-  /**
  * Index of current contact picture in history array
  */
   @IsOptional()
@@ -29,5 +23,5 @@ export class ProfilePicture extends ASchema<ProfilePicture> {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Media)
-  history?: Array<Omit<Media, 'isValid'>>
+  history?: Array<Media>
 }

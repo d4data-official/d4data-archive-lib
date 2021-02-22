@@ -7,12 +7,6 @@ import { ASchema } from './ASchema';
  */
 export class API extends ASchema<API> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'API';
-
-  /**
    * name of API
    */
   @IsString()

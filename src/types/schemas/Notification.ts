@@ -7,12 +7,6 @@ import { ASchema } from './ASchema';
  */
 export class Notification extends ASchema<Notification> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'notification';
-
-  /**
    * text of the notification
    */
   @IsOptional()

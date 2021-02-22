@@ -1,21 +1,22 @@
-import { validate } from 'class-validator';
-import { classToClass } from 'class-transformer';
+// import { validateSync } from 'class-validator';
+// import { ClassConstructor, plainToClass } from 'class-transformer';
+import 'reflect-metadata';
+// eslint-disable-next-line import/no-cycle
+// import { SchemaError } from '../errors/Schema.error';
 
 export abstract class ASchema<T extends ASchema<T>> {
-  /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'abstractParent';
-
-  public constructor(init: Omit<T, 'isValid'>) {
+  public constructor(init: T) {
     Object.assign(this, init);
-    // this.isValid();
   }
 
-  public async isValid(): Promise<ASchema<T>> {
-    const valid = await validate(classToClass(this));
-    if (valid.length) { throw new Error(valid.toString()) }
-    return this;
-  }
+  __type?: string;
+
+  // public isAValid(type: ClassConstructor<T>): ASchema<T> {
+  //   const valid = validateSync(plainToClass(type, this));
+  //   // console.log(valid.map());
+  //   if (valid.length) {
+  //     throw new SchemaError(valid)
+  //   }
+  //   return (this);
+  // }
 }

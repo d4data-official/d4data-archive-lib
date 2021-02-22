@@ -9,12 +9,6 @@ import { Reaction } from './Reaction';
 
 class ExternalContext extends ASchema<ExternalContext> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'externalContent';
-
-  /**
    * link of an external site
    */
   @IsOptional()
@@ -27,12 +21,6 @@ class ExternalContext extends ASchema<ExternalContext> {
  * JSON Schema definition of post property
  */
 export class Post extends ASchema<Post> {
-  /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'post';
-
   /**
    * Creation date of the post in timestamp format
    */
@@ -47,7 +35,7 @@ export class Post extends ASchema<Post> {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Media)
-  medias?: Array<Omit<Media, 'isValid'>>;
+  medias?: Array<Media>;
 
   /**
    * reaction linked with post
@@ -56,7 +44,7 @@ export class Post extends ASchema<Post> {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Reaction)
-  reactions?: Array<Omit<Reaction, 'isValid'>>;
+  reactions?: Array<Reaction>;
 
   /**
    * who posted
@@ -91,7 +79,7 @@ export class Post extends ASchema<Post> {
   @IsOptional()
   @ValidateNested()
   @Type(() => Location)
-  location?: Omit<Location, 'isValid'>;
+  location?: Location;
 
   /**
    * post with a event link
@@ -99,7 +87,7 @@ export class Post extends ASchema<Post> {
   @IsOptional()
   @ValidateNested()
   @Type(() => Event)
-  event?: Omit<Event, 'isValid'>;
+  event?: Event;
 
   /**
    * post with link of an external site
@@ -107,7 +95,7 @@ export class Post extends ASchema<Post> {
   @IsOptional()
   @ValidateNested()
   @Type(() => ExternalContext)
-  externalContext?: Omit<ExternalContext, 'isValid'>;
+  externalContext?: ExternalContext;
 
   /**
    * list of person tag on the post

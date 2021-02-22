@@ -4,12 +4,6 @@ import { ASchema } from './ASchema';
 
 export class Event extends ASchema<Event> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'event';
-
-  /**
    * name of the event
    */
   @IsOptional()

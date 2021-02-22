@@ -17,12 +17,6 @@ import { ProfilePicture } from './ProfilePicture'
  */
 export class Contact extends ASchema<Contact> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'contact';
-
-  /**
    * Display name / profile name of the contact
    */
   @IsOptional()
@@ -102,10 +96,10 @@ export class Contact extends ASchema<Contact> {
   @IsOptional()
   @ValidateNested()
   @Type(() => ProfilePicture)
-  profilePicture?: Omit<ProfilePicture, 'isValid'>;
+  profilePicture?: ProfilePicture;
 
   @IsOptional()
   @ValidateNested()
   @Type(() => ProfilExtra)
-  Extra?: Omit<ProfilExtra, 'isValid'>;
+  Extra?: ProfilExtra;
 }

@@ -8,12 +8,6 @@ import { Media } from './Media';
  */
 export class Mail extends ASchema<Mail> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'mail';
-
-  /**
    * Sender of the mail
    */
   @IsString()
@@ -54,5 +48,5 @@ export class Mail extends ASchema<Mail> {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Media)
-  attachments?: Array<Omit<Media, 'isValid'>>;
+  attachments?: Array<Media>;
 }

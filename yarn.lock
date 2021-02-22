@@ -67,6 +67,11 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
+"@sensenet/typedoc-theme@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@sensenet/typedoc-theme/-/typedoc-theme-1.1.1.tgz#13f2986da9eaad42261fda90f08e7a5cbb8c9369"
+  integrity sha512-6zrflTWEDPNhYix9XaydWmac7SSvtsfvjfyEBpt3UUW8DdRLT5zfr6NCVjk37YC6leNEettmAbHZ0oYR9IVcIQ==
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -2042,6 +2047,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+lunr@^2.3.8:
+  version "2.3.9"
+  resolved "https://registry.yarnpkg.com/lunr/-/lunr-2.3.9.tgz#18b123142832337dd6e964df1a5a7707b25d35e1"
+  integrity sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==
+
 make-dir@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.1.0.tgz#415e967046b3a7f1d185277d84aa58203726a13f"
@@ -3279,6 +3289,13 @@ typedarray-to-buffer@^3.1.5:
   integrity sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==
   dependencies:
     is-typedarray "^1.0.0"
+
+typedoc-theme-dark@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/typedoc-theme-dark/-/typedoc-theme-dark-0.0.5.tgz#0590b5a4d08a8b31d67e6d25d270965941eb6417"
+  integrity sha512-NCSoqZSReffwF5ANNduEoEOhNqkiFv+t8gRA7A3uKld09pSGytSiTU1PLVjaeWt4aX03egPp3V3GYDc4Ro26PQ==
+  dependencies:
+    lunr "^2.3.8"
 
 typescript@^4.1.5:
   version "4.1.5"

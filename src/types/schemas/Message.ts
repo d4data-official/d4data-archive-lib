@@ -7,12 +7,6 @@ import { ASchema } from './ASchema';
  */
 export class Message extends ASchema<Message> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'message';
-
-  /**
    * creation date of the message in timestamp format
    */
   @IsDate()

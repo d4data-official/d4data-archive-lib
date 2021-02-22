@@ -8,12 +8,6 @@ import { ASchema } from './ASchema';
  */
 export class Task extends ASchema<Task> {
   /**
-   * @ignore
-   * Obect type name
-   */
-  __type?: string = 'task';
-
-  /**
    * name of task
    */
   @IsString()
@@ -78,5 +72,5 @@ export class Task extends ASchema<Task> {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Task)
-  children?: Array<Omit<Task, 'isValid'>>;
+  children?: Array<Task>;
 }
