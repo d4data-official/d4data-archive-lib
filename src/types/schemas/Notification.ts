@@ -19,7 +19,7 @@ export class Notification extends ASchema<Notification> {
   @IsOptional()
   @IsDate()
   @Type(() => Date)
-  timestamp?: number | Date;
+  notificationDate?: number | Date;
 
   /**
    * link of the notification

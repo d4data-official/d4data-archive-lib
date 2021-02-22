@@ -1,5 +1,6 @@
 import { ClassConstructor, plainToClass } from 'class-transformer';
 import { validateSync, ValidationError } from 'class-validator';
+import 'reflect-metadata';
 // eslint-disable-next-line import/no-cycle
 import { ASchema } from '../schemas/ASchema';
 

@@ -18,5 +18,5 @@ export class API extends ASchema<API> {
   @IsOptional()
   @IsDate()
   @Type(() => Date)
-  timestamp?: number | Date;
+  linkingDate?: number | Date;
 }

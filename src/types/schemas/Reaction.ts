@@ -26,7 +26,7 @@ export class Reaction extends ASchema<Reaction> {
   @IsOptional()
   @IsDate()
   @Type(() => Date)
-  timestamp?: number | Date;
+  reactionDate?: number | Date;
 
   /**
    * Image associated to the reaction

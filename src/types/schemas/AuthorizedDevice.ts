@@ -25,5 +25,5 @@ export class AuthorizedDevice extends ASchema<AuthorizedDevice> {
   @IsOptional()
   @IsDate()
   @Type(() => Date)
-  timestamp?: number | Date;
+  authorizationDate?: number | Date;
 }
