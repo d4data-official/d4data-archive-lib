@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import extractArchive, { ExtractOptions } from '../../modules/ArchiveExtraction'
 import Standardizer from '../Standardizer/Standardizer'
 import { Services } from '../../types/Services'
@@ -55,5 +57,24 @@ export default abstract class Archive {
     return extractArchive(this.path, outputDir, options)
       .then(() => this.extractedArchivePath = outputDir)
       .then(() => this)
+  }
+
+  /**
+   * List all Archive plugins contained in the services sub-directory asynchronously
+   */
+  static getPlugins(): Promise<Array<typeof Archive>> {
+    return fs.promises.readdir(path.resolve(__dirname, 'services'))
+      .then(dirContent => dirContent.map(service => import(path.resolve(__dirname, 'services', service))))
+      .then(promiseArr => Promise.all(promiseArr))
+  }
+
+  /**
+   * List all Archive plugins contained in the services sub-directory synchronously
+   */
+  static getPluginsSync(): Array<typeof Archive> {
+    return fs.readdirSync(path.resolve(__dirname, 'services')).map(
+      // eslint-disable-next-line import/no-dynamic-require,global-require
+      service => require(path.resolve(__dirname, 'services', service)),
+    )
   }
 }

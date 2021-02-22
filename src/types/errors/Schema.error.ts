@@ -18,7 +18,7 @@ export class SchemaError extends Error {
     super(errors?.map(err => parseError(err))?.join(''))
   }
 
-  static constructAndCatch<V extends ASchema<V>>(constructor: ClassConstructor<V>, obj: V) {
+  static async constructAndCatch<V extends ASchema<V>>(constructor: ClassConstructor<V>, obj: V): Promise<V | null> {
     try {
       const constructedObj = plainToClass(constructor, obj)
       const valid = validateSync(

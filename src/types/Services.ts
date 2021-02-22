@@ -5,5 +5,3 @@ export enum Services {
   REDDIT = 'REDDIT',
   GOOGLE = 'GOOGLE',
 }
-
-export default Services

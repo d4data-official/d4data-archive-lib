@@ -26,6 +26,8 @@ const apiBis: API = {
 
 console.log(SchemaError.constructAndCatch(API, apiBis));
 
+console.log(apiBis.Constructor)
+
 /**
  *
  * @constructs Following
