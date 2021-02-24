@@ -82,7 +82,7 @@ export async function parseFile(filePath: string, options?: ParsingOptions): Pro
  * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseAsText(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export async function parseAsText(filePath: string, options?: ParsingOptions): Promise<string> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -91,7 +91,7 @@ export async function parseAsText(filePath: string, options?: ParsingOptions): P
  * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseAsJSON(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export async function parseAsJSON<T = unknown>(filePath: string, options?: ParsingOptions): Promise<T> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -99,8 +99,12 @@ export async function parseAsJSON(filePath: string, options?: ParsingOptions): P
  * Parse JSON Lines file from given path
  * Throw error if can't access file or file format is invalid
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseAsJSONL(filePath: string, options?: ParsingOptions & PaginationOptions): Promise<unknown> {
+export async function parseAsJSONL<T = unknown>(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  filePath: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  options?: ParsingOptions & PaginationOptions,
+): Promise<Array<T>> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -117,8 +121,12 @@ export async function parseAsHTML(filePath: string, options?: ParsingOptions): P
  * Parse CSV file from given path
  * Throw error if can't access file or file format is invalid
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseAsCSV(filePath: string, options?: ParsingOptions & PaginationOptions): Promise<unknown> {
+export async function parseAsCSV<T = unknown>(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  filePath: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  options?: ParsingOptions & PaginationOptions,
+): Promise<Array<T>> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -126,8 +134,12 @@ export async function parseAsCSV(filePath: string, options?: ParsingOptions & Pa
  * Parse MBOX file from given path
  * Throw error if can't access file or file format is invalid
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseAsMBOX(filePath: string, options?: ParsingOptions & PaginationOptions): Promise<unknown> {
+export async function parseAsMBOX(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  filePath: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  options?: ParsingOptions & PaginationOptions,
+): Promise<Array<unknown>> {
   return Promise.reject(new Error('Not implemented'))
 }
 

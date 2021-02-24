@@ -70,19 +70,22 @@ export default class Parser {
    * Parse JSON file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseJSON(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsJSON> {
-    return ParsingUtils.parseAsJSON(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseJSON<T = unknown>(
+    relativeFilePath: string,
+    options?: ParsingOptions,
+  ): ReturnType<typeof ParsingUtils.parseAsJSON> {
+    return ParsingUtils.parseAsJSON<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse JSON Lines file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseAsJSONL(
+  async parseAsJSONL<T = unknown>(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
   ): ReturnType<typeof ParsingUtils.parseAsJSONL> {
-    return ParsingUtils.parseAsJSONL(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+    return ParsingUtils.parseAsJSONL<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
@@ -97,11 +100,11 @@ export default class Parser {
    * Parse CSV file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseCSV(
+  async parseCSV<T = unknown>(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
   ): ReturnType<typeof ParsingUtils.parseAsCSV> {
-    return ParsingUtils.parseAsCSV(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+    return ParsingUtils.parseAsCSV<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
