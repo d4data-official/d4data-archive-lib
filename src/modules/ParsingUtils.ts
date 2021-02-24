@@ -30,7 +30,7 @@ export async function parseFile(filePath: string): Promise<unknown> {
 
 /**
  * Parse JSON file from given path
- * Throw error if can't access file or extension is invalid
+ * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function parseJSON(filePath: string): Promise<unknown> {
@@ -39,7 +39,7 @@ export async function parseJSON(filePath: string): Promise<unknown> {
 
 /**
  * Parse HTML file from given path
- * Throw error if can't access file or extension is invalid
+ * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function parseHTML(filePath: string): Promise<unknown> {
@@ -48,7 +48,7 @@ export async function parseHTML(filePath: string): Promise<unknown> {
 
 /**
  * Parse CSV file from given path
- * Throw error if can't access file or extension is invalid
+ * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function parseCSV(filePath: string): Promise<unknown> {
@@ -57,7 +57,7 @@ export async function parseCSV(filePath: string): Promise<unknown> {
 
 /**
  * Parse MBOX file from given path
- * Throw error if can't access file or extension is invalid
+ * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function parseMBOX(filePath: string): Promise<unknown> {
@@ -66,7 +66,7 @@ export async function parseMBOX(filePath: string): Promise<unknown> {
 
 /**
  * Parse VCARD file from given path
- * Throw error if can't access file or extension is invalid
+ * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function parseVCARD(filePath: string): Promise<unknown> {
@@ -75,7 +75,7 @@ export async function parseVCARD(filePath: string): Promise<unknown> {
 
 /**
  * Parse ICS file from given path
- * Throw error if can't access file or extension is invalid
+ * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function parseICS(filePath: string): Promise<unknown> {
