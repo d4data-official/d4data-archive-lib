@@ -1,12 +1,16 @@
 import fs from 'fs'
 import path from 'path'
 import Services from '../../types/Services'
+import Parser from '../Parser'
 
 export default abstract class Standardizer {
   path: string
 
+  parser: Parser
+
   constructor(extractedArchivePath: string) {
     this.path = extractedArchivePath
+    this.parser = new Parser(this.path)
   }
 
   /**
