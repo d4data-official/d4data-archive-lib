@@ -70,7 +70,7 @@ export default class Parser {
    * Parse JSON file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseJSON<T = unknown>(
+  async parseAsJSON<T = unknown>(
     relativeFilePath: string,
     options?: ParsingOptions,
   ): ReturnType<typeof ParsingUtils.parseAsJSON> {
@@ -92,7 +92,7 @@ export default class Parser {
    * Parse HTML file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseHTML(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsHTML> {
+  async parseAsHTML(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsHTML> {
     return ParsingUtils.parseAsHTML(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
@@ -100,7 +100,7 @@ export default class Parser {
    * Parse CSV file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseCSV<T = unknown>(
+  async parseAsCSV<T = unknown>(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
   ): ReturnType<typeof ParsingUtils.parseAsCSV> {
@@ -111,7 +111,7 @@ export default class Parser {
    * Parse MBOX file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseMBOX(
+  async parseAsMBOX(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
   ): ReturnType<typeof ParsingUtils.parseAsMBOX> {
@@ -122,7 +122,7 @@ export default class Parser {
    * Parse VCARD file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseVCARD(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsVCARD> {
+  async parseAsVCARD(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsVCARD> {
     return ParsingUtils.parseAsVCARD(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
@@ -130,7 +130,7 @@ export default class Parser {
    * Parse ICS file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseICS(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsICS> {
+  async parseAsICS(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsICS> {
     return ParsingUtils.parseAsICS(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 }
