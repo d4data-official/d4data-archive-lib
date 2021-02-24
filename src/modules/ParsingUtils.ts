@@ -49,6 +49,14 @@ export async function parseFile(filePath: string, options?: ParsingOptions): Pro
 }
 
 /**
+ * Parse Text (txt) file from given path
+ * Throw error if can't access file or file format is invalid
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function parseAsText(filePath: string, options?: ParsingOptions): Promise<unknown> {
+  return Promise.reject(new Error('Not implemented'))
+}
+/**
  * Parse JSON file from given path
  * Throw error if can't access file or file format is invalid
  */
@@ -106,6 +114,7 @@ export default {
   listFiles,
   parseFile,
   parseDir,
+  parseAsText,
   parseAsJSON,
   parseAsHTML,
   parseAsCSV,
