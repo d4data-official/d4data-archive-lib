@@ -97,7 +97,10 @@ export default class Parser {
    * Parse CSV file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseCSV(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsCSV> {
+  async parseCSV(
+    relativeFilePath: string,
+    options?: ParsingOptions & PaginationOptions,
+  ): ReturnType<typeof ParsingUtils.parseAsCSV> {
     return ParsingUtils.parseAsCSV(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
@@ -105,7 +108,10 @@ export default class Parser {
    * Parse MBOX file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseMBOX(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsMBOX> {
+  async parseMBOX(
+    relativeFilePath: string,
+    options?: ParsingOptions & PaginationOptions,
+  ): ReturnType<typeof ParsingUtils.parseAsMBOX> {
     return ParsingUtils.parseAsMBOX(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
