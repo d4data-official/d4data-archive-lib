@@ -25,6 +25,7 @@ export interface ParsingOptions {
 export const SupportedFileFormats = {
   TEXT: ['txt'],
   JSON: ['json'],
+  JSONL: ['jsonl'],
   HTML: ['html'],
   CSV: ['csv'],
   MBOX: ['mbox'],
@@ -39,6 +40,7 @@ export const SupportedFileFormats = {
 export const ParserTypes: Array<[Array<string>, Function]> = [
   [SupportedFileFormats.TEXT, parseAsText],
   [SupportedFileFormats.JSON, parseAsJSON],
+  [SupportedFileFormats.JSONL, parseAsJSONL],
   [SupportedFileFormats.HTML, parseAsHTML],
   [SupportedFileFormats.CSV, parseAsCSV],
   [SupportedFileFormats.MBOX, parseAsMBOX],
@@ -94,6 +96,15 @@ export async function parseAsJSON(filePath: string, options?: ParsingOptions): P
 }
 
 /**
+ * Parse JSON Lines file from given path
+ * Throw error if can't access file or file format is invalid
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function parseAsJSONL(filePath: string, options?: ParsingOptions & PaginationOptions): Promise<unknown> {
+  return Promise.reject(new Error('Not implemented'))
+}
+
+/**
  * Parse HTML file from given path
  * Throw error if can't access file or file format is invalid
  */
@@ -144,6 +155,7 @@ export default {
   parseDir,
   parseAsText,
   parseAsJSON,
+  parseAsJSONL,
   parseAsHTML,
   parseAsCSV,
   parseAsMBOX,

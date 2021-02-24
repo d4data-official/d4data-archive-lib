@@ -1,5 +1,5 @@
 import path from 'path'
-import ParsingUtils, { FilterOptions, ParsingOptions, Preprocessor } from '../modules/ParsingUtils'
+import ParsingUtils, { FilterOptions, PaginationOptions, ParsingOptions, Preprocessor } from '../modules/ParsingUtils'
 
 export default class Parser {
   path: string
@@ -72,6 +72,17 @@ export default class Parser {
    */
   async parseJSON(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsJSON> {
     return ParsingUtils.parseAsJSON(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  }
+
+  /**
+   * Parse JSON Lines file from given path
+   * Throw error if can't access file or file format is invalid
+   */
+  async parseAsJSONL(
+    relativeFilePath: string,
+    options?: ParsingOptions & PaginationOptions,
+  ): ReturnType<typeof ParsingUtils.parseAsJSONL> {
+    return ParsingUtils.parseAsJSONL(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
