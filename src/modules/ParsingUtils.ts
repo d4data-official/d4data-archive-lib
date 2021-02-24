@@ -53,7 +53,7 @@ export async function parseFile(filePath: string, options?: ParsingOptions): Pro
  * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseJSON(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export async function parseAsJSON(filePath: string, options?: ParsingOptions): Promise<unknown> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -62,7 +62,7 @@ export async function parseJSON(filePath: string, options?: ParsingOptions): Pro
  * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseHTML(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export async function parseAsHTML(filePath: string, options?: ParsingOptions): Promise<unknown> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -71,7 +71,7 @@ export async function parseHTML(filePath: string, options?: ParsingOptions): Pro
  * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseCSV(filePath: string, options?: ParsingOptions & PaginationOptions): Promise<unknown> {
+export async function parseAsCSV(filePath: string, options?: ParsingOptions & PaginationOptions): Promise<unknown> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -80,7 +80,7 @@ export async function parseCSV(filePath: string, options?: ParsingOptions & Pagi
  * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseMBOX(filePath: string, options?: ParsingOptions & PaginationOptions): Promise<unknown> {
+export async function parseAsMBOX(filePath: string, options?: ParsingOptions & PaginationOptions): Promise<unknown> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -89,7 +89,7 @@ export async function parseMBOX(filePath: string, options?: ParsingOptions & Pag
  * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseVCARD(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export async function parseAsVCARD(filePath: string, options?: ParsingOptions): Promise<unknown> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -98,7 +98,7 @@ export async function parseVCARD(filePath: string, options?: ParsingOptions): Pr
  * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function parseICS(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export async function parseAsICS(filePath: string, options?: ParsingOptions): Promise<unknown> {
   return Promise.reject(new Error('Not implemented'))
 }
 
@@ -106,10 +106,10 @@ export default {
   listFiles,
   parseFile,
   parseDir,
-  parseJSON,
-  parseHTML,
-  parseCSV,
-  parseMBOX,
-  parseVCARD,
-  parseICS,
+  parseAsJSON,
+  parseAsHTML,
+  parseAsCSV,
+  parseAsMBOX,
+  parseAsVCARD,
+  parseAsICS,
 }
