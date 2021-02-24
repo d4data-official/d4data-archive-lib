@@ -1,4 +1,4 @@
-export type Preprocessor = (path: string) => Promise<string>
+export type Preprocessor = (fileContent: string) => Promise<string>
 
 export interface FilterOptions {
   extensionWhitelist?: Array<string>
