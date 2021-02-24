@@ -20,6 +20,33 @@ export interface ParsingOptions {
 }
 
 /**
+ * List all file extensions for a file type
+ */
+export const SupportedFileFormats = {
+  TEXT: ['txt'],
+  JSON: ['json'],
+  HTML: ['html'],
+  CSV: ['csv'],
+  MBOX: ['mbox'],
+  VCARD: ['vcard'],
+  ICS: ['ics'],
+}
+
+/**
+ * Associations of file extension list to parsing functions
+ * Used in parseFile function to get the good parser from a file extension
+ */
+export const ParserTypes: Array<[Array<string>, Function]> = [
+  [SupportedFileFormats.TEXT, parseAsText],
+  [SupportedFileFormats.JSON, parseAsJSON],
+  [SupportedFileFormats.HTML, parseAsHTML],
+  [SupportedFileFormats.CSV, parseAsCSV],
+  [SupportedFileFormats.MBOX, parseAsMBOX],
+  [SupportedFileFormats.VCARD, parseAsVCARD],
+  [SupportedFileFormats.ICS, parseAsICS],
+]
+
+/**
  * List all files recursively in given directory path and return absolute path list
  * Throw error if can't access directory
  */
@@ -56,6 +83,7 @@ export async function parseFile(filePath: string, options?: ParsingOptions): Pro
 export async function parseAsText(filePath: string, options?: ParsingOptions): Promise<unknown> {
   return Promise.reject(new Error('Not implemented'))
 }
+
 /**
  * Parse JSON file from given path
  * Throw error if can't access file or file format is invalid
