@@ -1,5 +1,18 @@
 import path from 'path'
-import ParsingUtils, { FilterOptions, PaginationOptions, ParsingOptions, Preprocessor } from '../modules/ParsingUtils'
+import { FilterOptions, PaginationOptions, ParsingOptions, Preprocessor } from '../types/Parsing'
+import {
+  listFiles,
+  parseDir,
+  parseFile,
+  parseAsText,
+  parseAsJSON,
+  parseAsJSONL,
+  parseAsHTML,
+  parseAsCSV,
+  parseAsMBOX,
+  parseAsVCARD,
+  parseAsICS,
+} from '../modules/Parsing'
 
 export default class Parser {
   path: string
@@ -40,30 +53,30 @@ export default class Parser {
    * List all files recursively in given directory path and return absolute path list
    * Throw error if can't access directory
    */
-  async listFiles(relativeDirPath: string, options?: FilterOptions): ReturnType<typeof ParsingUtils.listFiles> {
-    return ParsingUtils.listFiles(this.resolveRelativePath(relativeDirPath), options)
+  async listFiles(relativeDirPath: string, options?: FilterOptions): ReturnType<typeof listFiles> {
+    return listFiles(this.resolveRelativePath(relativeDirPath), options)
   }
 
   /**
    * Parse directory files recursively from given path for any supported file format
    */
-  async parseDir(relativeDirPath: string, options?: FilterOptions): ReturnType<typeof ParsingUtils.parseDir> {
-    return ParsingUtils.parseDir(this.resolveRelativePath(relativeDirPath), options)
+  async parseDir(relativeDirPath: string, options?: FilterOptions): ReturnType<typeof parseDir> {
+    return parseDir(this.resolveRelativePath(relativeDirPath), options)
   }
 
   /**
    * Parse file from given path for any supported file format or throw an error
    */
-  async parseFile(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseFile> {
-    return ParsingUtils.parseFile(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseFile(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseFile> {
+    return parseFile(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse Text (txt) file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseAsText(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsText> {
-    return ParsingUtils.parseAsText(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseAsText(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseAsText> {
+    return parseAsText(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
@@ -73,8 +86,8 @@ export default class Parser {
   async parseAsJSON<T = unknown>(
     relativeFilePath: string,
     options?: ParsingOptions,
-  ): ReturnType<typeof ParsingUtils.parseAsJSON> {
-    return ParsingUtils.parseAsJSON<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  ): ReturnType<typeof parseAsJSON> {
+    return parseAsJSON<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
@@ -84,16 +97,16 @@ export default class Parser {
   async parseAsJSONL<T = unknown>(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
-  ): ReturnType<typeof ParsingUtils.parseAsJSONL> {
-    return ParsingUtils.parseAsJSONL<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  ): ReturnType<typeof parseAsJSONL> {
+    return parseAsJSONL<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse HTML file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseAsHTML(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsHTML> {
-    return ParsingUtils.parseAsHTML(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseAsHTML(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseAsHTML> {
+    return parseAsHTML(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
@@ -103,8 +116,8 @@ export default class Parser {
   async parseAsCSV<T = unknown>(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
-  ): ReturnType<typeof ParsingUtils.parseAsCSV> {
-    return ParsingUtils.parseAsCSV<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  ): ReturnType<typeof parseAsCSV> {
+    return parseAsCSV<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
@@ -114,23 +127,23 @@ export default class Parser {
   async parseAsMBOX(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
-  ): ReturnType<typeof ParsingUtils.parseAsMBOX> {
-    return ParsingUtils.parseAsMBOX(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  ): ReturnType<typeof parseAsMBOX> {
+    return parseAsMBOX(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse VCARD file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseAsVCARD(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsVCARD> {
-    return ParsingUtils.parseAsVCARD(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseAsVCARD(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseAsVCARD> {
+    return parseAsVCARD(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse ICS file from given path
    * Throw error if can't access file or file format is invalid
    */
-  async parseAsICS(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof ParsingUtils.parseAsICS> {
-    return ParsingUtils.parseAsICS(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseAsICS(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseAsICS> {
+    return parseAsICS(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 }
