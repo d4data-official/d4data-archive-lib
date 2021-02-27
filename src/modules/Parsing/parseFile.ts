@@ -44,7 +44,14 @@ export const ParserTypes: Array<[Array<string>, Function]> = [
  * Throw error if can't access file or file format is invalid
  * With ignoreFileExt option, the file is considered as Text
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default async function parseFile(filePath: string, options?: ParsingOptions): Promise<unknown> {
-  return Promise.reject(new Error('Not implemented'))
+  if (options?.ignoreFileExt) {
+    return parseAsText(filePath, options)
+  }
+  const extension = filePath.split('.').pop()?.toLowerCase() ?? ''
+  const result = ParserTypes.find(([extensions]) => extensions.includes(extension))
+  if (!result) {
+    throw (new Error('Unsupported file format'))
+  }
+  return result?.[1](filePath, options)
 }
