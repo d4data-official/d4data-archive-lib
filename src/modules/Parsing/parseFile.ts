@@ -45,6 +45,6 @@ export const ParserTypes: Array<[Array<string>, Function]> = [
  * With ignoreFileExt option, the file is considered as Text
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function parseFile(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export default async function parseFile<T = any>(filePath: string, options?: ParsingOptions): Promise<T> {
   return Promise.reject(new Error('Not implemented'))
 }

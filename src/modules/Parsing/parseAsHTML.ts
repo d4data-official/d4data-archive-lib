@@ -5,6 +5,6 @@ import { ParsingOptions } from '../../types/Parsing'
  * Throw error if can't access file or file format is invalid
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function parseAsHTML(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export default async function parseAsHTML(filePath: string, options?: ParsingOptions): Promise<any> {
   return Promise.reject(new Error('Not implemented'))
 }
