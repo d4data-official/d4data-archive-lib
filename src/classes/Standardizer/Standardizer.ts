@@ -2,6 +2,11 @@ import fs from 'fs'
 import path from 'path'
 import Services from '../../types/Services'
 import Parser from '../Parser'
+import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+
+export interface GetterOptions {
+  parsingOptions?: ParsingOptions & PaginationOptions
+}
 
 export default abstract class Standardizer {
   path: string
