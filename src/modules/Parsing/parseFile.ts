@@ -44,8 +44,9 @@ export const ParserTypes: Array<[Array<string>, Function]> = [
  * Throw error if can't access file or file format is invalid
  * With ignoreFileExt option, the file is considered as Text
  */
-export default async function parseFile(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export default async function parseFile<T = any>(filePath: string, options?: ParsingOptions): Promise<T> {
   if (options?.ignoreFileExt) {
+    // @ts-ignore
     return parseAsText(filePath, options)
   }
   const extension = filePath.split('.').pop()?.toLowerCase() ?? ''
