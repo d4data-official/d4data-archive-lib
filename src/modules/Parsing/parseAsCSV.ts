@@ -4,7 +4,7 @@ import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
  * Parse CSV file from given path
  * Throw error if can't access file or file format is invalid
  */
-export default async function parseAsCSV<T = unknown>(
+export default async function parseAsCSV<T = any>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   filePath: string,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

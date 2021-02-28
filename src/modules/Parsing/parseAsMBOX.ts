@@ -9,6 +9,6 @@ export default async function parseAsMBOX(
   filePath: string,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   options?: ParsingOptions & PaginationOptions,
-): Promise<Array<unknown>> {
+): Promise<Array<any>> {
   return Promise.reject(new Error('Not implemented'))
 }
