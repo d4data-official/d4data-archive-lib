@@ -42,8 +42,13 @@ export default class Parser {
   /**
    * Resolve path relative to the archive root
    */
-  mergeOptions(options?: ParsingOptions) {
+  mergeOptions(options?: ParsingOptions & PaginationOptions): ParsingOptions & PaginationOptions {
     return {
+      // Default pagination values
+      pagination: {
+        offset: 0,
+        items: 50,
+      },
       ...options,
       preprocessors: options?.preprocessors ? this.preprocessors.concat(options.preprocessors) : this.preprocessors,
     }
