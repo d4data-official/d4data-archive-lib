@@ -40,11 +40,11 @@ export default class Parser {
   }
 
   /**
-   * Resolve path relative to the archive root
+   * Merge parsing options with default Parser options
    */
   mergeOptions(options?: ParsingOptions & PaginationOptions): ParsingOptions & PaginationOptions {
     return {
-      // Default pagination values
+      // Default pagination option values
       pagination: {
         offset: 0,
         items: 50,
