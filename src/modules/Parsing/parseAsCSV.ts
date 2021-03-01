@@ -8,7 +8,7 @@ export interface OptionsCSV {
 
 /**
  * Parse CSV file from given path
- * Throw error if can't access file or file format is invalid
+ * Throw error if can't access file or if parsing fail
  */
 export default async function parseAsCSV<T = any>(filePath: string,
   options?: ParsingOptions & PaginationOptions & OptionsCSV): Promise<Array<T>> {
