@@ -70,7 +70,8 @@ export default class Parser {
   }
 
   /**
-   * Parse file from given path for any supported file format or throw an error
+   * Parse file from given path for any supported file format
+   * Throw error if can't access file or if parsing fail
    */
   async parseFile<T = any>(relativeFilePath: string, options?: ParsingOptions): Promise<T> {
     return parseFile<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
@@ -78,7 +79,7 @@ export default class Parser {
 
   /**
    * Parse Text (txt) file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
   async parseAsText(relativeFilePath: string, options?: ParsingOptions): Promise<string> {
     return parseAsText(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
@@ -86,7 +87,7 @@ export default class Parser {
 
   /**
    * Parse JSON file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
   async parseAsJSON<T = any>(
     relativeFilePath: string,
@@ -97,7 +98,7 @@ export default class Parser {
 
   /**
    * Parse JSON Lines file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
   async parseAsJSONL<T = any>(
     relativeFilePath: string,
@@ -108,7 +109,7 @@ export default class Parser {
 
   /**
    * Parse HTML file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
   async parseAsHTML(relativeFilePath: string, options?: ParsingOptions): Promise<any> {
     return parseAsHTML(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
@@ -116,7 +117,7 @@ export default class Parser {
 
   /**
    * Parse CSV file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
   async parseAsCSV<T = any>(
     relativeFilePath: string,
@@ -127,7 +128,7 @@ export default class Parser {
 
   /**
    * Parse MBOX file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
   async parseAsMBOX(
     relativeFilePath: string,
@@ -138,7 +139,7 @@ export default class Parser {
 
   /**
    * Parse VCARD file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
   async parseAsVCARD(relativeFilePath: string, options?: ParsingOptions): Promise<any> {
     return parseAsVCARD(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
@@ -146,7 +147,7 @@ export default class Parser {
 
   /**
    * Parse ICS file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
   async parseAsICS(relativeFilePath: string, options?: ParsingOptions): Promise<any> {
     return parseAsICS(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))

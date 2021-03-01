@@ -40,9 +40,8 @@ export const ParserTypes: Array<[Array<string>, Function]> = [
 ]
 
 /**
- * Parse file from given path for any supported file format or throw an error
- * Throw error if can't access file or file format is invalid
- * With ignoreFileExt option, the file is considered as Text
+ * Parse file from given path for any supported file format
+ * Throw error if can't access file or if parsing fail
  */
 export default async function parseFile<T = any>(filePath: string, options?: ParsingOptions): Promise<T> {
   if (options?.ignoreFileExt) {
