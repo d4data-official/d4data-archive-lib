@@ -40,11 +40,10 @@ export const ParserTypes: Array<[Array<string>, Function]> = [
 ]
 
 /**
- * Parse file from given path for any supported file format or throw an error
- * Throw error if can't access file or file format is invalid
- * With ignoreFileExt option, the file is considered as Text
+ * Parse file from given path for any supported file format
+ * Throw error if can't access file or if parsing fail
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function parseFile(filePath: string, options?: ParsingOptions): Promise<unknown> {
+export default async function parseFile<T = any>(filePath: string, options?: ParsingOptions): Promise<T> {
   return Promise.reject(new Error('Not implemented'))
 }

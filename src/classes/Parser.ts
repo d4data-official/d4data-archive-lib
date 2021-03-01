@@ -40,10 +40,15 @@ export default class Parser {
   }
 
   /**
-   * Resolve path relative to the archive root
+   * Merge parsing options with default Parser options
    */
-  mergeOptions(options?: ParsingOptions) {
+  mergeOptions(options?: ParsingOptions & PaginationOptions): ParsingOptions & PaginationOptions {
     return {
+      // Default pagination option values
+      pagination: {
+        offset: 0,
+        items: 50,
+      },
       ...options,
       preprocessors: options?.preprocessors ? this.preprocessors.concat(options.preprocessors) : this.preprocessors,
     }
@@ -53,97 +58,98 @@ export default class Parser {
    * List all files recursively in given directory path and return absolute path list
    * Throw error if can't access directory
    */
-  async listFiles(relativeDirPath: string, options?: FilterOptions): ReturnType<typeof listFiles> {
+  async listFiles(relativeDirPath: string, options?: FilterOptions): Promise<Array<string>> {
     return listFiles(this.resolveRelativePath(relativeDirPath), options)
   }
 
   /**
    * Parse directory files recursively from given path for any supported file format
    */
-  async parseDir(relativeDirPath: string, options?: FilterOptions): ReturnType<typeof parseDir> {
+  async parseDir(relativeDirPath: string, options?: FilterOptions): Promise<Array<Record<string, any>>> {
     return parseDir(this.resolveRelativePath(relativeDirPath), options)
   }
 
   /**
-   * Parse file from given path for any supported file format or throw an error
+   * Parse file from given path for any supported file format
+   * Throw error if can't access file or if parsing fail
    */
-  async parseFile(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseFile> {
-    return parseFile(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseFile<T = any>(relativeFilePath: string, options?: ParsingOptions): Promise<T> {
+    return parseFile<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse Text (txt) file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
-  async parseAsText(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseAsText> {
+  async parseAsText(relativeFilePath: string, options?: ParsingOptions): Promise<string> {
     return parseAsText(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse JSON file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
-  async parseAsJSON<T = unknown>(
+  async parseAsJSON<T = any>(
     relativeFilePath: string,
     options?: ParsingOptions,
-  ): ReturnType<typeof parseAsJSON> {
+  ): Promise<T> {
     return parseAsJSON<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse JSON Lines file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
-  async parseAsJSONL<T = unknown>(
+  async parseAsJSONL<T = any>(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
-  ): ReturnType<typeof parseAsJSONL> {
+  ): Promise<Array<T>> {
     return parseAsJSONL<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse HTML file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
-  async parseAsHTML(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseAsHTML> {
+  async parseAsHTML(relativeFilePath: string, options?: ParsingOptions): Promise<any> {
     return parseAsHTML(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse CSV file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
-  async parseAsCSV<T = unknown>(
+  async parseAsCSV<T = any>(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
-  ): ReturnType<typeof parseAsCSV> {
+  ): Promise<Array<T>> {
     return parseAsCSV<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse MBOX file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
   async parseAsMBOX(
     relativeFilePath: string,
     options?: ParsingOptions & PaginationOptions,
-  ): ReturnType<typeof parseAsMBOX> {
+  ): Promise<Array<any>> {
     return parseAsMBOX(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse VCARD file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
-  async parseAsVCARD(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseAsVCARD> {
+  async parseAsVCARD(relativeFilePath: string, options?: ParsingOptions): Promise<any> {
     return parseAsVCARD(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
    * Parse ICS file from given path
-   * Throw error if can't access file or file format is invalid
+   * Throw error if can't access file or if parsing fail
    */
-  async parseAsICS(relativeFilePath: string, options?: ParsingOptions): ReturnType<typeof parseAsICS> {
+  async parseAsICS(relativeFilePath: string, options?: ParsingOptions): Promise<any> {
     return parseAsICS(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 }

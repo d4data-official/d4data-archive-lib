@@ -1,11 +1,11 @@
-/**
- * List all files recursively in given directory path and return absolute path list
- * Throw error if can't access directory
- */
 import path from 'path'
 import { readdir, stat } from 'fs/promises';
 import { FilterOptions } from '../../types/Parsing'
 
+/**
+ * List all files recursively in given directory path and return absolute path list
+ * Throw error if can't access directory
+ */
 export default async function listFiles(dirPath: string, options?: FilterOptions): Promise<Array<string>> {
   return getFiles(dirPath, [], options)
 }

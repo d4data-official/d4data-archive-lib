@@ -8,6 +8,6 @@ export default async function parseDir(
   dirPath: string,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   options?: ParsingOptions & FilterOptions,
-): Promise<Array<Record<string, unknown>>> {
+): Promise<Array<Record<string, any>>> {
   return Promise.reject(new Error('Not implemented'))
 }
