@@ -1,4 +1,6 @@
-export type Preprocessor = (fileContent: string) => Promise<string>
+import { Stream } from 'stream'
+
+export type Preprocessor = (stream: Stream) => Promise<Stream>
 
 export interface FilterOptions {
   extensionWhitelist?: Array<string>
