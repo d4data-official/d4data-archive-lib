@@ -7,6 +7,11 @@ import Config from '../../modules/Config'
 
 export const OUTPUT_DIR = Config.archiveOutputDir
 
+export enum ArchiveFormat {
+  ZIP = 'zip',
+  UNKNOWN = 'unknown',
+}
+
 export default abstract class Archive {
   path: string
 
@@ -40,6 +45,24 @@ export default abstract class Archive {
    * Explore non extracted archive to guess the source service
    */
   abstract identifyService(): Promise<Archive>
+
+  /**
+   * Identify archive file format
+   */
+  async identifyFormat(): Promise<ArchiveFormat> {
+    const extensions: Array<[ArchiveFormat, Array<string>]> = [
+      [ArchiveFormat.ZIP, ['zip']],
+    ]
+    const fileExtension = this.path.split('.').pop()!
+
+    for (const [format, extList] of extensions) {
+      if (extList.includes(fileExtension)) {
+        return format
+      }
+    }
+
+    return ArchiveFormat.UNKNOWN
+  }
 
   /**
    * Get archive metadata
