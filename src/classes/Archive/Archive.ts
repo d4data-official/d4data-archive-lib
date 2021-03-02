@@ -1,16 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import extractArchive, { ExtractOptions } from '../../modules/ArchiveExtraction'
+import extractArchive, { ArchiveFormat, ExtractOptions } from '../../modules/ArchiveExtraction'
 import Standardizer from '../Standardizer/Standardizer'
 import Services from '../../types/Services'
 import Config from '../../modules/Config'
 
 export const OUTPUT_DIR = Config.archiveOutputDir
-
-export enum ArchiveFormat {
-  ZIP = 'zip',
-  UNKNOWN = 'unknown',
-}
 
 export default abstract class Archive {
   path: string
