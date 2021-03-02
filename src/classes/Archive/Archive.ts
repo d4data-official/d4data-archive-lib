@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import extractArchive, { ArchiveFormat, ExtractOptions } from '../../modules/ArchiveExtraction'
+import extractArchive, { ArchiveFormat, ExtractOptions, identifyArchiveFormat } from '../../modules/ArchiveExtraction'
 import Standardizer from '../Standardizer/Standardizer'
 import Services from '../../types/Services'
 import Config from '../../modules/Config'
@@ -45,18 +45,7 @@ export default abstract class Archive {
    * Identify archive file format
    */
   async identifyFormat(): Promise<ArchiveFormat> {
-    const extensions: Array<[ArchiveFormat, Array<string>]> = [
-      [ArchiveFormat.ZIP, ['zip']],
-    ]
-    const fileExtension = this.path.split('.').pop()!
-
-    for (const [format, extList] of extensions) {
-      if (extList.includes(fileExtension)) {
-        return format
-      }
-    }
-
-    return ArchiveFormat.UNKNOWN
+    return identifyArchiveFormat(this.path)
   }
 
   /**
