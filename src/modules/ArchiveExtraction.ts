@@ -49,47 +49,26 @@ export default async function extractArchive(
 }
 
 async function unzip(filePath: string, outputPath: string, options?: ExtractOptions) {
-  await fs.mkdir(Path.resolve(outputPath), { recursive: true }).catch((e) => {
-    console.log('path exists')
-  });
-  // eslint-disable-next-line no-async-promise-executor
-  return new Promise(async (resolve, reject) => {
-    yauzl.open(Path.resolve(filePath), { lazyEntries: true }, async (err, zipfile) => {
-      if (err) reject(err);
-      if (!zipfile) return;
-      zipfile.readEntry();
-      zipfile.on('entry', async (entry) => {
-        if (/\/$/.test(entry.fileName)) {
-          zipfile.readEntry();
-        } else {
-          zipfile.openReadStream(entry, async (er, readStream) => {
-            if (er) throw er;
-            if (!readStream) return;
-            readStream.on('end', () => {
-              zipfile.readEntry();
-            });
-            await fs.mkdir(Path.dirname(Path.resolve(outputPath, entry.fileName)), { recursive: true });
-            const writeStream = fsSync.createWriteStream(Path.resolve(outputPath, entry.fileName));
+  await fs.mkdir(outputPath, { recursive: true });
+  return new Promise((resolve, reject) => {
+    yauzl.open(filePath, (yauzlError, zipfile) => {
+      if (yauzlError) reject(yauzlError);
+      zipfile.on('entry', (entry) => {
+        if (!(/\/$/.test(entry.fileName))) {
+          zipfile.openReadStream(entry, async (streamErr, readStream) => {
+            if (streamErr) reject(streamErr);
+            const outputFilePath = Path.resolve(outputPath, entry.fileName);
+            await fs.mkdir(Path.dirname(outputFilePath), { recursive: true });
+            const writeStream = fsSync.createWriteStream(outputFilePath);
             readStream.pipe(writeStream)
-              .on('finish', () => {
-                options?.onProgress?.(entry.fileName, zipfile.entriesRead, zipfile.entryCount);
-              })
-              .on('error', (error) => {
-                console.error(error);
-                reject(error);
-              });
+              .on('finish', () => options?.onProgress?.(entry.fileName, zipfile.entriesRead, zipfile.entryCount))
+              .on('error', error => reject(error));
           });
         }
       });
       // Extraction ending handler
-      zipfile.on('close', async () => {
-        console.log('Archive extracted');
-        resolve(outputPath);
-      });
-      zipfile.on('error', async (error) => {
-        console.error(error);
-        reject(error);
-      });
+      zipfile.on('close', () => resolve(outputPath));
+      zipfile.on('error', error => reject(error));
     });
   });
 }
