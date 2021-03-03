@@ -44,14 +44,11 @@ export const ParserTypes: Array<[Array<string>, Function]> = [
  * Throw error if can't access file or if parsing fail
  */
 export default async function parseFile<T = any>(filePath: string, options?: ParsingOptions): Promise<T> {
-  if (options?.ignoreFileExt) {
-    // @ts-ignore
-    return parseAsText(filePath, options)
-  }
   const extension = filePath.split('.').pop()?.toLowerCase() ?? ''
   const result = ParserTypes.find(([extensions]) => extensions.includes(extension))
   if (!result) {
-    throw (new Error('Unsupported file format'))
+    // @ts-ignore
+    return parseAsText(filePath, options)
   }
   return result?.[1](filePath, options)
 }
