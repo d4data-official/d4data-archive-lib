@@ -31,8 +31,6 @@ export async function identifyArchiveFormat(path: string): Promise<ArchiveFormat
   return ArchiveFormat.UNKNOWN
 }
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 export default async function extractArchive(
   path: string,
   outputPath: string,
