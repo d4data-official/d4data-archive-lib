@@ -44,7 +44,7 @@ export default async function extractArchive(
       await unzip(path, outputPath, options)
       break;
     default:
-      throw (new Error('Unknown Format'))
+      throw new Error('Unknown Format')
   }
 }
 
