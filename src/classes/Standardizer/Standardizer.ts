@@ -1,12 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import fs from 'fs'
 import path from 'path'
 import { Services } from '../../types/Services'
+import Parser from '../Parser'
+import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+
+export interface GetterOptions {
+  parsingOptions?: ParsingOptions & PaginationOptions
+}
 
 export default abstract class Standardizer {
   path: string
 
+  parser: Parser
+
   constructor(extractedArchivePath: string) {
     this.path = extractedArchivePath
+    this.parser = new Parser(this.path)
   }
 
   /**
@@ -24,87 +35,87 @@ export default abstract class Standardizer {
    */
   abstract get subStandardizers(): Array<Standardizer>
 
-  async getProfile(): Promise<object | null> {
+  async getProfile(options?: GetterOptions): Promise<object | null> {
     return Promise.resolve(null)
   }
 
-  async getFriends(): Promise<Array<object> | null> {
+  async getFriends(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getFollowings(): Promise<Array<object> | null> {
+  async getFollowings(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getFollowers(): Promise<Array<object> | null> {
+  async getFollowers(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getContacts(): Promise<Array<object> | null> {
+  async getContacts(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getWhereabouts(): Promise<Array<object> | null> {
+  async getWhereabouts(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getNotifications(): Promise<Array<object> | null> {
+  async getNotifications(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getChats(): Promise<Array<object> | null> {
+  async getChats(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getComments(): Promise<Array<object> | null> {
+  async getComments(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getPosts(): Promise<Array<object> | null> {
+  async getPosts(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getAPIs(): Promise<Array<object> | null> {
+  async getAPIs(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getConnections(): Promise<Array<object> | null> {
+  async getConnections(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getCommunities(): Promise<Array<object> | null> {
+  async getCommunities(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getSettings(): Promise<Array<object> | null> {
+  async getSettings(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getReacted(): Promise<Array<object> | null> {
+  async getReacted(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getMedias(): Promise<Array<object> | null> {
+  async getMedias(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getTransactions(): Promise<Array<object> | null> {
+  async getTransactions(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getBrowserData(): Promise<object | null> {
+  async getBrowserData(options?: GetterOptions): Promise<object | null> {
     return Promise.resolve(null)
   }
 
-  async getTasks(): Promise<Array<object> | null> {
+  async getTasks(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getAuthorizedDevices(): Promise<Array<object> | null> {
+  async getAuthorizedDevices(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 
-  async getMail(): Promise<Array<object> | null> {
+  async getMail(options?: GetterOptions): Promise<Array<object> | null> {
     return Promise.resolve(null)
   }
 

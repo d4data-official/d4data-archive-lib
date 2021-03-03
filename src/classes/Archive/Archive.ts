@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import extractArchive, { ExtractOptions } from '../../modules/ArchiveExtraction'
+import extractArchive, { ArchiveFormat, ExtractOptions, identifyArchiveFormat } from '../../modules/ArchiveExtraction'
 import Standardizer from '../Standardizer/Standardizer'
 import { Services } from '../../types/Services'
 import Config from '../../modules/Config'
@@ -40,6 +40,13 @@ export default abstract class Archive {
    * Explore non extracted archive to guess the source service
    */
   abstract identifyService(): Promise<Archive>
+
+  /**
+   * Identify archive file format
+   */
+  async identifyFormat(): Promise<ArchiveFormat> {
+    return identifyArchiveFormat(this.path)
+  }
 
   /**
    * Get archive metadata
