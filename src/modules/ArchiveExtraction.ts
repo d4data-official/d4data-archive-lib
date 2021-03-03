@@ -49,11 +49,12 @@ export default async function extractArchive(
 }
 
 async function unzip(filePath: string, outputPath: string, options?: ExtractOptions) {
-  await fs.rm(outputPath, { recursive: true, force: true })
-  await fs.mkdir(Path.dirname(outputPath), { recursive: true });
+  await fs.mkdir(Path.resolve(outputPath), { recursive: true }).catch((e) => {
+    console.log('path exists')
+  });
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
-    yauzl.open(filePath, { lazyEntries: true }, async (err, zipfile) => {
+    yauzl.open(Path.resolve(filePath), { lazyEntries: true }, async (err, zipfile) => {
       if (err) reject(err);
       if (!zipfile) return;
       zipfile.readEntry();
