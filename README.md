@@ -1,4 +1,4 @@
 # d4data-archive-lib
 
-## [Examples](docs/doc/examples/README.md)
+## [Examples](doc/examples/README.md)
 
