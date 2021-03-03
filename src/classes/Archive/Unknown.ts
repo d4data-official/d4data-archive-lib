@@ -1,7 +1,7 @@
-import Archive from './Archive'
-import { Services } from '../../types/Services'
-import Standardizer from '../Standardizer/Standardizer'
-import UnknownStandardizer from '../Standardizer/Unknown'
+import { Services } from 'types/Services'
+import Standardizer from 'classes/standardizer/Standardizer'
+import UnknownStandardizer from 'classes/standardizer/services/Unknown'
+import Archive from 'classes/archive/Archive'
 
 export default class Unknown extends Archive {
   identifyService(): Promise<Archive> {

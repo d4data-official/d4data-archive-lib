@@ -8,58 +8,91 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { ASchema } from './ASchema';
-import { ProfilExtra } from './Discord/ProfilExtra';
-import { ProfilePicture } from './ProfilePicture'
+import { ASchema } from 'types/schemas/ASchema';
+import { ProfilExtra } from 'types/schemas/Discord/ProfilExtra';
+import { ProfilePicture } from 'types/schemas/ProfilePicture'
 
 /**
- * JSON Schema definition of contact
+ *
+ * Class definition of contact
+ *
+ * @export
+ * @class Contact
+ * @extends {ASchema<Contact>}
  */
 export class Contact extends ASchema<Contact> {
   /**
+   *
    * Display name / profile name of the contact
+   *
+   * @type {string}
+   * @memberof Contact
    */
   @IsOptional()
   @IsString()
   displayName?: string;
 
   /**
+   *
    * Firstname of the contact
+   *
+   * @type {string}
+   * @memberof Contact
    */
   @IsOptional()
   @IsString()
   firstName?: string;
 
   /**
+   *
    * Lastname of the contact
+   *
+   * @type {string}
+   * @memberof Contact
    */
   @IsOptional()
   @IsString()
   lastName?: string;
 
   /**
+   *
    * Username of the contact account
+   *
+   * @type {string}
+   * @memberof Contact
    */
   @IsOptional()
   @IsString()
   username?: string;
 
   /**
+   *
    * Nickname given to the contact by the archive owner
+   *
+   * @type {string}
+   * @memberof Contact
    */
   @IsOptional()
   @IsString()
   nickname?: string;
 
   /**
+   *
    * Gender of the contact
+   *
+   * @type {string}
+   * @memberof Contact
    */
   @IsOptional()
   @IsString()
   gender?: string;
 
   /**
+   *
    * Birthday in timestamp format
+   *
+   * @type {(number | Date)}
+   * @memberof Contact
    */
   @IsOptional()
   @IsDate()
@@ -67,7 +100,11 @@ export class Contact extends ASchema<Contact> {
   birthday?: number | Date;
 
   /**
+   *
    * Number of phone of a contact
+   *
+   * @type {string}
+   * @memberof Contact
    */
   @IsOptional()
   @IsString()
@@ -75,7 +112,11 @@ export class Contact extends ASchema<Contact> {
   phone?: string;
 
   /**
+   *
    * Mail of the contact
+   *
+   * @type {string}
+   * @memberof Contact
    */
   @IsOptional()
   @IsString()
@@ -83,7 +124,11 @@ export class Contact extends ASchema<Contact> {
   mail?: string;
 
   /**
+   *
    * Since when the contact is in the conctact list of the owner
+   *
+   * @type {(number | Date)}
+   * @memberof Contact
    */
   @IsOptional()
   @IsDate()
@@ -91,13 +136,23 @@ export class Contact extends ASchema<Contact> {
   date?: number | Date;
 
   /**
+   *
    * Contact's profile picture object
+   *
+   * @type {ProfilePicture}
+   * @memberof Contact
    */
   @IsOptional()
   @ValidateNested()
   @Type(() => ProfilePicture)
   profilePicture?: ProfilePicture;
 
+  /**
+   *
+   *
+   * @type {ProfilExtra}
+   * @memberof Contact
+   */
   @IsOptional()
   @ValidateNested()
   @Type(() => ProfilExtra)

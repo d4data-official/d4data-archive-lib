@@ -1,20 +1,33 @@
 import { Type } from 'class-transformer';
 import { IsDate, IsOptional, IsString, IsUrl } from 'class-validator';
-import { ASchema } from './ASchema';
+import { ASchema } from 'types/schemas/ASchema';
 
 /**
- * JSON Schema definition of notifications property
+ *
+ * Class definition of notifications property
+ *
+ * @export
+ * @class Notification
+ * @extends {ASchema<Notification>}
  */
 export class Notification extends ASchema<Notification> {
   /**
+   *
    * text of the notification
+   *
+   * @type {string}
+   * @memberof Notification
    */
   @IsOptional()
   @IsString()
   content?: string;
 
   /**
+   *
    * date of the notification
+   *
+   * @type {(number | Date)}
+   * @memberof Notification
    */
   @IsOptional()
   @IsDate()
@@ -22,7 +35,11 @@ export class Notification extends ASchema<Notification> {
   notificationDate?: number | Date;
 
   /**
+   *
    * link of the notification
+   *
+   * @type {string}
+   * @memberof Notification
    */
   @IsOptional()
   @IsString()

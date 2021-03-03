@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */ // Add for parseFile because of a mistakely detected cycle
 export { default as listFiles } from './listFiles'
 export { default as parseDir } from './parseDir'
 export { default as parseFile } from './parseFile'

@@ -1,7 +1,12 @@
-import { ASchema } from '../ASchema';
+import { ASchema } from 'types/schemas/ASchema';
 
 /**
- * JSON Schema definition of Facebook not standardized data (extra data)
+ *
+ * Class definition of Facebook not standardized data (extra data)
+ *
+ * @export
+ * @class Extra
+ * @extends {ASchema<Extra>}
  */
 export class Extra extends ASchema<Extra> {
   [k: string]: unknown;

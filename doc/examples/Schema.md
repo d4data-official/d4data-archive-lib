@@ -142,7 +142,6 @@ const api: API | null = SchemaError.constructAndCatch(API, {
 
 console.log(api);
 // API { name:  'API Name', linkingDate: 2021-02-22T14:22:12.901Z }
-
 ```
 
 or

@@ -1,27 +1,25 @@
 import { Type } from 'class-transformer';
-import { IsEnum, IsOptional, ValidateNested } from 'class-validator';
-import { ASchema } from './ASchema';
-import { Community } from './Community';
-import { Contact } from './Contact';
-
-enum FollowingType {
-  COMMUNITY = 'community',
-  CONTACTS = 'contacts',
-}
+import { IsOptional, ValidateNested } from 'class-validator';
+import { ASchema } from 'types/schemas/ASchema';
+import { Community } from 'types/schemas/Community';
+import { Contact } from 'types/schemas/Contact';
+import { Discriminator } from 'types/Discriminator';
 
 /**
+ *
  * Following is an entity that a user can follow (user, page/community, ...)
+ *
+ * @export
+ * @class Following
+ * @extends {ASchema<Following>}
  */
 export class Following extends ASchema<Following> {
   /**
-   * name of the entity's type
-   */
-  @IsOptional()
-  @IsEnum(FollowingType)
-  type?: FollowingType;
-
-  /**
-   * Either Community or Contact object depending on type value
+   *
+   * Either Community or Contact insrance
+   *
+   * @type {(Discriminator<Community, 'community'> | Discriminator<Contact, 'contact'>)}
+   * @memberof Following
    */
   @IsOptional()
   @ValidateNested()
@@ -29,10 +27,12 @@ export class Following extends ASchema<Following> {
     discriminator: {
       property: '__type',
       subTypes: [
-        { value: Community, name: 'community' },
-        { value: Contact, name: 'contact' },
+        { value: Community, name: typeof Community },
+        { value: Contact, name: typeof Contact },
       ],
     },
   })
-  entity?: Community | Contact
+  entity?: |
+  Discriminator<Community, 'community'>
+  | Discriminator<Contact, 'contact'>
 }
