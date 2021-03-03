@@ -1,4 +1,4 @@
-import papa from 'papaparse'
+import papa, { ParseError } from 'papaparse'
 import fs from 'fs'
 import path from 'path'
 import applyPreprocessors from './applyPreprocessors';
@@ -23,27 +23,28 @@ export default async function parseAsCSV<T = any>(filePath: string,
   return new Promise((resolve) => {
     papa.parse(stream, {
       header: !options?.columns,
+      error(error: ParseError) {
+        console.error(error)
+      },
       step(row: any, parser: any) {
         if (items === 0) {
           // @ts-ignore
           content.push(row.data)
           return;
         }
-        console.log(index, ' ', items, ' ', offset, ' ', items + offset)
         if (offset + items === index) {
-          console.log('skip')
           parser.abort()
+          // @ts-ignore
+          stream.destroy()
           return
         }
         if (index >= offset) {
-          console.log('push ', `${ offset } >= ${ index }`)
           // @ts-ignore
           content.push(row.data);
         }
         index += 1
       },
       complete() {
-        console.log('complete')
         resolve(content)
       },
     });
@@ -63,5 +64,5 @@ export default async function parseAsCSV<T = any>(filePath: string,
         }
         return obj
       })
-    }).then((e) => { console.log('end'); return e })
+    })
 }
