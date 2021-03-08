@@ -7,5 +7,5 @@ export type OptionsParseAsText = ParsingOptions
  * Parse given Pipeline result stream as Text format
  */
 export default async function parseAsText(pipeline: Pipeline, options?: OptionsParseAsText): Promise<string> {
-  return Promise.reject(new Error('Not implemented'))
+  return pipeline.toString()
 }
