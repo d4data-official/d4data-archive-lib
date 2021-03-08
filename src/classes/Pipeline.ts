@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { pipeline as nodePipeline, Readable, Stream } from 'stream'
+import streamToString from '../modules/streamToString'
 
 export type PipelineResult = Readable
 
@@ -67,6 +68,16 @@ export default class Pipeline {
     this.output = stream
 
     return stream
+  }
+
+  /**
+   * Run the pipeline, wait for resulted stream end and return all data as string
+   */
+  toString(): Promise<string> {
+    if (!this.executed) {
+      this.run()
+    }
+    return streamToString(this.output!)
   }
 
   /**
