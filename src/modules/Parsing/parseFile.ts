@@ -1,14 +1,12 @@
 import { ParsingOptions } from '../../types/Parsing'
-import {
-  parseAsText,
-  parseAsHTML,
-  parseAsJSON,
-  parseAsJSONL,
-  parseAsCSV,
-  parseAsMBOX,
-  parseAsVCARD,
-  parseAsICS,
-} from '.'
+import parseAsText from './parseAsText'
+import parseAsJSON from './parseAsJSON'
+import parseAsJSONL from './parseAsJSONL'
+import parseAsHTML from './parseAsHTML'
+import parseAsCSV from './parseAsCSV'
+import parseAsMBOX from './parseAsMBOX'
+import parseAsVCARD from './parseAsVCARD'
+import parseAsICS from './parseAsICS'
 
 /**
  * List all file extensions for a file type
