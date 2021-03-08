@@ -39,11 +39,12 @@ export const ParserTypes: Array<[Array<string>, Function]> = [
   [SupportedFileFormats.ICS, parseAsICS],
 ]
 
+export type OptionsParseFile = ParsingOptions
+
 /**
  * Parse file from given path for any supported file format
  * Throw error if can't access file or if parsing fail
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function parseFile<T = any>(filePath: string, options?: ParsingOptions): Promise<T> {
+export default async function parseFile<T = any>(filePath: string, options?: OptionsParseFile): Promise<T> {
   return Promise.reject(new Error('Not implemented'))
 }
