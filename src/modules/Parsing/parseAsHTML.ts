@@ -1,10 +1,11 @@
 import { ParsingOptions } from '../../types/Parsing'
+import Pipeline from '../../classes/Pipeline'
+
+export type OptionsParseAsHTML = ParsingOptions
 
 /**
- * Parse HTML file from given path
- * Throw error if can't access file or if parsing fail
+ * Parse given Pipeline result stream as HTML format
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function parseAsHTML(filePath: string, options?: ParsingOptions): Promise<any> {
+export default async function parseAsHTML(pipeline: Pipeline, options?: OptionsParseAsHTML): Promise<any> {
   return Promise.reject(new Error('Not implemented'))
 }

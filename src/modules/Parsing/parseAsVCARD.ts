@@ -1,10 +1,11 @@
 import { ParsingOptions } from '../../types/Parsing'
+import Pipeline from '../../classes/Pipeline'
+
+export type OptionsParseAsVCARD = ParsingOptions
 
 /**
- * Parse VCARD file from given path
- * Throw error if can't access file or if parsing fail
+ * Parse given Pipeline result stream as VCARD format
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function parseAsVCARD(filePath: string, options?: ParsingOptions): Promise<any> {
+export default async function parseAsVCARD(pipeline: Pipeline, options?: OptionsParseAsVCARD): Promise<any> {
   return Promise.reject(new Error('Not implemented'))
 }

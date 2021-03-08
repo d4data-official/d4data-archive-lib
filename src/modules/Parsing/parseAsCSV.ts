@@ -3,16 +3,18 @@ import fs from 'fs'
 import path from 'path'
 import applyPreprocessors from './applyPreprocessors';
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+import Pipeline from '../../classes/Pipeline'
+
+export type OptionsParseAsCSV = ParsingOptions & PaginationOptions
 
 export interface OptionsCSV {
   columns?: Array<string>
 }
 
 /**
- * Parse CSV file from given path
- * Throw error if can't access file or if parsing fail
+ * Parse given Pipeline result stream as CSV format
  */
-export default async function parseAsCSV<T = any>(filePath: string,
+export default async function parseAsCSV<T = any>(pipeline: Pipeline, options?: OptionsParseAsCSV): Promise<Array<T>> {
   options?: ParsingOptions & PaginationOptions & OptionsCSV): Promise<Array<T>> {
   const stream = await applyPreprocessors(fs.createReadStream(filePath), options?.preprocessors ?? []);
   const content: Array<T> = [];
