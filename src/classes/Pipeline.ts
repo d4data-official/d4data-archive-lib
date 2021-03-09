@@ -52,6 +52,7 @@ export default class Pipeline {
     }
 
     if (this.steps.length === 1) {
+      this.output = this.steps[0] as Readable
       return this.steps[0] as Readable
     }
 
