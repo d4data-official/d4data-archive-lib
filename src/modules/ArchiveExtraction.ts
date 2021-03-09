@@ -49,24 +49,24 @@ export default async function extractArchive(
 async function unzip(filePath: string, outputPath: string, options?: ExtractOptions) {
   await fs.mkdir(outputPath, { recursive: true });
   return new Promise((resolve, reject) => {
-    yauzl.open(filePath, (yauzlError, zipfile) => {
+    yauzl.open(filePath, (yauzlError: any, zipfile: any) => {
       if (yauzlError) reject(yauzlError);
-      zipfile.on('entry', (entry) => {
+      zipfile.on('entry', (entry: any) => {
         if (!(/\/$/.test(entry.fileName))) {
-          zipfile.openReadStream(entry, async (streamErr, readStream) => {
+          zipfile.openReadStream(entry, async (streamErr: any, readStream: any) => {
             if (streamErr) reject(streamErr);
             const outputFilePath = Path.resolve(outputPath, entry.fileName);
             await fs.mkdir(Path.dirname(outputFilePath), { recursive: true });
             const writeStream = fsSync.createWriteStream(outputFilePath);
             readStream.pipe(writeStream)
               .on('finish', () => options?.onProgress?.(entry.fileName, zipfile.entriesRead, zipfile.entryCount))
-              .on('error', error => reject(error));
+              .on('error', (error: any) => reject(error));
           });
         }
       });
       // Extraction ending handler
       zipfile.on('close', () => resolve(outputPath));
-      zipfile.on('error', error => reject(error));
+      zipfile.on('error', (error: any) => reject(error));
     });
   });
 }
