@@ -1,6 +1,6 @@
-import { Stream } from 'stream'
+import { PipelineStep } from '../classes/Pipeline'
 
-export type Preprocessor = (stream: Stream) => Promise<Stream>
+export type Preprocessor = PipelineStep
 
 export interface FilterOptions {
   extensionWhitelist?: Array<string>
@@ -14,7 +14,9 @@ export interface PaginationOptions {
   }
 }
 
-export interface ParsingOptions {
-  // List of pre-processing functions applied to the file content before type parsing
+export interface PreprocessorOptions {
   preprocessors?: Array<Preprocessor>
+}
+
+export interface ParsingOptions {
 }
