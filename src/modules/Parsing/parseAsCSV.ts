@@ -1,22 +1,19 @@
 import papa, { ParseError } from 'papaparse'
 import fs from 'fs'
 import path from 'path'
-import applyPreprocessors from './applyPreprocessors';
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
 import Pipeline from '../../classes/Pipeline'
-
-export type OptionsParseAsCSV = ParsingOptions & PaginationOptions
 
 export interface OptionsCSV {
   columns?: Array<string>
 }
+export type OptionsParseAsCSV = ParsingOptions & PaginationOptions & OptionsCSV
 
 /**
  * Parse given Pipeline result stream as CSV format
  */
 export default async function parseAsCSV<T = any>(pipeline: Pipeline, options?: OptionsParseAsCSV): Promise<Array<T>> {
-  options?: ParsingOptions & PaginationOptions & OptionsCSV): Promise<Array<T>> {
-  const stream = await applyPreprocessors(fs.createReadStream(filePath), options?.preprocessors ?? []);
+  const stream = pipeline.run()
   const content: Array<T> = [];
   const items = options?.pagination?.items ?? 0
   const offset = options?.pagination?.offset ?? 0
@@ -59,7 +56,6 @@ export default async function parseAsCSV<T = any>(pipeline: Pipeline, options?: 
       return data.map((item) => {
         const obj = {}
         for (let i = 0; i < (options?.columns?.length ?? 0); i += 1) {
-          console.log('cc')
           const colName = options?.columns![i]
           // @ts-ignore
           obj[colName] = item[i]
