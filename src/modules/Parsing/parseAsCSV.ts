@@ -18,7 +18,7 @@ export default async function parseAsCSV<T = any>(pipeline: Pipeline, options?: 
   const offset = options?.pagination?.offset ?? 0
   let index = 0
 
-  return new Promise((resolve) => {
+  return new Promise<Array<any>>((resolve) => {
     papa.parse(stream, {
       header: !options?.columns,
       error(error: ParseError) {
@@ -39,16 +39,15 @@ export default async function parseAsCSV<T = any>(pipeline: Pipeline, options?: 
         resolve(content)
       },
     })
+  })
     .then((data) => {
       if (!options?.columns) {
         return data
       }
-      // @ts-ignore
       return data.map((item) => {
-        const obj = {}
+        const obj: Record<string, any> = {}
         for (let i = 0; i < (options?.columns?.length ?? 0); i += 1) {
           const colName = options?.columns![i]
-          // @ts-ignore
           obj[colName] = item[i]
         }
         return obj
