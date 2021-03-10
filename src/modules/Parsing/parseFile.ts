@@ -47,8 +47,7 @@ export default async function parseFile<T = any>(filePath: string, options?: Par
   const extension = filePath.split('.').pop()?.toLowerCase() ?? ''
   const result = ParserTypes.find(([extensions]) => extensions.includes(extension))
   if (!result) {
-    // @ts-ignore
-    return parseAsText(filePath, options)
+    return parseAsText(filePath, options) as any
   }
   return result?.[1](filePath, options)
 }
