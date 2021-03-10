@@ -20,12 +20,10 @@ async function getFiles(dir: string, files_: Array<string> = [], options?: Filte
       await getFiles(name, files_, options);
     } else {
       const extension = name.split('.').pop()?.toLowerCase() ?? ''
-      if (options?.extensionWhitelist && !options?.extensionWhitelist?.includes(extension)) {
-        // eslint-disable-next-line no-continue
-        continue
-      }
-      if (options?.extensionBlacklist && options?.extensionBlacklist?.includes(extension)) {
-        // eslint-disable-next-line no-continue
+      if (
+        (options?.extensionWhitelist && !options?.extensionWhitelist?.includes(extension))
+        || (options?.extensionBlacklist && options?.extensionBlacklist?.includes(extension))
+      ) {
         continue
       }
       files_.push(name);
