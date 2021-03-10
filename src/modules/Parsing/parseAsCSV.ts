@@ -13,8 +13,8 @@ export type OptionsParseAsCSV = ParsingOptions & PaginationOptions & OptionsCSV
  */
 export default async function parseAsCSV<T = any>(pipeline: Pipeline, options?: OptionsParseAsCSV): Promise<Array<T>> {
   const stream = pipeline.run()
-  const content: Array<T> = [];
-  const items = options?.pagination?.items ?? 0
+  const content: Array<T> = []
+  const items = options?.pagination?.items ?? Infinity
   const offset = options?.pagination?.offset ?? 0
   let index = 0
 
@@ -25,28 +25,20 @@ export default async function parseAsCSV<T = any>(pipeline: Pipeline, options?: 
         console.error(error)
       },
       step(row: any, parser: any) {
-        if (items === 0) {
-          // @ts-ignore
-          content.push(row.data)
-          return;
-        }
         if (offset + items === index) {
           parser.abort()
-          // @ts-ignore
           stream.destroy()
           return
         }
         if (index >= offset) {
-          // @ts-ignore
-          content.push(row.data);
+          content.push(row.data)
         }
         index += 1
       },
       complete() {
         resolve(content)
       },
-    });
-  })
+    })
     .then((data) => {
       if (!options?.columns) {
         return data
