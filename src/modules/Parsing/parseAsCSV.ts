@@ -1,14 +1,11 @@
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+import Pipeline from '../../classes/Pipeline'
+
+export type OptionsParseAsCSV = ParsingOptions & PaginationOptions
 
 /**
- * Parse CSV file from given path
- * Throw error if can't access file or if parsing fail
+ * Parse given Pipeline result stream as CSV format
  */
-export default async function parseAsCSV<T = any>(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  filePath: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  options?: ParsingOptions & PaginationOptions,
-): Promise<Array<T>> {
+export default async function parseAsCSV<T = any>(pipeline: Pipeline, options?: OptionsParseAsCSV): Promise<Array<T>> {
   return Promise.reject(new Error('Not implemented'))
 }

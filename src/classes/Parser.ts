@@ -1,18 +1,17 @@
 import path from 'path'
-import { FilterOptions, PaginationOptions, ParsingOptions, Preprocessor } from '../types/Parsing'
-import {
-  listFiles,
-  parseDir,
-  parseFile,
-  parseAsText,
-  parseAsJSON,
-  parseAsJSONL,
-  parseAsHTML,
-  parseAsCSV,
-  parseAsMBOX,
-  parseAsVCARD,
-  parseAsICS,
-} from '../modules/Parsing'
+import { PaginationOptions, ParsingOptions, Preprocessor, PreprocessorOptions } from '../types/Parsing'
+import listFiles, { OptionsListFiles } from '../modules/Parsing/listFiles'
+import parseDir, { OptionsParseDir } from '../modules/Parsing/parseDir'
+import parseFile, { OptionsParseFile } from '../modules/Parsing/parseFile'
+import parseAsText, { OptionsParseAsText } from '../modules/Parsing/parseAsText'
+import parseAsJSON, { OptionsParseAsJSON } from '../modules/Parsing/parseAsJSON'
+import parseAsJSONL, { OptionsParseAsJSONL } from '../modules/Parsing/parseAsJSONL'
+import parseAsHTML, { OptionsParseAsHTML } from '../modules/Parsing/parseAsHTML'
+import parseAsCSV, { OptionsParseAsCSV } from '../modules/Parsing/parseAsCSV'
+import parseAsMBOX, { OptionsParseAsMBOX } from '../modules/Parsing/parseAsMBOX'
+import parseAsVCARD, { OptionsParseAsVCARD } from '../modules/Parsing/parseAsVCARD'
+import parseAsICS, { OptionsParseAsICS } from '../modules/Parsing/parseAsICS'
+import Pipeline from './Pipeline'
 
 export default class Parser {
   path: string
@@ -42,7 +41,9 @@ export default class Parser {
   /**
    * Merge parsing options with default Parser options
    */
-  mergeOptions(options?: ParsingOptions & PaginationOptions): ParsingOptions & PaginationOptions {
+  mergeOptions(
+    options?: ParsingOptions & PreprocessorOptions & PaginationOptions,
+  ): ParsingOptions & PreprocessorOptions & PaginationOptions {
     return {
       // Default pagination option values
       pagination: {
@@ -58,22 +59,22 @@ export default class Parser {
    * List all files recursively in given directory path and return absolute path list
    * Throw error if can't access directory
    */
-  async listFiles(relativeDirPath: string, options?: FilterOptions): Promise<Array<string>> {
+  async listFiles(relativeDirPath: string, options?: OptionsListFiles): Promise<Array<string>> {
     return listFiles(this.resolveRelativePath(relativeDirPath), options)
   }
 
   /**
    * Parse directory files recursively from given path for any supported file format
    */
-  async parseDir(relativeDirPath: string, options?: FilterOptions): Promise<Array<Record<string, any>>> {
-    return parseDir(this.resolveRelativePath(relativeDirPath), options)
+  async parseDir(relativeDirPath: string, options?: OptionsParseDir): Promise<Array<Record<string, any>>> {
+    return parseDir(this.resolveRelativePath(relativeDirPath), this.mergeOptions(options))
   }
 
   /**
    * Parse file from given path for any supported file format
    * Throw error if can't access file or if parsing fail
    */
-  async parseFile<T = any>(relativeFilePath: string, options?: ParsingOptions): Promise<T> {
+  async parseFile<T = any>(relativeFilePath: string, options?: OptionsParseFile & PreprocessorOptions): Promise<T> {
     return parseFile<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
   }
 
@@ -81,8 +82,13 @@ export default class Parser {
    * Parse Text (txt) file from given path
    * Throw error if can't access file or if parsing fail
    */
-  async parseAsText(relativeFilePath: string, options?: ParsingOptions): Promise<string> {
-    return parseAsText(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseAsText(relativeFilePath: string, options?: OptionsParseAsText & PreprocessorOptions): Promise<string> {
+    const mergedOptions = this.mergeOptions(options)
+
+    return parseAsText(
+      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      mergedOptions,
+    )
   }
 
   /**
@@ -91,9 +97,14 @@ export default class Parser {
    */
   async parseAsJSON<T = any>(
     relativeFilePath: string,
-    options?: ParsingOptions,
+    options?: OptionsParseAsJSON & PreprocessorOptions,
   ): Promise<T> {
-    return parseAsJSON<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+    const mergedOptions = this.mergeOptions(options)
+
+    return parseAsJSON(
+      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      mergedOptions,
+    )
   }
 
   /**
@@ -102,17 +113,27 @@ export default class Parser {
    */
   async parseAsJSONL<T = any>(
     relativeFilePath: string,
-    options?: ParsingOptions & PaginationOptions,
+    options?: OptionsParseAsJSONL & PreprocessorOptions,
   ): Promise<Array<T>> {
-    return parseAsJSONL<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+    const mergedOptions = this.mergeOptions(options)
+
+    return parseAsJSONL(
+      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      mergedOptions,
+    )
   }
 
   /**
    * Parse HTML file from given path
    * Throw error if can't access file or if parsing fail
    */
-  async parseAsHTML(relativeFilePath: string, options?: ParsingOptions): Promise<any> {
-    return parseAsHTML(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseAsHTML(relativeFilePath: string, options?: OptionsParseAsHTML & PreprocessorOptions): Promise<any> {
+    const mergedOptions = this.mergeOptions(options)
+
+    return parseAsHTML(
+      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      mergedOptions,
+    )
   }
 
   /**
@@ -121,35 +142,52 @@ export default class Parser {
    */
   async parseAsCSV<T = any>(
     relativeFilePath: string,
-    options?: ParsingOptions & PaginationOptions,
+    options?: OptionsParseAsCSV & PreprocessorOptions,
   ): Promise<Array<T>> {
-    return parseAsCSV<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+    const mergedOptions = this.mergeOptions(options)
+
+    return parseAsCSV(
+      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      mergedOptions,
+    )
   }
 
   /**
    * Parse MBOX file from given path
    * Throw error if can't access file or if parsing fail
    */
-  async parseAsMBOX(
-    relativeFilePath: string,
-    options?: ParsingOptions & PaginationOptions,
-  ): Promise<Array<any>> {
-    return parseAsMBOX(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseAsMBOX(relativeFilePath: string, options?: OptionsParseAsMBOX & PreprocessorOptions): Promise<Array<any>> {
+    const mergedOptions = this.mergeOptions(options)
+
+    return parseAsMBOX(
+      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      mergedOptions,
+    )
   }
 
   /**
    * Parse VCARD file from given path
    * Throw error if can't access file or if parsing fail
    */
-  async parseAsVCARD(relativeFilePath: string, options?: ParsingOptions): Promise<any> {
-    return parseAsVCARD(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseAsVCARD(relativeFilePath: string, options?: OptionsParseAsVCARD & PreprocessorOptions): Promise<any> {
+    const mergedOptions = this.mergeOptions(options)
+
+    return parseAsVCARD(
+      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      mergedOptions,
+    )
   }
 
   /**
    * Parse ICS file from given path
    * Throw error if can't access file or if parsing fail
    */
-  async parseAsICS(relativeFilePath: string, options?: ParsingOptions): Promise<any> {
-    return parseAsICS(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+  async parseAsICS(relativeFilePath: string, options?: OptionsParseAsICS & PreprocessorOptions): Promise<any> {
+    const mergedOptions = this.mergeOptions(options)
+
+    return parseAsICS(
+      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      mergedOptions,
+    )
   }
 }

@@ -2,6 +2,8 @@ import path from 'path'
 import { readdir, stat } from 'fs/promises';
 import { FilterOptions } from '../../types/Parsing'
 
+export type OptionsListFiles = FilterOptions
+
 /**
  * List all files recursively in given directory path and return absolute path list
  * Throw error if can't access directory

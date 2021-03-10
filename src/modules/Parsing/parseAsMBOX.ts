@@ -1,14 +1,11 @@
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+import Pipeline from '../../classes/Pipeline'
+
+export type OptionsParseAsMBOX = ParsingOptions & PaginationOptions
 
 /**
- * Parse MBOX file from given path
- * Throw error if can't access file or if parsing fail
+ * Parse given Pipeline result stream as MBOX format
  */
-export default async function parseAsMBOX(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  filePath: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  options?: ParsingOptions & PaginationOptions,
-): Promise<Array<any>> {
+export default async function parseAsMBOX(pipeline: Pipeline, options?: OptionsParseAsMBOX): Promise<Array<any>> {
   return Promise.reject(new Error('Not implemented'))
 }

@@ -1,10 +1,11 @@
 import { ParsingOptions } from '../../types/Parsing'
+import Pipeline from '../../classes/Pipeline'
+
+export type OptionsParseAsICS = ParsingOptions
 
 /**
- * Parse ICS file from given path
- * Throw error if can't access file or if parsing fail
+ * Parse given Pipeline result stream as ICS format
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function parseAsICS(filePath: string, options?: ParsingOptions): Promise<any> {
+export default async function parseAsICS(pipeline: Pipeline, options?: OptionsParseAsICS): Promise<any> {
   return Promise.reject(new Error('Not implemented'))
 }
