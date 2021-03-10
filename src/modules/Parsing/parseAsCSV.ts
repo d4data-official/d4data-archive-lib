@@ -1,12 +1,11 @@
 import papa, { ParseError } from 'papaparse'
-import fs from 'fs'
-import path from 'path'
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
 import Pipeline from '../../classes/Pipeline'
 
 export interface OptionsCSV {
   columns?: Array<string>
 }
+
 export type OptionsParseAsCSV = ParsingOptions & PaginationOptions & OptionsCSV
 
 /**
