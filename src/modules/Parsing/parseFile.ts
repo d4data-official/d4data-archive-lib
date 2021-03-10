@@ -1,14 +1,13 @@
 import { ParsingOptions } from '../../types/Parsing'
-import {
-  parseAsText,
-  parseAsHTML,
-  parseAsJSON,
-  parseAsJSONL,
-  parseAsCSV,
-  parseAsMBOX,
-  parseAsVCARD,
-  parseAsICS,
-} from '.'
+import parseAsText from './parseAsText'
+import parseAsJSON from './parseAsJSON'
+import parseAsJSONL from './parseAsJSONL'
+import parseAsHTML from './parseAsHTML'
+import parseAsCSV from './parseAsCSV'
+import parseAsMBOX from './parseAsMBOX'
+import parseAsVCARD from './parseAsVCARD'
+import parseAsICS from './parseAsICS'
+import Pipeline from '../../classes/Pipeline'
 
 /**
  * List all file extensions for a file type
@@ -39,15 +38,17 @@ export const ParserTypes: Array<[Array<string>, Function]> = [
   [SupportedFileFormats.ICS, parseAsICS],
 ]
 
+export type OptionsParseFile = ParsingOptions
+
 /**
  * Parse file from given path for any supported file format
  * Throw error if can't access file or if parsing fail
  */
-export default async function parseFile<T = any>(filePath: string, options?: ParsingOptions): Promise<T> {
+export default async function parseFile<T = any>(filePath: string, options?: OptionsParseFile): Promise<T> {
   const extension = filePath.split('.').pop()?.toLowerCase() ?? ''
   const result = ParserTypes.find(([extensions]) => extensions.includes(extension))
   if (!result) {
-    return parseAsText(filePath, options) as any
+    return parseAsText(Pipeline.fromFile(filePath), options) as any
   }
-  return result?.[1](filePath, options)
+  return result?.[1](Pipeline.fromFile(filePath), options)
 }
