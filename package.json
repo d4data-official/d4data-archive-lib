@@ -22,14 +22,17 @@
     ]
   },
   "dependencies": {
+    "@types/yauzl": "^2.9.1",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.5"
+    "typescript": "^4.1.5",
+    "yauzl": "^2.10.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.26",
+    "@types/yauzl": "^2.9.1",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "ava": "^3.14.0",
