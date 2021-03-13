@@ -10,6 +10,8 @@ export interface GetterOptions {
   parsingOptions?: ParsingOptions & PaginationOptions
 }
 
+export const PLUGINS_DIR = 'plugins'
+
 export default abstract class Standardizer {
   path: string
 
@@ -129,9 +131,9 @@ export default abstract class Standardizer {
    * List all Standardizer plugins contained in the services sub-directory asynchronously
    */
   static getPlugins(): Promise<Array<typeof Standardizer>> {
-    return fs.promises.readdir(path.resolve(__dirname, 'services'))
+    return fs.promises.readdir(path.resolve(__dirname, PLUGINS_DIR))
       .then(dirContent => dirContent.map(
-        service => import(path.resolve(__dirname, 'services', service))
+        service => import(path.resolve(__dirname, PLUGINS_DIR, service))
           .then(importedModule => importedModule.default),
       ))
       .then(promiseArr => Promise.all(promiseArr))
@@ -141,9 +143,9 @@ export default abstract class Standardizer {
    * List all Standardizer plugins contained in the services sub-directory synchronously
    */
   static getPluginsSync(): Array<typeof Standardizer> {
-    return fs.readdirSync(path.resolve(__dirname, 'services')).map(
+    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR)).map(
       // eslint-disable-next-line import/no-dynamic-require,global-require
-      service => require(path.resolve(__dirname, 'services', service)).default,
+      service => require(path.resolve(__dirname, PLUGINS_DIR, service)).default,
     )
   }
 }
