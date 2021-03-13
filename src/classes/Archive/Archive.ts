@@ -71,7 +71,10 @@ export default abstract class Archive {
    */
   static getPlugins(): Promise<Array<typeof Archive>> {
     return fs.promises.readdir(path.resolve(__dirname, 'services'))
-      .then(dirContent => dirContent.map(service => import(path.resolve(__dirname, 'services', service))))
+      .then(dirContent => dirContent.map(
+        service => import(path.resolve(__dirname, 'services', service))
+          .then(importedModule => importedModule.default),
+      ))
       .then(promiseArr => Promise.all(promiseArr))
   }
 
@@ -81,7 +84,7 @@ export default abstract class Archive {
   static getPluginsSync(): Array<typeof Archive> {
     return fs.readdirSync(path.resolve(__dirname, 'services')).map(
       // eslint-disable-next-line import/no-dynamic-require,global-require
-      service => require(path.resolve(__dirname, 'services', service)),
+      service => require(path.resolve(__dirname, 'services', service)).default,
     )
   }
 }
