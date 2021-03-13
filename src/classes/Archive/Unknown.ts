@@ -4,8 +4,8 @@ import Standardizer from '../Standardizer/Standardizer'
 import UnknownStandardizer from '../Standardizer/Unknown'
 
 export default class Unknown extends Archive {
-  identifyService(): Promise<Archive> {
-    return Promise.resolve(this)
+  identifyService(): Promise<boolean> {
+    return Promise.resolve(true)
   }
 
   get service(): Services {

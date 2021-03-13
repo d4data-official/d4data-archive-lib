@@ -41,7 +41,7 @@ export default abstract class Archive {
   /**
    * Explore non extracted archive to guess the source service
    */
-  abstract identifyService(): Promise<Archive>
+  abstract identifyService(): Promise<boolean>
 
   /**
    * Identify archive file format
