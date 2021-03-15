@@ -7,6 +7,7 @@ import parseAsCSV from './parseAsCSV'
 import parseAsMBOX from './parseAsMBOX'
 import parseAsVCARD from './parseAsVCARD'
 import parseAsICS from './parseAsICS'
+import Pipeline from '../../classes/Pipeline'
 
 /**
  * List all file extensions for a file type
@@ -44,5 +45,10 @@ export type OptionsParseFile = ParsingOptions
  * Throw error if can't access file or if parsing fail
  */
 export default async function parseFile<T = any>(filePath: string, options?: OptionsParseFile): Promise<T> {
-  return Promise.reject(new Error('Not implemented'))
+  const extension = filePath.split('.').pop()?.toLowerCase() ?? ''
+  const result = ParserTypes.find(([extensions]) => extensions.includes(extension))
+  if (!result) {
+    return parseAsText(Pipeline.fromFile(filePath), options) as any
+  }
+  return result?.[1](Pipeline.fromFile(filePath), options)
 }

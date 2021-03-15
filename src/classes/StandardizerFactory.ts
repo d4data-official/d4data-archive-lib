@@ -4,11 +4,12 @@ import Standardizer from './Standardizer/Standardizer'
 export default class StandardizerFactory {
   path: string
 
-  // @ts-ignore
-  standardizers: Array<Standardizer> = Standardizer.getPluginsSync().map(standardizer => new standardizer(this.path))
+  standardizers: Array<Standardizer>
 
   constructor(extractedArchivePath: string) {
     this.path = extractedArchivePath
+    // @ts-ignore
+    this.standardizers = Standardizer.getPluginsSync().map(standardizer => new standardizer(this.path))
   }
 
   getStandardizerFromService(service: Services): Standardizer | undefined {
