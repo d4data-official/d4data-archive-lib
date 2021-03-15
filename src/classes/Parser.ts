@@ -1,4 +1,5 @@
 import path from 'path'
+import { JSDOM } from 'jsdom'
 import { PaginationOptions, ParsingOptions, Preprocessor, PreprocessorOptions } from '../types/Parsing'
 import listFiles, { OptionsListFiles } from '../modules/Parsing/listFiles'
 import parseDir, { OptionsParseDir } from '../modules/Parsing/parseDir'
@@ -127,7 +128,7 @@ export default class Parser {
    * Parse HTML file from given path
    * Throw error if can't access file or if parsing fail
    */
-  async parseAsHTML(relativeFilePath: string, options?: OptionsParseAsHTML & PreprocessorOptions): Promise<any> {
+  async parseAsHTML(relativeFilePath: string, options?: OptionsParseAsHTML & PreprocessorOptions): Promise<JSDOM> {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsHTML(
