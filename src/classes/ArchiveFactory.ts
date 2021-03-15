@@ -8,13 +8,14 @@ export default class ArchiveFactory {
 
   outputDir: string
 
-  archivePlugins: Array<Archive> = Archive.getPluginsSync()
-    // @ts-ignore
-    .map(archivePlugin => new archivePlugin(this.path, this.outputDir))
+  archivePlugins: Array<Archive>
 
   constructor(archivePath: string, outputDir?: string) {
     this.path = archivePath
     this.outputDir = outputDir ?? OUTPUT_DIR
+    this.archivePlugins = Archive.getPluginsSync()
+      // @ts-ignore
+      .map(archivePlugin => new archivePlugin(this.path, this.outputDir))
   }
 
   async identify(): Promise<Services> {
@@ -28,9 +29,12 @@ export default class ArchiveFactory {
 
   async getArchivePlugin(): Promise<Archive> {
     return Promise.any(
-      this.archivePlugins.map(plugin => plugin.identifyService()),
+      this.archivePlugins.map(
+        plugin => plugin
+          .identifyService()
+          .then(result => (result ? plugin : Promise.reject())),
+      ),
     )
-      // Return Unknown archive plugin if anyone else is found
       .catch(() => new Unknown(this.path))
   }
 
