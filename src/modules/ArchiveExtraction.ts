@@ -1,10 +1,15 @@
+import Path from 'path'
+import fs from 'fs/promises'
+import { createWriteStream } from 'fs'
+import yauzl from 'yauzl'
+
 export enum ArchiveFormat {
   ZIP = 'zip',
   UNKNOWN = 'unknown',
 }
 
 export interface ExtractOptions {
-  onProgress?: (extractedCount: number, total: number) => void
+  onProgress?: (fileName: string, extractedCount: number, total: number) => void
   format?: ArchiveFormat
 }
 
@@ -26,11 +31,73 @@ export async function identifyArchiveFormat(path: string): Promise<ArchiveFormat
   return ArchiveFormat.UNKNOWN
 }
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 export default async function extractArchive(
   path: string,
   outputPath: string,
   options?: ExtractOptions,
 ): Promise<void> {
-  return undefined
+  const format = await identifyArchiveFormat(path)
+  switch (format) {
+    case ArchiveFormat.ZIP:
+      await unzip(path, outputPath, options)
+      break
+    default:
+      throw new Error('Unknown Format')
+  }
+}
+
+export async function countFileInZip(filePath: string): Promise<number> {
+  return new Promise((resolve, reject) => {
+    let fileCount = 0
+
+    yauzl.open(filePath, (yauzlError, zipFile) => {
+      if (yauzlError) reject(yauzlError)
+      if (!zipFile) {
+        return
+      }
+
+      zipFile.on('entry', entry => {
+        // If it's file entry
+        if (!(/\/$/.test(entry.fileName))) {
+          fileCount += 1
+        }
+      })
+      zipFile.on('close', () => resolve(fileCount))
+      zipFile.on('error', error => reject(error))
+    })
+  })
+}
+
+async function unzip(filePath: string, outputPath: string, options?: ExtractOptions) {
+  const fileCount = await countFileInZip(filePath)
+  let extractedCount = 0
+
+  await fs.mkdir(outputPath, { recursive: true })
+  return new Promise((resolve, reject) => {
+    yauzl.open(filePath, (yauzlError: any, zipFile: any) => {
+      if (yauzlError) reject(yauzlError)
+
+      zipFile.on('entry', (entry: any) => {
+        if (!(/\/$/.test(entry.fileName))) {
+          zipFile.openReadStream(entry, async (streamErr: any, readStream: any) => {
+            if (streamErr) reject(streamErr)
+
+            const outputFilePath = Path.resolve(outputPath, entry.fileName)
+            await fs.mkdir(Path.dirname(outputFilePath), { recursive: true })
+            const writeStream = createWriteStream(outputFilePath)
+
+            readStream.pipe(writeStream)
+              .on('finish', () => {
+                extractedCount += 1
+                options?.onProgress?.(entry.fileName, extractedCount, fileCount)
+              })
+              .on('error', (error: any) => reject(error))
+          })
+        }
+      })
+      // Extraction ending handler
+      zipFile.on('close', () => resolve(outputPath))
+      zipFile.on('error', (error: any) => reject(error))
+    })
+  })
 }
