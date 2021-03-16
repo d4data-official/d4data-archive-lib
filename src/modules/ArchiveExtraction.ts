@@ -69,7 +69,8 @@ export async function countFileInZip(filePath: string): Promise<number> {
 }
 
 async function unzip(filePath: string, outputPath: string, options?: ExtractOptions) {
-  let currentIndex = 0
+  const fileCount = await countFileInZip(filePath)
+  let extractedCount = 0
 
   await fs.mkdir(outputPath, { recursive: true })
   return new Promise((resolve, reject) => {
@@ -84,14 +85,15 @@ async function unzip(filePath: string, outputPath: string, options?: ExtractOpti
             const outputFilePath = Path.resolve(outputPath, entry.fileName)
             await fs.mkdir(Path.dirname(outputFilePath), { recursive: true })
             const writeStream = createWriteStream(outputFilePath)
-            const idx = currentIndex
 
             readStream.pipe(writeStream)
-              .on('finish', () => options?.onProgress?.(entry.fileName, idx, zipFile.entryCount))
+              .on('finish', () => {
+                extractedCount += 1
+                options?.onProgress?.(entry.fileName, extractedCount, fileCount)
+              })
               .on('error', (error: any) => reject(error))
           })
         }
-        currentIndex += 1
       })
       // Extraction ending handler
       zipFile.on('close', () => resolve(outputPath))
