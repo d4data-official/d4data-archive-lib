@@ -46,6 +46,28 @@ export default async function extractArchive(
   }
 }
 
+export async function countFileInZip(filePath: string): Promise<number> {
+  return new Promise((resolve, reject) => {
+    let fileCount = 0
+
+    yauzl.open(filePath, (yauzlError, zipFile) => {
+      if (yauzlError) reject(yauzlError)
+      if (!zipFile) {
+        return
+      }
+
+      zipFile.on('entry', entry => {
+        // If it's file entry
+        if (!(/\/$/.test(entry.fileName))) {
+          fileCount += 1
+        }
+      })
+      zipFile.on('close', () => resolve(fileCount))
+      zipFile.on('error', error => reject(error))
+    })
+  })
+}
+
 async function unzip(filePath: string, outputPath: string, options?: ExtractOptions) {
   let currentIndex = 0
 
