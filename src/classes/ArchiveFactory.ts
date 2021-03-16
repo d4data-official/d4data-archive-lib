@@ -43,7 +43,7 @@ export default class ArchiveFactory {
   }
 
   static async init(archivePath: string, outputDir?: string, plugins: Array<Archive> = []) {
-    const defaultPlugins: Array<Archive> = await Archive.getPlugins()
+    const defaultPlugins: Array<Archive> = (await Archive.getPlugins())
       // @ts-ignore
       .map(archivePlugin => new archivePlugin(archivePlugin, outputDir))
     return new ArchiveFactory(archivePath, outputDir, [...defaultPlugins, ...plugins])
