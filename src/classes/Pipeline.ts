@@ -1,6 +1,9 @@
 import fs from 'fs'
 import { pipeline as nodePipeline, Readable, Stream } from 'stream'
 import streamToString from '../modules/streamToString'
+import archiveFileExist from '../modules/archiveFileExist'
+import { arch } from 'os'
+import getFileFromArchive from '../modules/getFileFromArchive'
 
 export type PipelineResult = Readable
 
@@ -97,6 +100,22 @@ export default class Pipeline {
   static fromPipeline(pipeline: Pipeline, steps: Array<PipelineStep> = []) {
     return new Pipeline([
       ...pipeline.steps,
+      ...steps,
+    ])
+  }
+
+  /**
+   * Create a Pipeline from an archive file
+   */
+  static async fromArchive(archivePath: string, filePath: string, steps: Array<PipelineStep> = []) {
+    const [fileStream] = await getFileFromArchive(archivePath, [filePath])
+
+    if (!fileStream) {
+      throw new Error('Can not get file stream')
+    }
+
+    return new Pipeline([
+      fileStream,
       ...steps,
     ])
   }
