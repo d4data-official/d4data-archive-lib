@@ -30,10 +30,13 @@ export default class ArchiveFactory {
       this.plugins.map(
         plugin => plugin
           .identifyService()
-          .then(result => (result ? plugin : Promise.reject())),
+          .then(result => (result ? plugin : Promise.reject(new Error(`Service ${ plugin.service } not recognised`)))),
       ),
     )
-      .catch(() => new Unknown(this.path))
+      .catch((errors: AggregateError) => {
+        console.error(errors, errors.errors)
+        return new Unknown(this.path)
+      })
   }
 
   async getStandardizer(): Promise<Standardizer> {
