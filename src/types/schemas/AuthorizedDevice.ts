@@ -1,37 +1,23 @@
-import { IsDate, IsOptional, IsString } from 'class-validator';
-import { Type } from 'class-transformer';
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 
 /**
- */
-/**
  *
- * Class definition of an authorized device
+ * Interface definition ofan authorized device
  *
- * @export
- * @class AuthorizedDevice
- * @extends {ASchema<AuthorizedDevice>}
  */
-export class AuthorizedDevice extends ASchema<AuthorizedDevice> {
+export interface AuthorizedDevice extends ISchema {
 /**
    *
    * name of device
    *
-   * @type {string}
-   * @memberof AuthorizedDevice
    */
-  @IsString()
-  name!: string;
+  name: string
 
   /**
    *
    * ip of device
    *
-   * @type {string}
-   * @memberof AuthorizedDevice
    */
-  @IsOptional()
-  @IsString()
   ip?: string;
 
   /**
@@ -39,10 +25,6 @@ export class AuthorizedDevice extends ASchema<AuthorizedDevice> {
    * date when the device was authorized
    *
    * @type {(number | Date)}
-   * @memberof AuthorizedDevice
    */
-  @IsOptional()
-  @IsDate()
-  @Type(() => Date)
   authorizationDate?: number | Date;
 }

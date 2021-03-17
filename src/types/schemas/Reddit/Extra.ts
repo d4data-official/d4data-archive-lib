@@ -1,13 +1,10 @@
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 
 /**
  *
- * Class definition of Reddit not standardized data (extra data)
+ * Interface definition ofReddit not standardized data (extra data)
  *
- * @export
- * @class Extra
- * @extends {ASchema<Extra>}
  */
-export class Extra extends ASchema<Extra> {
+export interface Extra extends ISchema {
   [k: string]: unknown;
 }

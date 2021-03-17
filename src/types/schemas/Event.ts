@@ -1,24 +1,15 @@
-import { Type } from 'class-transformer';
-import { IsArray, IsDate, IsOptional, IsString } from 'class-validator';
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 
 /**
  *
  *
- * @export
- * @class Event
- * @extends {ASchema<Event>}
  */
-export class Event extends ASchema<Event> {
+export interface Event extends ISchema {
 /**
    *
    * name of the event
    *
-   * @type {string}
-   * @memberof Event
    */
-  @IsOptional()
-  @IsString()
   name?: string;
 
   /**
@@ -26,11 +17,7 @@ export class Event extends ASchema<Event> {
    * date and time of the start of the event in timestamp format
    *
    * @type {(number | Date)}
-   * @memberof Event
    */
-  @IsOptional()
-  @IsDate()
-  @Type(() => Date)
   startDate?: number | Date;
 
   /**
@@ -38,21 +25,13 @@ export class Event extends ASchema<Event> {
    * date and time of the end of the event in timestamp format
    *
    * @type {(number | Date)}
-   * @memberof Event
    */
-  @IsOptional()
-  @IsDate()
-  @Type(() => Date)
   endDate?: number | Date;
 
   /**
    *
    * person who will participate to the event
    *
-   * @type {Array<string>}
-   * @memberof Event
    */
-  @IsArray()
-  @IsString({ each: true })
   participants?: Array<string>
 }

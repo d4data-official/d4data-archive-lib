@@ -1,28 +1,17 @@
-import { IsDate, IsEnum, IsNumber, IsOptional } from 'class-validator';
-import { Type } from 'class-transformer';
-import { Services } from 'types/Services';
-import { ASchema } from 'types/schemas/ASchema';
+import Services from 'types/Services';
+import { ISchema } from 'types/schemas/ISchema';
 
 /**
- */
-/**
  *
- * Class definition of archives property
+ * Interface definition ofarchives property
  *
- * @export
- * @class Archive
- * @extends {ASchema<Archive>}
  */
-export class Archive extends ASchema<Archive> {
+export interface Archive extends ISchema {
   /**
    *
    * Archive size in bytes
    *
-   * @type {number}
-   * @memberof Archive
    */
-  @IsOptional()
-  @IsNumber()
   size?: number;
 
   /**
@@ -30,20 +19,13 @@ export class Archive extends ASchema<Archive> {
    * Archive creation date in timestamp format
    *
    * @type {(number | Date)}
-   * @memberof Archive
    */
-  @IsOptional()
-  @IsDate()
-  @Type(() => Date)
   creationDate?: number | Date;
 
   /**
    *
    * Archive service name
    *
-   * @type {Services}
-   * @memberof Archive
    */
-  @IsEnum(Services)
-  service!: Services;
+  service: Services;
 }

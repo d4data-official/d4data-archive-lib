@@ -1,111 +1,75 @@
-/* eslint-disable max-classes-per-file */
-import { Type } from 'class-transformer';
-import { IsLatitude, IsLongitude, IsOptional, IsString, ValidateNested } from 'class-validator';
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 
-class AbsolutePosition {
+interface AbsolutePosition {
   /**
    *
    * Latitude of the absolute position
    *
    * @type {(number | string)}
-   * @memberof AbsolutePosition
    */
-  @IsLatitude()
-  latitude!: number | string;
+  latitude: number | string;
 
   /**
    *
    * Longitude of the absolute position
    *
    * @type {(number | string)}
-   * @memberof AbsolutePosition
    */
-  @IsLongitude()
-  longitude!: number | string;
+  longitude: number | string;
 }
 
-class RelativePosition {
+interface RelativePosition {
   /**
    *
    * Raw human-readable address
    *
-   * @type {string}
-   * @memberof RelativePosition
    */
-  @IsString()
-  raw!: string;
+  raw: string
 
   /**
    *
    * City within human-readable address
    *
-   * @type {string}
-   * @memberof RelativePosition
    */
-  @IsOptional()
-  @IsString()
   city?: string;
 
   /**
    *
    * Country within human-readable address
    *
-   * @type {string}
-   * @memberof RelativePosition
    */
-  @IsOptional()
-  @IsString()
   country?: string;
 
   /**
    *
    * Address within human-readable address
    *
-   * @type {string}
-   * @memberof RelativePosition
    */
-  @IsOptional()
-  @IsString()
   address?: string;
 
   /**
    *
    * Zip code within human-readable address
    *
-   * @type {string}
-   * @memberof RelativePosition
    */
-  @IsOptional()
-  @IsString()
   zipcode?: string;
 }
 
 /**
- * Class definition of location
+ * Interface definition oflocation
  */
-export class Location extends ASchema<Location> {
+export interface Location extends ISchema {
   /**
    *
    * Position using latitude and longitude absolute coordinates
    *
-   * @type {AbsolutePosition}
-   * @memberof Location
    */
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => AbsolutePosition)
   absolutePosition?: AbsolutePosition;
 
   /**
    *
    * Human-readable address/city
    *
-   * @type {RelativePosition}
-   * @memberof Location
    */
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => RelativePosition)
   relativePosition?: RelativePosition;
 }

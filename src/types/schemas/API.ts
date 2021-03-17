@@ -1,37 +1,22 @@
-import { IsDate, IsOptional, IsString } from 'class-validator';
-import { Type } from 'class-transformer';
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 
 /**
- */
-/**
  *
- * Class definition of API property
+ * Interface definition ofAPI property
  *
- * @export
- * @class API
- * @extends {ASchema<API>}
  */
-export class API extends ASchema<API> {
+export interface API extends ISchema {
   /**
    *
    * name of API
    *
-   * @type {string}
-   * @memberof API
    */
-  @IsString()
-  name!: string;
+  name: string;
 
   /**
    *
    * date of API linking
    *
-   * @type {(number | Date)}
-   * @memberof API
    */
-  @IsOptional()
-  @IsDate()
-  @Type(() => Date)
   linkingDate?: number | Date;
 }

@@ -1,5 +1,4 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 
 enum MediaType {
   IMAGE = 'image',
@@ -9,40 +8,28 @@ enum MediaType {
 
 /**
  *
- * Class definition of media type
+ * Interface definition ofmedia type
  *
- * @export
- * @class Media
- * @extends {ASchema<Media>}
  */
-export class Media extends ASchema<Media> {
+export interface Media extends ISchema {
   /**
    *
    * Absolute path on the host
    *
-   * @type {string}
-   * @memberof Media
    */
-  @IsString()
-  path!: string;
+  path: string
 
   /**
    *
    * Media size in bytes
    *
-   * @type {number}
-   * @memberof Media
    */
-  @IsNumber()
-  size!: number;
+  size: number
 
   /**
    *
    * Media type
    *
-   * @type {MediaType}
-   * @memberof Media
    */
-  @IsEnum(MediaType)
-  type!: MediaType;
+  type: MediaType
 }

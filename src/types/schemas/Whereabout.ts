@@ -1,38 +1,23 @@
-import { Type } from 'class-transformer';
-import { IsDate, ValidateNested } from 'class-validator';
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 import { Location } from 'types/schemas/Location';
 
 /**
- */
-/**
  *
- * Class definition of whereabouts
+ * Interface definition ofwhereabouts
  *
- * @export
- * @class Whereabout
- * @extends {ASchema<Whereabout>}
  */
-export class Whereabout extends ASchema<Whereabout> {
+export interface Whereabout extends ISchema {
 /**
    *
    * Reference to location
    *
-   * @type {Location}
-   * @memberof Whereabout
    */
-  @ValidateNested()
-  @Type(() => Location)
-  location!: Location;
+  location: Location;
 
   /**
    *
    * Timestamp of recorded position
    *
-   * @type {(number | Date)}
-   * @memberof Whereabout
    */
-  @IsDate()
-  @Type(() => Date)
-  recordDate!: number | Date;
+  recordDate: number | Date;
 }

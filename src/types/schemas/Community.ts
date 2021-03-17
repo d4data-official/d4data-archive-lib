@@ -1,19 +1,10 @@
-import { Expose } from 'class-transformer';
-import { IsString } from 'class-validator';
-import { ASchema } from './ASchema';
+import { ISchema } from './ISchema';
 
 /**
- */
-/**
  *
- * Class definition of community
+ * Interface definition ofcommunity
  *
- * @export
- * @class Community
- * @extends {ASchema<Community>}
  */
-export class Community extends ASchema<Community> {
-  @IsString()
-  @Expose()
-  name!: string;
+export interface Community extends ISchema {
+  name: string;
 }

@@ -1,60 +1,42 @@
-import { Type } from 'class-transformer';
-import { IsDate, IsOptional, IsString } from 'class-validator';
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 
 /**
- * Class definition of a message
+ * Interface definition ofa message
  */
-export class Message extends ASchema<Message> {
+export interface Message extends ISchema {
   /**
    *
    * creation date of the message in timestamp format
    *
    * @type {(number | Date)}
-   * @memberof Message
    */
-  @IsDate()
-  @Type(() => Date)
-  creationDate!: number | Date;
+  creationDate: number | Date;
 
   /**
    *
    * Who send the message
    *
-   * @type {string}
-   * @memberof Message
    */
-  @IsString()
-  sender!: string;
+  sender: string
 
   /**
    *
    * Who receive the message
    *
-   * @type {string}
-   * @memberof Message
    */
-  @IsString()
-  receiver!: string;
+  receiver: string
 
   /**
    *
    * Subject of the message
    *
-   * @type {string}
-   * @memberof Message
    */
-  @IsOptional()
-  @IsString()
   title?: string;
 
   /**
    *
    * Message content
    *
-   * @type {string}
-   * @memberof Message
    */
-  @IsString()
-  content!: string;
+  content: string
 }

@@ -1,47 +1,31 @@
-import { IsDate, IsString } from 'class-validator';
-import { Type } from 'class-transformer'
 import 'reflect-metadata'
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 
 /**
- */
-/**
  *
- * Class definition of Google note extra properties
+ * Interface definition ofGoogle note extra properties
  *
- * @export
- * @class NoteExtra
- * @extends {ASchema<NoteExtra>}
  */
-export class NoteExtra extends ASchema<NoteExtra> {
+export interface NoteExtra extends ISchema {
   /**
    *
    * content of the note
    *
-   * @type {string}
-   * @memberof NoteExtra
    */
-  @IsString()
-  content!: string;
+  content: string
 
   /**
    *
    * title of the note
    *
-   * @type {string}
-   * @memberof NoteExtra
    */
-  @IsString()
-  title!: string;
+  title: string
 
   /**
    *
    * Creation date of the note in timestamp format
    *
    * @type {(number | Date)}
-   * @memberof NoteExtra
    */
-  @Type(() => Date)
-  @IsDate()
-  creationDate!: number | Date;
+  creationDate: number | Date;
 }

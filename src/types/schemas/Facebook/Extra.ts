@@ -1,13 +1,10 @@
-import { ASchema } from 'types/schemas/ASchema';
+import { ISchema } from 'types/schemas/ISchema';
 
 /**
  *
- * Class definition of Facebook not standardized data (extra data)
+ * Interface definition ofFacebook not standardized data (extra data)
  *
- * @export
- * @class Extra
- * @extends {ASchema<Extra>}
  */
-export class Extra extends ASchema<Extra> {
+export interface Extra extends ISchema {
   [k: string]: unknown;
 }
