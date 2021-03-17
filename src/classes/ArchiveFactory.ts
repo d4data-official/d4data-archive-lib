@@ -30,11 +30,22 @@ export default class ArchiveFactory {
       this.plugins.map(
         plugin => plugin
           .identifyService()
-          .then(result => (result ? plugin : Promise.reject(new Error(`Service ${ plugin.service } not recognised`)))),
+          .then(result => (result ? plugin : Promise.reject())),
       ),
     )
       .catch((errors: AggregateError) => {
-        console.error(errors, errors.errors)
+        if (errors.errors.find(item => item !== undefined)) {
+          const customErrors = errors.errors.map((error: Error | undefined, index) => {
+            const customError = error
+            if (!customError) {
+              return
+            }
+            customError.message += ` (${ this.plugins[index]?.service })`
+            return customError
+          })
+          console.error(errors, customErrors)
+        }
+
         return new Unknown(this.path)
       })
   }
