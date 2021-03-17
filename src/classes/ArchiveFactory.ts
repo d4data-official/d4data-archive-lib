@@ -8,39 +8,58 @@ export default class ArchiveFactory {
 
   outputDir: string
 
-  archivePlugins: Array<Archive>
+  plugins: Array<Archive>
 
-  constructor(archivePath: string, outputDir?: string) {
+  constructor(archivePath: string, outputDir: string = OUTPUT_DIR, plugins: Array<Archive> = []) {
     this.path = archivePath
-    this.outputDir = outputDir ?? OUTPUT_DIR
-    this.archivePlugins = Archive.getPluginsSync()
-      // @ts-ignore
-      .map(archivePlugin => new archivePlugin(this.path, this.outputDir))
+    this.outputDir = outputDir
+    this.plugins = plugins
   }
 
   async identify(): Promise<Services> {
-    return this.getArchivePlugin()
+    return this.getPlugin()
       .then(archive => archive.service)
   }
 
-  getArchivePluginFromService(service: Services): Archive | undefined {
-    return this.archivePlugins.find(plugin => plugin.service === service)
+  getServiceArchive(service: Services): Archive | undefined {
+    return this.plugins.find(plugin => plugin.service === service)
   }
 
-  async getArchivePlugin(): Promise<Archive> {
+  async getPlugin(): Promise<Archive> {
     return Promise.any(
-      this.archivePlugins.map(
+      this.plugins.map(
         plugin => plugin
           .identifyService()
           .then(result => (result ? plugin : Promise.reject())),
       ),
     )
-      .catch(() => new Unknown(this.path))
+      .catch((errors: AggregateError) => {
+        if (errors.errors.find(item => item !== undefined)) {
+          const customErrors = errors.errors.map((error: Error | undefined, index) => {
+            const customError = error
+            if (!customError) {
+              return
+            }
+            customError.message += ` (${ this.plugins[index]?.service })`
+            return customError
+          })
+          console.error(errors, customErrors)
+        }
+
+        return new Unknown(this.path)
+      })
   }
 
   async getStandardizer(): Promise<Standardizer> {
-    return this.getArchivePlugin()
+    return this.getPlugin()
       .then(archive => archive.extract())
       .then(archive => archive.standardizer)
+  }
+
+  static async init(archivePath: string, outputDir?: string, plugins: Array<Archive> = []) {
+    const defaultPlugins: Array<Archive> = (await Archive.getPlugins())
+      // @ts-ignore
+      .map(archivePlugin => new archivePlugin(archivePath, outputDir))
+    return new ArchiveFactory(archivePath, outputDir, [...defaultPlugins, ...plugins])
   }
 }

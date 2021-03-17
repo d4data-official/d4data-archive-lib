@@ -201,6 +201,37 @@ export default async function parseAsCSV(pipeline: Pipeline, options?: OptionsPa
 }
 ```
 
+#### Special cases
+
+##### Wait for complete data (not recommended)
+
+⚠ **WARNING: Be careful, this practice bypass Node.js streams usage as it will put all stream data in memory during
+parsing**
+
+This special case must be used for formats which concern only small data sets / files, otherwise prefer the Node.js
+stream method.
+
+```typescript
+import { ParsingOptions } from '../../types/Parsing'
+
+export type OptionsParseAsJSON =
+  & ParsingOptions
+
+/**
+ * Parse given Pipeline result stream as JSON format
+ */
+export default async function parseAsJSON(pipeline: Pipeline, options?: OptionsParseAsJSON): Promise<string> {
+  // Run Pipeline and wait for complete stream data before return
+  // WARNING: Will put all stream data in memory until return,
+  //   can crash the process with heavy data set
+  const completeData = await pipeline.toString()
+
+  // Pass the complete data to a parsing library or use your own
+  // Don't forget options paramater
+  // Then return the result of the parsing
+}
+```
+
 ### Parser class method
 
 After you add your new parsing utility function you must add it to the Parser class to be able to use it from getters (

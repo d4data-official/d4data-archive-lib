@@ -27,7 +27,7 @@ export async function getFileFromZIP(
   return new Promise((resolve, reject) => {
     const result: Array<Stream | undefined> = Array(relativePathList.length).fill(undefined)
 
-    yauzl.open(archivePath, (err, zipfile) => {
+    yauzl.open(archivePath, { lazyEntries: true }, (err, zipfile) => {
       if (err) throw err
       if (!zipfile) {
         return
@@ -50,9 +50,11 @@ export async function getFileFromZIP(
                 return
               }
               result[wantedPathIdx] = readStream
+              zipfile.readEntry()
             })
+          } else {
+            zipfile.readEntry()
           }
-          zipfile.readEntry()
         }
       })
 
