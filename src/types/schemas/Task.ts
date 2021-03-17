@@ -10,7 +10,7 @@ export interface Task {
   /**
    * date at witch the task was creates (timestamp)
    */
-  createdAt?: number | Date;
+  createdAt?: Date;
 
   /**
    * date at witch the task was up: date (timestamp)
@@ -25,7 +25,7 @@ export interface Task {
   /**
    * due date of the task (timestamp)
    */
-  dueDate?: number;
+  dueDate?: Date;
 
   /**
    * status of the task

@@ -11,7 +11,7 @@ export interface Archive {
   /**
    * Archive creation date in timestamp format
    */
-  creationDate?: number | Date;
+  creationDate?: Date;
 
   /**
    * Archive service name

@@ -15,5 +15,5 @@ export interface AuthorizedDevice {
   /**
    * date when the device was authorized
    */
-  authorizationDate?: number | Date;
+  authorizationDate?: Date;
 }

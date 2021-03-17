@@ -17,7 +17,7 @@ export interface Mail {
   /**
    * Date at the time the mail was send
    */
-  date: number | Date;
+  date: Date;
 
   /**
    * Object of the mail

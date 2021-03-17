@@ -9,12 +9,12 @@ export interface Event {
   /**
    * date and time of the start of the event in timestamp format
    */
-  startDate?: number | Date;
+  startDate?: Date;
 
   /**
    * date and time of the end of the event in timestamp format
    */
-  endDate?: number | Date;
+  endDate?: Date;
 
   /**
    * person who will participate to the event

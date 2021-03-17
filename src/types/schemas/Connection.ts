@@ -7,7 +7,7 @@ export interface Connection {
 /**
    * IP Address where the connection has been intiated
    */
-  ip_address: string
+  ipAddress: string
 
   /**
    * Reference to location related to the IP
@@ -22,5 +22,5 @@ export interface Connection {
   /**
    * Timestamp of recorded connection
    */
-  timestamp: number | Date;
+  timestamp: Date;
 }

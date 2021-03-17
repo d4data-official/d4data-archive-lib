@@ -15,5 +15,5 @@ export interface NoteExtra {
   /**
    * Creation date of the note in timestamp format
    */
-  creationDate: number | Date;
+  creationDate: Date;
 }

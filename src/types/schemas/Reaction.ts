@@ -17,7 +17,7 @@ export interface Reaction {
   /**
    * Creation date time of the reaction (timestamp format)
    */
-  reactionDate?: number | Date;
+  reactionDate?: Date;
 
   /**
    * Image associated to the reaction

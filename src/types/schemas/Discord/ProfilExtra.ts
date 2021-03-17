@@ -1,17 +1,17 @@
 interface AccountLinked {
   /**
-     * Platform link to account
-     */
+    * Platform link to account
+    */
   platform?: string;
 
   /**
-     * Name of the account linked
-     */
+    * Name of the account linked
+    */
   name?: string;
 
   /**
-     * If account still linked
-     */
+    * If account still linked
+    */
   revoked?: boolean;
 }
 
@@ -20,12 +20,12 @@ interface AccountLinked {
  */
 export interface ProfilExtra {
   /**
-     * Time until end of premium (timestamp)
-     */
+    * Time until end of premium (timestamp)
+    */
   premium?: number;
 
   /**
-     * list of account linked
-     */
-  account_linked?: Array<AccountLinked>;
+    * list of account linked
+    */
+  accountLinked?: Array<AccountLinked>;
 }

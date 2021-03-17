@@ -38,7 +38,7 @@ export interface Contact {
   /**
    * Birthday in timestamp format
    */
-  birthday?: number | Date;
+  birthday?: Date;
 
   /**
    * Number of phone of a contact
@@ -53,7 +53,7 @@ export interface Contact {
   /**
    * Since when the contact is in the conctact list of the owner
    */
-  date?: number | Date;
+  date?: Date;
 
   /**
    * Contact's profile picture object

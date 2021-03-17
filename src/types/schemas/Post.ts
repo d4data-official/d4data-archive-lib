@@ -17,7 +17,7 @@ export interface Post {
   /**
    * Creation date of the post in timestamp format
    */
-  creationDate: number | Date;
+  creationDate: Date;
 
   /**
    * video or image linked with post

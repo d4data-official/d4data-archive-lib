@@ -10,7 +10,7 @@ export interface Notification {
   /**
    * date of the notification
    */
-  notificationDate?: number | Date;
+  notificationDate?: Date;
 
   /**
    * link of the notification

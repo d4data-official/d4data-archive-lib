@@ -12,5 +12,5 @@ export interface Whereabout {
   /**
    * Timestamp of recorded position
    */
-  recordDate: number | Date;
+  recordDate: Date;
 }

@@ -10,5 +10,5 @@ export interface API {
   /**
    * date of API linking
    */
-  linkingDate?: number | Date;
+  linkingDate?: Date;
 }

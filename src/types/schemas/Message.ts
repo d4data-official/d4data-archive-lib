@@ -5,7 +5,7 @@ export interface Message {
   /**
    * creation date of the message in timestamp format
    */
-  creationDate: number | Date;
+  creationDate: Date;
 
   /**
    * Who send the message

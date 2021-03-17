@@ -5,8 +5,8 @@ import { Reaction } from 'types/schemas/Reaction';
  */
 interface ChatMessage {
   /**
-       * The name of the sender
-       */
+   * The name of the sender
+   */
   sender: string
 
   /**
@@ -30,8 +30,8 @@ interface ChatMessage {
  */
 export interface Chat {
   /**
-       * List of chat participants
-       */
+   * List of chat participants
+   */
   participants: Array<string>
 
   /**
