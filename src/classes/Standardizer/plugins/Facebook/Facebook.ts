@@ -11,7 +11,7 @@ const preProcessors: Array<PipelineStep> = [
       const chunkStr: string = chunk.toString()
       const convertedUnicodeStr = chunkStr.replace(
         /\\u([\d\w]{4})/gi,
-        (match, group) => String.fromCharCode(parseInt(group, 16)),
+        (_, group) => String.fromCharCode(parseInt(group, 16)),
       )
       const utf8Str = iconv.decode(iconv.encode(convertedUnicodeStr, 'latin1'), 'utf8')
 
