@@ -1,5 +1,3 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 enum MediaType {
   IMAGE = 'image',
   VIDEO = 'video',
@@ -11,7 +9,7 @@ enum MediaType {
  * Interface definition ofmedia type
  *
  */
-export interface Media extends ISchema {
+export interface Media {
   /**
    *
    * Absolute path on the host

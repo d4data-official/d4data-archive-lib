@@ -1,4 +1,3 @@
-import { ISchema } from 'types/schemas/ISchema';
 import { Reaction } from 'types/schemas/Reaction';
 
 /**
@@ -41,7 +40,7 @@ interface ChatMessage {
  * Interface definition ofone chat
  *
  */
-export interface Chat extends ISchema {
+export interface Chat {
   /**
      *
      * List of chat participants

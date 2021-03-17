@@ -1,4 +1,3 @@
-import { ISchema } from 'types/schemas/ISchema';
 import { Location } from 'types/schemas/Location';
 
 /**
@@ -6,7 +5,7 @@ import { Location } from 'types/schemas/Location';
  * Interface definition ofwhereabouts
  *
  */
-export interface Whereabout extends ISchema {
+export interface Whereabout {
 /**
    *
    * Reference to location

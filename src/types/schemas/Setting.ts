@@ -1,11 +1,9 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  *
  * Interface definition ofsetting property
  *
  */
-export interface Setting extends ISchema {
+export interface Setting {
 /**
    *
    * name of setting

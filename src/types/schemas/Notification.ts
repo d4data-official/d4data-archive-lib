@@ -1,11 +1,9 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  *
  * Interface definition ofnotifications property
  *
  */
-export interface Notification extends ISchema {
+export interface Notification {
   /**
    *
    * text of the notification
@@ -17,7 +15,6 @@ export interface Notification extends ISchema {
    *
    * date of the notification
    *
-   * @type {(number | Date)}
    */
   notificationDate?: number | Date;
 

@@ -1,5 +1,3 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 interface AccountLinked {
   /**
     *
@@ -28,7 +26,7 @@ interface AccountLinked {
  * Interface definition ofDiscord profile extra properties
  *
  */
-export interface ProfilExtra extends ISchema {
+export interface ProfilExtra {
   /**
     *
     * Time until end of premium (timestamp)

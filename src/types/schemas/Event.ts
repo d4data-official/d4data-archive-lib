@@ -1,10 +1,8 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  *
  *
  */
-export interface Event extends ISchema {
+export interface Event {
 /**
    *
    * name of the event
@@ -16,7 +14,6 @@ export interface Event extends ISchema {
    *
    * date and time of the start of the event in timestamp format
    *
-   * @type {(number | Date)}
    */
   startDate?: number | Date;
 
@@ -24,7 +21,6 @@ export interface Event extends ISchema {
    *
    * date and time of the end of the event in timestamp format
    *
-   * @type {(number | Date)}
    */
   endDate?: number | Date;
 

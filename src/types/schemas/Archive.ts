@@ -1,12 +1,10 @@
 import Services from 'types/Services';
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  *
  * Interface definition ofarchives property
  *
  */
-export interface Archive extends ISchema {
+export interface Archive {
   /**
    *
    * Archive size in bytes
@@ -18,7 +16,6 @@ export interface Archive extends ISchema {
    *
    * Archive creation date in timestamp format
    *
-   * @type {(number | Date)}
    */
   creationDate?: number | Date;
 

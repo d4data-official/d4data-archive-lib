@@ -1,12 +1,10 @@
 import 'reflect-metadata'
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  *
  * Interface definition ofGoogle note extra properties
  *
  */
-export interface NoteExtra extends ISchema {
+export interface NoteExtra {
   /**
    *
    * content of the note
@@ -25,7 +23,6 @@ export interface NoteExtra extends ISchema {
    *
    * Creation date of the note in timestamp format
    *
-   * @type {(number | Date)}
    */
   creationDate: number | Date;
 }

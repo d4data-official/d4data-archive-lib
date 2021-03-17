@@ -1,16 +1,9 @@
-import { ISchema } from 'types/schemas/ISchema';
 import { Event } from 'types/schemas/Event';
 import { Location } from 'types/schemas/Location';
 import { Media } from 'types/schemas/Media';
 import { Reaction } from 'types/schemas/Reaction';
 
-/**
- *
- *
- * @interface ExternalContext
- * @extends {ISchema}
- */
-interface ExternalContext extends ISchema {
+interface ExternalContext {
   /**
    *
    * link of an external site
@@ -24,12 +17,11 @@ interface ExternalContext extends ISchema {
  * Interface definition ofpost property
  *
  */
-export interface Post extends ISchema {
+export interface Post {
   /**
    *
    * Creation date of the post in timestamp format
    *
-   * @type {(number | Date)}
    */
   creationDate: number | Date;
 

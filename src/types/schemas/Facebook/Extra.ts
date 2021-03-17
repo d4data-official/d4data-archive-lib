@@ -1,10 +1,8 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  *
  * Interface definition ofFacebook not standardized data (extra data)
  *
  */
-export interface Extra extends ISchema {
+export interface Extra {
   [k: string]: unknown;
 }

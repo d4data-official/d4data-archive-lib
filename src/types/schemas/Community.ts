@@ -1,10 +1,8 @@
-import { ISchema } from './ISchema';
-
 /**
  *
  * Interface definition ofcommunity
  *
  */
-export interface Community extends ISchema {
+export interface Community {
   name: string;
 }

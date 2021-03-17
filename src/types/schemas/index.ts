@@ -1,5 +1,4 @@
 export * from 'types/schemas/API';
-export * from 'types/schemas/ISchema';
 export * from 'types/schemas/Archive';
 export * from 'types/schemas/AuthorizedDevice';
 export * from 'types/schemas/Chat';

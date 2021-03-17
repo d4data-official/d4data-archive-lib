@@ -1,11 +1,9 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  *
  * Interface definition ofAPI property
  *
  */
-export interface API extends ISchema {
+export interface API {
   /**
    *
    * name of API

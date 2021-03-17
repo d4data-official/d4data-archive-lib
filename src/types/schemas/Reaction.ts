@@ -1,4 +1,3 @@
-import { ISchema } from 'types/schemas/ISchema';
 import { Media } from 'types/schemas/Media';
 
 /**
@@ -6,7 +5,7 @@ import { Media } from 'types/schemas/Media';
  * Interface definition ofreaction property
  *
  */
-export interface Reaction extends ISchema {
+export interface Reaction {
 /**
    *
    * name of reaction
@@ -25,7 +24,6 @@ export interface Reaction extends ISchema {
    *
    * Creation date time of the reaction (timestamp format)
    *
-   * @type {(number | Date)}
    */
   reactionDate?: number | Date;
 

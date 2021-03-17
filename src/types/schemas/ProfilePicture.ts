@@ -1,7 +1,6 @@
-import { ISchema } from 'types/schemas/ISchema';
 import { Media } from 'types/schemas/Media';
 
-export interface ProfilePicture extends ISchema {
+export interface ProfilePicture {
   /**
      *
      * Index of current contact picture in history array

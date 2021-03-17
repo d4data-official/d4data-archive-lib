@@ -1,11 +1,9 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  *
  * Interface definition ofan authorized device
  *
  */
-export interface AuthorizedDevice extends ISchema {
+export interface AuthorizedDevice {
 /**
    *
    * name of device
@@ -24,7 +22,6 @@ export interface AuthorizedDevice extends ISchema {
    *
    * date when the device was authorized
    *
-   * @type {(number | Date)}
    */
   authorizationDate?: number | Date;
 }

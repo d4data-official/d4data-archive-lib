@@ -1,4 +1,3 @@
-import { ISchema } from 'types/schemas/ISchema';
 import { Location } from 'types/schemas/Location';
 
 /**
@@ -6,7 +5,7 @@ import { Location } from 'types/schemas/Location';
  * Interface definition ofa connection
  *
  */
-export interface Connection extends ISchema {
+export interface Connection {
 /**
    *
    * IP Address where the connection has been intiated
@@ -32,7 +31,6 @@ export interface Connection extends ISchema {
    *
    * Timestamp of recorded connection
    *
-   * @type {(number | Date)}
    */
   timestamp: number | Date;
 }

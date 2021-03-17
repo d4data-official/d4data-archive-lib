@@ -1,11 +1,9 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  *
  * Interface definition oftransaction property
  *
  */
-export interface Transaction extends ISchema {
+export interface Transaction {
 /**
    *
    * date of transaction (timestamp)

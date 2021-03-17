@@ -1,9 +1,7 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  * JSON Task definition of setting property
  */
-export interface Task extends ISchema {
+export interface Task {
 /**
    *
    * name of task
@@ -15,7 +13,6 @@ export interface Task extends ISchema {
    *
    * date at witch the task was creates (timestamp)
    *
-   * @type {(number | Date)}
    */
   createdAt?: number | Date;
 

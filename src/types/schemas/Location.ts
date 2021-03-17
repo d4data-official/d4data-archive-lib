@@ -1,11 +1,8 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 interface AbsolutePosition {
   /**
    *
    * Latitude of the absolute position
    *
-   * @type {(number | string)}
    */
   latitude: number | string;
 
@@ -13,7 +10,6 @@ interface AbsolutePosition {
    *
    * Longitude of the absolute position
    *
-   * @type {(number | string)}
    */
   longitude: number | string;
 }
@@ -58,7 +54,7 @@ interface RelativePosition {
 /**
  * Interface definition oflocation
  */
-export interface Location extends ISchema {
+export interface Location {
   /**
    *
    * Position using latitude and longitude absolute coordinates

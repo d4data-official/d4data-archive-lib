@@ -1,14 +1,11 @@
-import { ISchema } from 'types/schemas/ISchema';
-
 /**
  * Interface definition ofa message
  */
-export interface Message extends ISchema {
+export interface Message {
   /**
    *
    * creation date of the message in timestamp format
    *
-   * @type {(number | Date)}
    */
   creationDate: number | Date;
 

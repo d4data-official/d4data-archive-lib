@@ -1,4 +1,3 @@
-import { ISchema } from 'types/schemas/ISchema';
 import { Media } from 'types/schemas/Media';
 
 /**
@@ -6,7 +5,7 @@ import { Media } from 'types/schemas/Media';
  * Interface definition ofmail property
  *
  */
-export interface Mail extends ISchema {
+export interface Mail {
   /**
    *
    * Sender of the mail
@@ -25,7 +24,6 @@ export interface Mail extends ISchema {
    *
    * Date at the time the mail was send
    *
-   * @type {(number | Date)}
    */
   date: number | Date;
 

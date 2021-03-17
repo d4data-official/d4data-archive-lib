@@ -1,4 +1,3 @@
-import { ISchema } from 'types/schemas/ISchema';
 import { ProfilExtra } from 'types/schemas/Discord/ProfilExtra';
 import { ProfilePicture } from 'types/schemas/ProfilePicture'
 
@@ -7,7 +6,7 @@ import { ProfilePicture } from 'types/schemas/ProfilePicture'
  * Interface definition ofcontact
  *
  */
-export interface Contact extends ISchema {
+export interface Contact {
   /**
    *
    * Display name / profile name of the contact
@@ -54,7 +53,6 @@ export interface Contact extends ISchema {
    *
    * Birthday in timestamp format
    *
-   * @type {(number | Date)}
    */
   birthday?: number | Date;
 
@@ -76,7 +74,6 @@ export interface Contact extends ISchema {
    *
    * Since when the contact is in the conctact list of the owner
    *
-   * @type {(number | Date)}
    */
   date?: number | Date;
 
@@ -87,9 +84,5 @@ export interface Contact extends ISchema {
    */
   profilePicture?: ProfilePicture;
 
-  /**
-   *
-   *
-   */
   Extra?: ProfilExtra;
 }
