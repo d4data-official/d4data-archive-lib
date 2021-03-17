@@ -5,29 +5,21 @@ enum MediaType {
 }
 
 /**
- *
- * Interface definition ofmedia type
- *
+ * Interface of type
  */
 export interface Media {
   /**
-   *
    * Absolute path on the host
-   *
    */
   path: string
 
   /**
-   *
    * Media size in bytes
-   *
    */
   size: number
 
   /**
-   *
    * Media type
-   *
    */
   type: MediaType
 }

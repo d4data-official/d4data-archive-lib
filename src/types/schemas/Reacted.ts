@@ -1,34 +1,24 @@
-import { Discriminator } from 'types/Discriminator';
 import { Media } from 'types/schemas/Media';
 import { Post } from 'types/schemas/Post';
 import { Community } from 'types/schemas/Community';
 import { Reaction } from 'types/schemas/Reaction';
 
 /**
- * Interface definition ofreacted content
+ * Interface of content
  */
 export interface Reacted {
 /**
-   *
    * name of the entity's type
-   *
    */
-  type: string
+  type: 'media' | 'post' | 'community';
 
   /**
-   *
    * entity
-   *
    */
-  entity: |
-  Discriminator<Media, 'media'>
-  | Discriminator<Post, 'post'>
-  | Discriminator<Community, 'community>'>
+  entity: Media | Post | Community;
 
   /**
-   *
-   * Interface definition ofreaction property
-   *
+   * Interface of property
    */
   reaction?: Reaction;
 }

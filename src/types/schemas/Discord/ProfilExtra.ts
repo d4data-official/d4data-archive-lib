@@ -1,43 +1,31 @@
 interface AccountLinked {
   /**
-    *
-    * Platform link to account
-    *
-    */
+     * Platform link to account
+     */
   platform?: string;
 
   /**
-    *
-    * Name of the account linked
-    *
-    */
+     * Name of the account linked
+     */
   name?: string;
 
   /**
-    *
-    * If account still linked
-    *
-    */
+     * If account still linked
+     */
   revoked?: boolean;
 }
 
 /**
- *
- * Interface definition ofDiscord profile extra properties
- *
+ * Interface of profile extra properties
  */
 export interface ProfilExtra {
   /**
-    *
-    * Time until end of premium (timestamp)
-    *
-    */
+     * Time until end of premium (timestamp)
+     */
   premium?: number;
 
   /**
-    *
-    * list of account linked
-    *
-    */
+     * list of account linked
+     */
   account_linked?: Array<AccountLinked>;
 }

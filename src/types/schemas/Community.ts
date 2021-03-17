@@ -1,7 +1,5 @@
 /**
- *
- * Interface definition ofcommunity
- *
+ * Interface of
  */
 export interface Community {
   name: string;
