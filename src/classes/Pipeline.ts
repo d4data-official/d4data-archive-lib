@@ -1,8 +1,6 @@
 import fs from 'fs'
 import { pipeline as nodePipeline, Readable, Stream } from 'stream'
 import streamToString from '../modules/streamToString'
-import archiveFileExist from '../modules/archiveFileExist'
-import { arch } from 'os'
 import getFileFromArchive from '../modules/getFileFromArchive'
 
 export type PipelineResult = Readable
