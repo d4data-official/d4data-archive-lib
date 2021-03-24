@@ -1,6 +1,3 @@
-/**
- * Interface of message
- */
 export default interface Message {
   /**
    * creation date of the message in timestamp format

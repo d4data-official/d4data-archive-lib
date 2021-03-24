@@ -1,7 +1,5 @@
 import Services from 'types/Services';
-/**
- * Interface of property
- */
+
 export default interface Archive {
   /**
    * Archive size in bytes

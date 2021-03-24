@@ -1,8 +1,5 @@
-/**
- * Interface of property
- */
 export default interface Setting {
-/**
+  /**
    * name of setting
    */
   name: string;

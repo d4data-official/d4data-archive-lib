@@ -1,4 +1,4 @@
-interface AbsolutePosition {
+export interface AbsolutePosition {
   /**
    * Latitude of the absolute position
    */
@@ -10,7 +10,7 @@ interface AbsolutePosition {
   longitude: number | string;
 }
 
-interface RelativePosition {
+export interface RelativePosition {
   /**
    * Raw human-readable address
    */

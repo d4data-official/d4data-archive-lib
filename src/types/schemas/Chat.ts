@@ -1,9 +1,6 @@
 import Reaction from 'types/schemas/Reaction';
 
-/**
- * ChatMessage interface
- */
-interface ChatMessage {
+export interface ChatMessage {
   /**
    * The name of the sender
    */

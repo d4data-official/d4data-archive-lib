@@ -3,16 +3,13 @@ import Location from 'types/schemas/Location';
 import Media from 'types/schemas/Media';
 import Reaction from 'types/schemas/Reaction';
 
-interface ExternalContext {
+export interface ExternalContext {
   /**
    * link of an external site
    */
   url?: string;
 }
 
-/**
- * Interface of property
- */
 export default interface Post {
   /**
    * Creation date of the post in timestamp format

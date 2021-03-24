@@ -1,6 +1,3 @@
-/**
- * Interface of authorized device
- */
 export default interface AuthorizedDevice {
 /**
    * name of device

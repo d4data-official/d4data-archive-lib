@@ -1,8 +1,5 @@
-/**
- * Interface of property
- */
 export default interface Transaction {
-/**
+  /**
    * date of transaction (timestamp)
    */
   date?: number;

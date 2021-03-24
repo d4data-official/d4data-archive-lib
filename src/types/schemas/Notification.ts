@@ -1,6 +1,3 @@
-/**
- * Interface of property
- */
 export default interface Notification {
   /**
    * text of the notification

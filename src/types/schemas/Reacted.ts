@@ -3,9 +3,6 @@ import Post from 'types/schemas/Post';
 import Community from 'types/schemas/Community';
 import Reaction from 'types/schemas/Reaction';
 
-/**
- * Interface of content
- */
 export default interface Reacted {
 /**
    * name of the entity's type

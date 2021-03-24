@@ -1,6 +1,3 @@
-/**
- * Interface of property
- */
 export default interface API {
   /**
    * name of API

@@ -1,8 +1,5 @@
 import ProfilePicture from 'types/schemas/ProfilePicture'
 
-/**
- * Interface definition of contact
- */
 export default interface Contact {
   /**
    * Display name / profile name of the contact

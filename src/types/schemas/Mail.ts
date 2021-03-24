@@ -1,8 +1,5 @@
 import Media from 'types/schemas/Media';
 
-/**
- * Interface of property
- */
 export default interface Mail {
   /**
    * Sender of the mail

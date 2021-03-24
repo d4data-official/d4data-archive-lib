@@ -1,10 +1,7 @@
 import Media from 'types/schemas/Media';
 
-/**
- * Interface of property
- */
 export default interface Reaction {
-/**
+  /**
    * name of reaction
    */
   name: string

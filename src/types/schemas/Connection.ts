@@ -1,8 +1,5 @@
 import Location from 'types/schemas/Location';
 
-/**
- * Interface of connection
- */
 export default interface Connection {
 /**
    * IP Address where the connection has been intiated

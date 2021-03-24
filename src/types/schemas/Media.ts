@@ -4,9 +4,6 @@ enum MediaType {
   AUDIO = 'audio',
 }
 
-/**
- * Interface of type
- */
 export default interface Media {
   /**
    * Absolute path on the host
