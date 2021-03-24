@@ -1,6 +1,6 @@
 /**
  */
-export interface Event {
+export default interface Event {
 /**
    * name of the event
    */

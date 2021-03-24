@@ -7,7 +7,7 @@ enum MediaType {
 /**
  * Interface of type
  */
-export interface Media {
+export default interface Media {
   /**
    * Absolute path on the host
    */

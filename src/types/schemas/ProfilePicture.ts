@@ -1,6 +1,6 @@
-import { Media } from 'types/schemas/Media';
+import Media from 'types/schemas/Media';
 
-export interface ProfilePicture {
+export default interface ProfilePicture {
   /**
    * Index of current contact picture in history array
    */

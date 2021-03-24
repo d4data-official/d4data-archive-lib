@@ -1,10 +1,9 @@
-import { ProfilExtra } from 'types/schemas/Discord/ProfilExtra';
-import { ProfilePicture } from 'types/schemas/ProfilePicture'
+import ProfilePicture from 'types/schemas/ProfilePicture'
 
 /**
  * Interface definition of contact
  */
-export interface Contact {
+export default interface Contact {
   /**
    * Display name / profile name of the contact
    */
@@ -59,6 +58,4 @@ export interface Contact {
    * Contact's profile picture object
    */
   profilePicture?: ProfilePicture;
-
-  Extra?: ProfilExtra;
 }

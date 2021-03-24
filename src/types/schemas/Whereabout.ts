@@ -1,9 +1,9 @@
-import { Location } from 'types/schemas/Location';
+import Location from 'types/schemas/Location';
 
 /**
  * Interface of
  */
-export interface Whereabout {
+export default interface Whereabout {
 /**
    * Reference to location
    */

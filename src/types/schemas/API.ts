@@ -1,7 +1,7 @@
 /**
  * Interface of property
  */
-export interface API {
+export default interface API {
   /**
    * name of API
    */

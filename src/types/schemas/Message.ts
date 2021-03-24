@@ -1,7 +1,7 @@
 /**
  * Interface of message
  */
-export interface Message {
+export default interface Message {
   /**
    * creation date of the message in timestamp format
    */

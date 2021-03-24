@@ -1,4 +1,4 @@
-import { Reaction } from 'types/schemas/Reaction';
+import Reaction from 'types/schemas/Reaction';
 
 /**
  * ChatMessage interface
@@ -28,7 +28,7 @@ interface ChatMessage {
 /**
  * Interface of chat
  */
-export interface Chat {
+export default interface Chat {
   /**
    * List of chat participants
    */

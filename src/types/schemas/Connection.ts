@@ -1,9 +1,9 @@
-import { Location } from 'types/schemas/Location';
+import Location from 'types/schemas/Location';
 
 /**
  * Interface of connection
  */
-export interface Connection {
+export default interface Connection {
 /**
    * IP Address where the connection has been intiated
    */

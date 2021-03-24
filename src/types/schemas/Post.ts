@@ -1,7 +1,7 @@
-import { Event } from 'types/schemas/Event';
-import { Location } from 'types/schemas/Location';
-import { Media } from 'types/schemas/Media';
-import { Reaction } from 'types/schemas/Reaction';
+import Event from 'types/schemas/Event';
+import Location from 'types/schemas/Location';
+import Media from 'types/schemas/Media';
+import Reaction from 'types/schemas/Reaction';
 
 interface ExternalContext {
   /**
@@ -13,7 +13,7 @@ interface ExternalContext {
 /**
  * Interface of property
  */
-export interface Post {
+export default interface Post {
   /**
    * Creation date of the post in timestamp format
    */

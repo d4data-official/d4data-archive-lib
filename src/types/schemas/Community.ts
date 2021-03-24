@@ -1,6 +1,6 @@
 /**
  * Interface of
  */
-export interface Community {
+export default interface Community {
   name: string;
 }

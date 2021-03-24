@@ -1,7 +1,7 @@
 /**
  * Interface of property
  */
-export interface Transaction {
+export default interface Transaction {
 /**
    * date of transaction (timestamp)
    */

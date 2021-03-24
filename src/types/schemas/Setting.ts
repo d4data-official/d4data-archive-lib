@@ -1,7 +1,7 @@
 /**
  * Interface of property
  */
-export interface Setting {
+export default interface Setting {
 /**
    * name of setting
    */

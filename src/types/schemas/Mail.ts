@@ -1,9 +1,9 @@
-import { Media } from 'types/schemas/Media';
+import Media from 'types/schemas/Media';
 
 /**
  * Interface of property
  */
-export interface Mail {
+export default interface Mail {
   /**
    * Sender of the mail
    */

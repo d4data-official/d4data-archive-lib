@@ -40,7 +40,7 @@ interface RelativePosition {
 /**
  * Interface of
  */
-export interface Location {
+export default interface Location {
   /**
    * Position using latitude and longitude absolute coordinates
    */

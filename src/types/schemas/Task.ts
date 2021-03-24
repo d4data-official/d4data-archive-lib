@@ -1,7 +1,7 @@
 /**
  * JSON Task definition of setting property
  */
-export interface Task {
+export default interface Task {
 /**
    * name of task
    */

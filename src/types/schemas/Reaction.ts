@@ -1,9 +1,9 @@
-import { Media } from 'types/schemas/Media';
+import Media from 'types/schemas/Media';
 
 /**
  * Interface of property
  */
-export interface Reaction {
+export default interface Reaction {
 /**
    * name of reaction
    */
