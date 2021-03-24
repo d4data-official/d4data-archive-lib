@@ -15,7 +15,7 @@ export interface History {
   url: string
   faviconUrl?: string
   clientId?: string
-};
+}
 
 export interface Extension {
   name: string

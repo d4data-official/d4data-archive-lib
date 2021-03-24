@@ -2,9 +2,6 @@
 
 import fs from 'fs'
 import path from 'path'
-import Services from '../../types/Services'
-import Parser from '../Parser'
-import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
 import {
   API,
   AuthorizedDevice,
@@ -21,8 +18,11 @@ import {
   Setting,
   Task,
   Transaction,
-  Whereabout
+  Whereabout,
 } from 'types/schemas'
+import Services from '../../types/Services'
+import Parser from '../Parser'
+import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
 
 export interface GetterOptions {
   parsingOptions?: ParsingOptions & PaginationOptions
