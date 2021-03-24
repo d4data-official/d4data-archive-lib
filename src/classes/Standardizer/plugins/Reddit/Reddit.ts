@@ -1,7 +1,7 @@
-import Standardizer from 'classes/Standardizer/Standardizer'
-import Services from '../../../../types/Services'
-import { GetterOptions } from 'types/standardizer/Standardizer'
 import API from 'types/schemas/API'
+import { GetterOptions } from 'types/standardizer/Standardizer'
+import Standardizer from '../../Standardizer'
+import Services from '../../../../types/Services'
 
 export default class Reddit extends Standardizer {
   get service(): Services {
@@ -21,9 +21,8 @@ export default class Reddit extends Standardizer {
       'twitter.csv',
       options?.parsingOptions,
     )
-    return APIRawData.map(API => ({
-      name: API.username,
+    return APIRawData.map(api => ({
+      name: api.username,
     }))
   }
-
 }
