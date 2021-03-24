@@ -9,7 +9,8 @@ import {
   Chat,
   Community,
   Connection,
-  Contact, Following,
+  Contact,
+  Following,
   Mail,
   Media,
   Notification,
@@ -22,11 +23,7 @@ import {
 } from 'types/schemas'
 import Services from '../../types/Services'
 import Parser from '../Parser'
-import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
-
-export interface GetterOptions {
-  parsingOptions?: ParsingOptions & PaginationOptions
-}
+import { GetterOptions } from '../../types/standardizer/Standardizer'
 
 export const PLUGINS_DIR = 'plugins'
 
