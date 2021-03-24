@@ -5,7 +5,7 @@ import path from 'path'
 import {
   API,
   AuthorizedDevice,
-  BrowserDatas,
+  BrowserData,
   Chat,
   Community,
   Connection,
@@ -123,7 +123,7 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
-  async getBrowserDatas(options?: GetterOptions): Promise<BrowserDatas | null> {
+  async getBrowserData(options?: GetterOptions): Promise<BrowserData | null> {
     return Promise.resolve(null)
   }
 

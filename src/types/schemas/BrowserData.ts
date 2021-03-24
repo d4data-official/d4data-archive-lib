@@ -47,7 +47,7 @@ export interface Theme {
   websiteUrl?: string
 }
 
-export default interface BrowserDatas {
+export default interface BrowserData {
   history: Array<History>
   extensions: Array<Extension>
   savedForms: Array<SavedForm>
