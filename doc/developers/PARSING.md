@@ -18,10 +18,11 @@ There is a basic example of using a parsing utility from a getter, this example 
 ```typescript
 // File: src/classes/Standardizer/Facebook/getters/getProfile.ts
 
-import Standardizer, { GetterOptions } from '../../Standardizer'
-import IProfile from '../../../../types/standardizer/IProfile'
+import Standardizer from 'classes/Standardizer/Standardizer'
+import { GetterOptions } from 'types/standardizer/Standardizer'
+import Contact from 'types/schemas/Contact'
 
-export default async function getProfile(this: Standardizer, options?: GetterOptions): Promise<IProfile> {
+export default async function getProfile(this: Standardizer, options?: GetterOptions): Promise<Contact> {
   // Will read file and parse its content as JSON asynchronously
   const profileRawData = await this.parser.parseAsJSON(
     'profile_information/profile_information.json',
@@ -34,7 +35,7 @@ export default async function getProfile(this: Standardizer, options?: GetterOpt
     gender: profileRawData.profile.gender.pronoun,
     mail: profileRawData.profile.emails.emails[0],
     birthday: new Date(profileRawData.profile.birthday.year, profileRawData.profile.birthday.month
-      - 1, profileRawData.profile.birthday.day).getTime() / 1000,
+      - 1, profileRawData.profile.birthday.day),
   }
 }
 ```
@@ -55,8 +56,9 @@ This example is based on Reddit's Comment list getter.
 ```typescript
 // File: src/classes/Standardizer/Reddit/getter/getComments.ts
 
-import Standardizer, { GetterOptions } from '../../Standardizer'
-import IComment from '../../../../types/standardizer/IComment'
+import Standardizer from 'classes/Standardizer/Standardizer'
+import { GetterOptions } from 'types/standardizer/Standardizer'
+import Post from 'types/schemas/Post'
 
 // Type of parsed data from 'comments.csv' file
 interface RawPost {
@@ -71,7 +73,7 @@ interface RawPost {
   body: string
 }
 
-export default async function getComments(this: Standardizer, options?: GetterOptions): Promise<IComment> {
+export default async function getComments(this: Standardizer, options?: GetterOptions): Promise<Array<Post>> {
   // You can specify the parsed data type thanks to Generic Typing
   const posts = await this.parser.parseAsCSV<RawPost>('comments.csv', options?.parsingOptions)
 
@@ -79,7 +81,7 @@ export default async function getComments(this: Standardizer, options?: GetterOp
     // You now can have autocompletion on post object
     content: post.body,
     sender: 'You',
-    creationDate: new Date(post.date).getTime() / 1000,
+    creationDate: new Date(post.date),
   }))
 }
 ```
@@ -90,10 +92,11 @@ A pre-processor is generally a Node.js stream which apply a transformation on th
 
 ```typescript
 import { Transform, TransformCallback } from 'stream'
-import Standardizer, { GetterOptions } from '../../Standardizer'
-import IProfile from '../../../../types/standardizer/IProfile'
+import Standardizer from 'classes/Standardizer/Standardizer'
+import { GetterOptions } from 'types/standardizer/Standardizer'
+import Contact from 'types/schemas/Contact'
 
-export default async function getProfile(this: Standardizer, options?: GetterOptions): Promise<IProfile> {
+export default async function getProfile(this: Standardizer, options?: GetterOptions): Promise<Contact> {
   // Will read file and parse its content as JSON asynchronously
   const profileRawData: any = await this.parser.parseAsJSON(
     'profile_information/profile_information.json',
@@ -117,7 +120,7 @@ export default async function getProfile(this: Standardizer, options?: GetterOpt
     gender: profileRawData.profile.gender.pronoun,
     mail: profileRawData.profile.emails.emails[0],
     birthday: new Date(profileRawData.profile.birthday.year, profileRawData.profile.birthday.month
-      - 1, profileRawData.profile.birthday.day).getTime() / 1000,
+      - 1, profileRawData.profile.birthday.day),
   }
 }
 ```
