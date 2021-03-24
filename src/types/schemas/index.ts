@@ -20,3 +20,4 @@ export { default as Setting } from 'types/schemas/Setting';
 export { default as Task } from 'types/schemas/Task';
 export { default as Transaction } from 'types/schemas/Transaction';
 export { default as Whereabout } from 'types/schemas/Whereabout';
+export { default as BrowserData } from 'types/schemas/BrowserData';
