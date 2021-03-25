@@ -148,7 +148,7 @@ export default abstract class Standardizer {
   static getPlugins(): Promise<Array<typeof Standardizer>> {
     return fs.promises.readdir(path.resolve(__dirname, PLUGINS_DIR))
       .then(dirContent => dirContent.map(
-        service => import(path.resolve(__dirname, PLUGINS_DIR, service))
+        service => import(path.resolve(__dirname, PLUGINS_DIR, service, service))
           .then(importedModule => importedModule.default),
       ))
       .then(promiseArr => Promise.all(promiseArr))
@@ -160,7 +160,7 @@ export default abstract class Standardizer {
   static getPluginsSync(): Array<typeof Standardizer> {
     return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR)).map(
       // eslint-disable-next-line import/no-dynamic-require,global-require
-      service => require(path.resolve(__dirname, PLUGINS_DIR, service)).default,
+      service => require(path.resolve(__dirname, PLUGINS_DIR, service, service)).default,
     )
   }
 }
