@@ -13,6 +13,9 @@
     "baseUrl": "./src",
     "lib": [
       "ESNext"
+    ],
+    "plugins": [
+      { "transform": "typescript-is/lib/transform-inline/transformer" }
     ]
   },
   "include": [
