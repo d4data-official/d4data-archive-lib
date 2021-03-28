@@ -139,7 +139,7 @@ export default abstract class Standardizer {
   static get getters() {
     const excludedKeys = ['constructor']
     return Object.getOwnPropertyNames(Standardizer.prototype)
-      .filter(propertyName => !excludedKeys.includes(propertyName))
+      .filter(propertyName => !excludedKeys.includes(propertyName) && propertyName.startsWith('get'))
   }
 
   /**
