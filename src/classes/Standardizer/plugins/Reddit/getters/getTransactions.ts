@@ -14,6 +14,6 @@ Reddit.prototype.getTransactions = async function getTransactions(options) {
   }))
   return {
     data: transactions,
-    parsedFiles: ['friends.csv'],
+    parsedFiles: ['reddit_gold_information.csv'],
   }
 }
