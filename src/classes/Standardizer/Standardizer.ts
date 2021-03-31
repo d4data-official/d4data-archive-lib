@@ -24,6 +24,7 @@ import {
 import Services from '../../types/Services'
 import Parser from '../Parser'
 import { GetterOptions } from '../../types/standardizer/Standardizer'
+import GetterReturn from '../../types/standardizer/GetterReturn'
 
 export const PLUGINS_DIR = 'plugins'
 
@@ -52,94 +53,94 @@ export default abstract class Standardizer {
    */
   abstract get subStandardizers(): Array<Standardizer>
 
-  async getProfile(options?: GetterOptions): Promise<Contact | null> {
+  async getProfile(options?: GetterOptions): GetterReturn<Contact> {
     return Promise.resolve(null)
   }
 
-  async getFriends(options?: GetterOptions): Promise<Array<Contact> | null> {
+  async getFriends(options?: GetterOptions): GetterReturn<Array<Contact>> {
     return Promise.resolve(null)
   }
 
-  async getFollowings(options?: GetterOptions): Promise<Array<Following> | null> {
+  async getFollowings(options?: GetterOptions): GetterReturn<Array<Following>> {
     return Promise.resolve(null)
   }
 
-  async getFollowers(options?: GetterOptions): Promise<Array<Contact> | null> {
+  async getFollowers(options?: GetterOptions): GetterReturn<Array<Contact>> {
     return Promise.resolve(null)
   }
 
-  async getContacts(options?: GetterOptions): Promise<Array<Contact> | null> {
+  async getContacts(options?: GetterOptions): GetterReturn<Array<Contact>> {
     return Promise.resolve(null)
   }
 
-  async getWhereabouts(options?: GetterOptions): Promise<Array<Whereabout> | null> {
+  async getWhereabouts(options?: GetterOptions): GetterReturn<Array<Whereabout>> {
     return Promise.resolve(null)
   }
 
-  async getNotifications(options?: GetterOptions): Promise<Array<Notification> | null> {
+  async getNotifications(options?: GetterOptions): GetterReturn<Array<Notification>> {
     return Promise.resolve(null)
   }
 
-  async getChats(options?: GetterOptions): Promise<Array<Chat> | null> {
+  async getChats(options?: GetterOptions): GetterReturn<Array<Chat>> {
     return Promise.resolve(null)
   }
 
-  async getComments(options?: GetterOptions): Promise<Array<Post> | null> {
+  async getComments(options?: GetterOptions): GetterReturn<Array<Post>> {
     return Promise.resolve(null)
   }
 
-  async getPosts(options?: GetterOptions): Promise<Array<Post> | null> {
+  async getPosts(options?: GetterOptions): GetterReturn<Array<Post>> {
     return Promise.resolve(null)
   }
 
-  async getAPIs(options?: GetterOptions): Promise<Array<API> | null> {
+  async getAPIs(options?: GetterOptions): GetterReturn<Array<API>> {
     return Promise.resolve(null)
   }
 
-  async getConnections(options?: GetterOptions): Promise<Array<Connection> | null> {
+  async getConnections(options?: GetterOptions): GetterReturn<Array<Connection>> {
     return Promise.resolve(null)
   }
 
-  async getCommunities(options?: GetterOptions): Promise<Array<Community> | null> {
+  async getCommunities(options?: GetterOptions): GetterReturn<Array<Community>> {
     return Promise.resolve(null)
   }
 
-  async getSettings(options?: GetterOptions): Promise<Array<Setting> | null> {
+  async getSettings(options?: GetterOptions): GetterReturn<Array<Setting>> {
     return Promise.resolve(null)
   }
 
-  async getReacted(options?: GetterOptions): Promise<Array<Reacted> | null> {
+  async getReacted(options?: GetterOptions): GetterReturn<Array<Reacted>> {
     return Promise.resolve(null)
   }
 
-  async getMedias(options?: GetterOptions): Promise<Array<Media> | null> {
+  async getMedias(options?: GetterOptions): GetterReturn<Array<Media>> {
     return Promise.resolve(null)
   }
 
-  async getTransactions(options?: GetterOptions): Promise<Array<Transaction> | null> {
+  async getTransactions(options?: GetterOptions): GetterReturn<Array<Transaction>> {
     return Promise.resolve(null)
   }
 
-  async getBrowserData(options?: GetterOptions): Promise<BrowserData | null> {
+  async getBrowserData(options?: GetterOptions): GetterReturn<BrowserData> {
     return Promise.resolve(null)
   }
 
-  async getTasks(options?: GetterOptions): Promise<Array<Task> | null> {
+  async getTasks(options?: GetterOptions): GetterReturn<Array<Task>> {
     return Promise.resolve(null)
   }
 
-  async getAuthorizedDevices(options?: GetterOptions): Promise<Array<AuthorizedDevice> | null> {
+  async getAuthorizedDevices(options?: GetterOptions): GetterReturn<Array<AuthorizedDevice>> {
     return Promise.resolve(null)
   }
 
-  async getMail(options?: GetterOptions): Promise<Array<Mail> | null> {
+  async getMail(options?: GetterOptions): GetterReturn<Array<Mail>> {
     return Promise.resolve(null)
   }
 
   static get getters() {
     const excludedKeys = ['constructor']
     return Object.getOwnPropertyNames(Standardizer.prototype)
-      .filter(propertyName => !excludedKeys.includes(propertyName))
+      .filter(propertyName => !excludedKeys.includes(propertyName) && propertyName.startsWith('get'))
   }
 
   /**
@@ -148,7 +149,7 @@ export default abstract class Standardizer {
   static getPlugins(): Promise<Array<typeof Standardizer>> {
     return fs.promises.readdir(path.resolve(__dirname, PLUGINS_DIR))
       .then(dirContent => dirContent.map(
-        service => import(path.resolve(__dirname, PLUGINS_DIR, service))
+        service => import(path.resolve(__dirname, PLUGINS_DIR, service, service))
           .then(importedModule => importedModule.default),
       ))
       .then(promiseArr => Promise.all(promiseArr))
@@ -160,7 +161,7 @@ export default abstract class Standardizer {
   static getPluginsSync(): Array<typeof Standardizer> {
     return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR)).map(
       // eslint-disable-next-line import/no-dynamic-require,global-require
-      service => require(path.resolve(__dirname, PLUGINS_DIR, service)).default,
+      service => require(path.resolve(__dirname, PLUGINS_DIR, service, service)).default,
     )
   }
 }
