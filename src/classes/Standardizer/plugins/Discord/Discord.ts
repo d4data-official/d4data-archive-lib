@@ -1,4 +1,5 @@
-import Standardizer from '../../Standardizer'
+import path from 'path'
+import Standardizer, { EXTERNAL_GETTERS_DIR } from '../../Standardizer'
 import Services from '../../../../types/Services'
 
 export default class Discord extends Standardizer {
@@ -14,3 +15,5 @@ export default class Discord extends Standardizer {
     return []
   }
 }
+
+Standardizer.importExternalGettersSync(path.resolve(__dirname, EXTERNAL_GETTERS_DIR))

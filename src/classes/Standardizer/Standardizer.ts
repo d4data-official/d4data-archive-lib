@@ -27,6 +27,7 @@ import { GetterOptions } from '../../types/standardizer/Standardizer'
 import GetterReturn from '../../types/standardizer/GetterReturn'
 
 export const PLUGINS_DIR = 'plugins'
+export const EXTERNAL_GETTERS_DIR = 'getters'
 
 export default abstract class Standardizer {
   path: string
@@ -163,5 +164,16 @@ export default abstract class Standardizer {
       // eslint-disable-next-line import/no-dynamic-require,global-require
       service => require(path.resolve(__dirname, PLUGINS_DIR, service, service)).default,
     )
+  }
+
+  /**
+   * Import synchronously external getters from given directory.
+   */
+  static importExternalGettersSync(dirPath: string): void {
+    const getterFiles = fs.readdirSync(dirPath)
+      .filter(file => Standardizer.getters.includes(path.parse(file).name))
+
+    // eslint-disable-next-line import/no-dynamic-require,global-require
+    getterFiles.map(getterFile => require(path.resolve(dirPath, getterFile)))
   }
 }

@@ -1,7 +1,5 @@
-import Standardizer from '../../Standardizer'
-import { Contact } from '../../../../types/schemas'
-import { GetterOptions } from '../../../../types/standardizer/Standardizer'
-import GetterReturn from '../../../../types/standardizer/GetterReturn'
+import path from 'path'
+import Standardizer, { EXTERNAL_GETTERS_DIR } from '../../Standardizer'
 import Services from '../../../../types/Services'
 
 export default class Reddit extends Standardizer {
@@ -16,18 +14,6 @@ export default class Reddit extends Standardizer {
   get subStandardizers(): Array<Standardizer> {
     return []
   }
-
-  async getFriends(options?: GetterOptions): GetterReturn<Array<Contact>> {
-    const FriendsRawData = await this.parser.parseAsCSV(
-      'friends.csv',
-      options?.parsingOptions,
-    )
-    const stck = FriendsRawData.map(friend => ({
-      displayName: friend.username,
-    }))
-    return {
-      data: stck,
-      parsedFiles: ['friends.csv'],
-    }
-  }
 }
+
+Standardizer.importExternalGettersSync(path.resolve(__dirname, EXTERNAL_GETTERS_DIR))
