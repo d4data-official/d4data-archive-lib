@@ -1,5 +1,5 @@
-import { Reacted } from 'types/schemas'
-import Standardizer from '../../Standardizer'
+import path from 'path'
+import Standardizer, { EXTERNAL_GETTERS_DIR } from '../../Standardizer'
 import Services from '../../../../types/Services'
 import { GetterOptions } from '../../../../types/standardizer/Standardizer'
 import GetterReturn from '../../../../types/standardizer/GetterReturn'
@@ -37,3 +37,5 @@ export default class Reddit extends Standardizer {
     }
   }
 }
+
+Standardizer.importExternalGettersSync(path.resolve(__dirname, EXTERNAL_GETTERS_DIR))
