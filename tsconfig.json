@@ -12,6 +12,7 @@
     "outDir": "dist",
     "baseUrl": "./src",
     "lib": [
+      "dom",
       "ESNext"
     ],
     "plugins": [
