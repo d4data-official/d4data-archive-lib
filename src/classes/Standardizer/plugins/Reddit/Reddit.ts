@@ -19,7 +19,7 @@ export default class Reddit extends Standardizer {
 
   async getFriends(options?: GetterOptions): GetterReturn<Array<Contact>> {
     const FriendsRawData = await this.parser.parseAsCSV(
-      'friend.csv',
+      'friends.csv',
       options?.parsingOptions,
     )
     const stck = FriendsRawData.map(friend => ({
@@ -27,7 +27,7 @@ export default class Reddit extends Standardizer {
     }))
     return {
       data: stck,
-      parsedFiles: ['friend.csv'],
+      parsedFiles: ['friends.csv'],
     }
   }
 }
