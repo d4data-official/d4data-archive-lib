@@ -18,7 +18,7 @@ export default class Google extends Archive {
     }
 
     const dom = await parseAsHTML(await Pipeline.fromArchive(this.path, 'Takeout/archive_browser.html'))
-    const htmlTitle: string | undefined = dom.window.document.querySelector('title')?.textContent
+    const htmlTitle = dom.window.document.querySelector('title')?.textContent
 
     return htmlTitle?.endsWith('Google') ?? false
   }
