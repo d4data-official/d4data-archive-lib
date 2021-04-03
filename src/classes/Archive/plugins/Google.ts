@@ -28,9 +28,9 @@ export default class Google extends Archive {
   }
 
   get standardizer(): Standardizer {
-    if (!this.isExtracted) {
+    if (!this.isExtracted()) {
       throw new Error('Archive not extracted')
     }
-    return new GoogleStandardizer(this.extractedArchivePath!)
+    return new GoogleStandardizer(this.extractedArchivePath)
   }
 }

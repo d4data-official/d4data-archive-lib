@@ -19,9 +19,9 @@ export default class Facebook extends Archive {
   }
 
   get standardizer(): Standardizer {
-    if (!this.isExtracted) {
+    if (!this.isExtracted()) {
       throw new Error('Archive not extracted')
     }
-    return new FacebookStandardizer(this.extractedArchivePath!)
+    return new FacebookStandardizer(this.extractedArchivePath)
   }
 }

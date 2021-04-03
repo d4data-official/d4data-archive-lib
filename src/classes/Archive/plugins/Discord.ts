@@ -19,9 +19,9 @@ export default class Discord extends Archive {
   }
 
   get standardizer(): Standardizer {
-    if (!this.isExtracted) {
+    if (!this.isExtracted()) {
       throw new Error('Archive not extracted')
     }
-    return new DiscordStandardizer(this.extractedArchivePath!)
+    return new DiscordStandardizer(this.extractedArchivePath)
   }
 }
