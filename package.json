@@ -15,7 +15,8 @@
   },
   "ava": {
     "files": [
-      "test/**/*"
+      "test/**/*",
+      "!test/utils/**/*"
     ],
     "extensions": [
       "ts"
