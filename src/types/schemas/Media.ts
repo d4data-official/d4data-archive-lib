@@ -6,9 +6,10 @@ export enum MediaType {
 
 export default interface Media {
   /**
-   * Absolute path on the host
+   * URL to the media
+   * For local media use the file protocol in the URL (file:///path/to/media)
    */
-  path: string
+  url: string
 
   /**
    * Media size in bytes
