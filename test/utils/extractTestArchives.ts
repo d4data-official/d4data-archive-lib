@@ -38,6 +38,7 @@ export default async function extractTestArchives(archiveDir: string, options?: 
       }))
   })
 
-  return Promise.all(extractionProcesses)
-    .then(() => report)
+  await Promise.all(extractionProcesses)
+
+  return report
 }
