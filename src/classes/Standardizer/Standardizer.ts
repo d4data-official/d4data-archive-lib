@@ -179,6 +179,10 @@ export default abstract class Standardizer {
     getterFiles.map(getterFile => require(path.resolve(dirPath, getterFile)))
   }
 
+  /**
+   * Get validation function list to test returned data type of each getters.
+   * Validation function return a boolean for valid/invalid data type.
+   */
   static getterDataValidators(): Record<Getters, (data: any) => boolean> {
     return {
       getProfile: data => is<Contact>(data),
@@ -205,6 +209,10 @@ export default abstract class Standardizer {
     }
   }
 
+  /**
+   * Get assertion function list to test returned data type of each getters.
+   * Assertion function return the given data if valid else throw error with useful informations.
+   */
   static getterDataAssertions(): Record<Getters, (data: any) => any> {
     return {
       getProfile: data => assertType<Contact>(data),
