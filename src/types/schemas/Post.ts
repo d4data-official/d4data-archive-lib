@@ -1,68 +1,34 @@
-import Event from 'types/schemas/Event';
-import Location from 'types/schemas/Location';
-import Media from 'types/schemas/Media';
-import Reaction from 'types/schemas/Reaction';
-
-export interface ExternalContext {
-  /**
-   * link of an external site
-   */
-  url?: string;
-}
+import Event from 'types/schemas/Event'
+import Location from 'types/schemas/Location'
+import Media from 'types/schemas/Media'
+import Reaction from 'types/schemas/Reaction'
 
 export default interface Post {
-  /**
-   * Creation date of the post in timestamp format
-   */
   creationDate: Date;
 
-  /**
-   * video or image linked with post
-   */
-  medias?: Array<Media>;
-
-  /**
-   * reaction linked with post
-   */
-  reactions?: Array<Reaction>;
-
-  /**
-   * who posted
-   */
   sender: string
 
-  /**
-   * pseudo of the sender for Twitter only
-   */
-  alias?: string;
-
-  /**
-   * Title of the post
-   */
   title?: string;
 
-  /**
-   * message posted
-   */
   content?: string;
 
-  /**
-   * post with a location link
-   */
-  location?: Location;
+  metaData?: {
+    /**
+     * Post reactions (ex: likes)
+     */
+    reactions?: Array<Reaction>;
 
-  /**
-   * post with a event link
-   */
-  event?: Event;
+    /**
+     * List of URL associated with the post
+     */
+    links?: Array<string>;
 
-  /**
-   * post with link of an external site
-   */
-  externalContext?: ExternalContext;
+    userTags?: Array<string>
 
-  /**
-   * list of person tag on the post
-   */
-  tags?: Array<string>;
+    locations?: Location;
+
+    events?: Event;
+
+    medias?: Array<Media>;
+  }
 }
