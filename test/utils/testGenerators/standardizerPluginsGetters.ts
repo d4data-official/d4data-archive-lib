@@ -50,6 +50,7 @@ export default function standardizerPluginsGetters(standardizer: Standardizer) {
   test.before('Extract test archives', async t => {
     await extractTestArchives(LOCAL_ARCHIVE_DIR!, {
       onSkip: reason => t.log(reason),
+      onExtracted: archivePath => t.log(`Archive extracted: ${ archivePath }`),
     })
     t.log(`Test archives extracted in ${ path.resolve(LOCAL_ARCHIVE_DIR!, EXTRACTION_DIR) }`)
   })
