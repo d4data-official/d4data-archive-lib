@@ -21,10 +21,12 @@ import {
   Transaction,
   Whereabout,
 } from 'types/schemas'
+import { assertType, is } from 'typescript-is'
 import Services from '../../types/Services'
 import Parser from '../Parser'
 import { GetterOptions } from '../../types/standardizer/Standardizer'
 import GetterReturn from '../../types/standardizer/GetterReturn'
+import Getters from '../../types/standardizer/Getters'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -175,5 +177,57 @@ export default abstract class Standardizer {
 
     // eslint-disable-next-line import/no-dynamic-require,global-require
     getterFiles.map(getterFile => require(path.resolve(dirPath, getterFile)))
+  }
+
+  static getterDataValidators(): Record<Getters, (data: any) => boolean> {
+    return {
+      getProfile: data => is<Contact>(data),
+      getFriends: data => is<Array<Contact>>(data),
+      getFollowings: data => is<Array<Following>>(data),
+      getFollowers: data => is<Array<Contact>>(data),
+      getContacts: data => is<Array<Contact>>(data),
+      getWhereabouts: data => is<Array<Whereabout>>(data),
+      getNotifications: data => is<Array<Notification>>(data),
+      getChats: data => is<Array<Chat>>(data),
+      getComments: data => is<Array<Post>>(data),
+      getPosts: data => is<Array<Post>>(data),
+      getAPIs: data => is<Array<API>>(data),
+      getConnections: data => is<Array<Connection>>(data),
+      getCommunities: data => is<Array<Community>>(data),
+      getSettings: data => is<Array<Setting>>(data),
+      getReacted: data => is<Array<Reacted>>(data),
+      getMedias: data => is<Array<Media>>(data),
+      getTransactions: data => is<Array<Transaction>>(data),
+      getBrowserData: data => is<BrowserData>(data),
+      getTasks: data => is<Array<Task>>(data),
+      getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
+      getMail: data => is<Array<Mail>>(data),
+    }
+  }
+
+  static getterDataAssertions(): Record<Getters, (data: any) => any> {
+    return {
+      getProfile: data => assertType<Contact>(data),
+      getFriends: data => assertType<Array<Contact>>(data),
+      getFollowings: data => assertType<Array<Following>>(data),
+      getFollowers: data => assertType<Array<Contact>>(data),
+      getContacts: data => assertType<Array<Contact>>(data),
+      getWhereabouts: data => assertType<Array<Whereabout>>(data),
+      getNotifications: data => assertType<Array<Notification>>(data),
+      getChats: data => assertType<Array<Chat>>(data),
+      getComments: data => assertType<Array<Post>>(data),
+      getPosts: data => assertType<Array<Post>>(data),
+      getAPIs: data => assertType<Array<API>>(data),
+      getConnections: data => assertType<Array<Connection>>(data),
+      getCommunities: data => assertType<Array<Community>>(data),
+      getSettings: data => assertType<Array<Setting>>(data),
+      getReacted: data => assertType<Array<Reacted>>(data),
+      getMedias: data => assertType<Array<Media>>(data),
+      getTransactions: data => assertType<Array<Transaction>>(data),
+      getBrowserData: data => assertType<BrowserData>(data),
+      getTasks: data => assertType<Array<Task>>(data),
+      getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
+      getMail: data => assertType<Array<Mail>>(data),
+    }
   }
 }
