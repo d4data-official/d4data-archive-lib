@@ -9,6 +9,7 @@ export const EXTRACTION_DIR = '.d4data_archive_lib'
 
 export default async function extractTestArchives(archiveDir: string, options?: {
   onSkip?: (reason: string) => void
+  onExtracted?: (archivePath: string) => void
 }): Promise<ArchiveExtractionReport> {
   const report: ArchiveExtractionReport = {}
   const files = await fs.promises.readdir(archiveDir, { withFileTypes: true })
@@ -36,6 +37,7 @@ export default async function extractTestArchives(archiveDir: string, options?: 
       .then(plugin => plugin.extract({
         outputDir: extractionDir,
       }))
+      .then(() => options?.onExtracted?.(file))
   })
 
   await Promise.all(extractionProcesses)
