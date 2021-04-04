@@ -12,4 +12,9 @@ export default interface Following {
    * Either Community or Contact instance
    */
   entity: Community | Contact
+
+  /**
+   * Following since date (optional)
+   */
+  followedSince?: Date
 }
