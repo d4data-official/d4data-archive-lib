@@ -10,20 +10,26 @@ export interface Context {
 
 const { LOCAL_ARCHIVE_DIR } = process.env
 
+type SkippedGetters =
+  | Getters.CHAT_MESSAGES
+const skippedGetters = [Getters.CHAT_MESSAGES]
 const getterValidators = Standardizer.getterDataAssertions()
+const parsingOptions = {
+  pagination: {
+    offset: 0,
+    items: 10,
+  },
+}
 
 const test = anyTest as TestInterface<Context>
 const maybeTest = LOCAL_ARCHIVE_DIR ? test : test.skip
 
 async function macro(t: ExecutionContext<Context>, standardizer: Standardizer, getter: Getters) {
-  const result = await standardizer[getter]({
-    parsingOptions: {
-      pagination: {
-        offset: 0,
-        items: 10,
-      },
-    },
-  })
+  if (skippedGetters.includes(getter)) {
+    throw new Error(`Can not test ${ getter }, spacial test required for this getter`)
+  }
+
+  const result = await standardizer[getter as Exclude<Getters, SkippedGetters>]({ parsingOptions })
 
   if (result === null) {
     t.pass()
@@ -56,6 +62,10 @@ export default function standardizerPluginsGetters(standardizer: Standardizer) {
   })
 
   for (const getter of Object.values(Getters)) {
-    maybeTest(`${ standardizer.service }: ${ getter } must return valid type`, macro, standardizer, getter)
+    if (skippedGetters.includes(getter)) {
+      test.todo(`${ standardizer.service }: ${ getter } must return valid type`)
+    } else {
+      maybeTest(`${ standardizer.service }: ${ getter } must return valid type`, macro, standardizer, getter)
+    }
   }
 }
