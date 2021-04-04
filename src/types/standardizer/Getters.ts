@@ -7,6 +7,7 @@ enum Getters {
   WHEREABOUTS = 'getWhereabouts',
   NOTIFICATIONS = 'getNotifications',
   CHATS = 'getChats',
+  CHAT_MESSAGES = 'getChatMessages',
   COMMENTS = 'getComments',
   POSTS = 'getPosts',
   APIS = 'getAPIs',
