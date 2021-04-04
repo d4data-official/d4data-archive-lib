@@ -3,10 +3,12 @@
 import fs from 'fs'
 import path from 'path'
 import {
+  Profile,
   API,
   AuthorizedDevice,
   BrowserData,
   Chat,
+  ChatMessage,
   Community,
   Connection,
   Contact,
@@ -15,6 +17,7 @@ import {
   Media,
   Notification,
   Post,
+  Comment,
   Reacted,
   Setting,
   Task,
@@ -29,8 +32,6 @@ import { GetterOptions } from '../../types/standardizer/Standardizer'
 import GetterReturn from '../../types/standardizer/GetterReturn'
 import { MediaType } from '../../types/schemas/Media';
 import Getters from '../../types/standardizer/Getters'
-import Profile from '../../types/schemas/Profile'
-import Comment from '../../types/schemas/Comment'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -89,6 +90,10 @@ export default abstract class Standardizer {
   }
 
   async getChats(options?: GetterOptions): GetterReturn<Array<Chat>> {
+    return Promise.resolve(null)
+  }
+
+  async getChatMessages(chatId: string, options?: GetterOptions): GetterReturn<Array<Chat>> {
     return Promise.resolve(null)
   }
 
@@ -215,6 +220,7 @@ export default abstract class Standardizer {
       getWhereabouts: data => is<Array<Whereabout>>(data),
       getNotifications: data => is<Array<Notification>>(data),
       getChats: data => is<Array<Chat>>(data),
+      getChatMessages: data => is<Array<ChatMessage>>(data),
       getComments: data => is<Array<Post>>(data),
       getPosts: data => is<Array<Post>>(data),
       getAPIs: data => is<Array<API>>(data),
@@ -245,6 +251,7 @@ export default abstract class Standardizer {
       getWhereabouts: data => assertType<Array<Whereabout>>(data),
       getNotifications: data => assertType<Array<Notification>>(data),
       getChats: data => assertType<Array<Chat>>(data),
+      getChatMessages: data => assertType<Array<ChatMessage>>(data),
       getComments: data => assertType<Array<Post>>(data),
       getPosts: data => assertType<Array<Post>>(data),
       getAPIs: data => assertType<Array<API>>(data),

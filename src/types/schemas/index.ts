@@ -3,6 +3,7 @@ export { default as API } from 'types/schemas/API';
 export { default as Archive } from 'types/schemas/Archive';
 export { default as AuthorizedDevice } from 'types/schemas/AuthorizedDevice';
 export { default as Chat } from 'types/schemas/Chat';
+export { default as ChatMessage } from 'types/schemas/ChatMessage';
 export { default as Community } from 'types/schemas/Community';
 export { default as Connection } from 'types/schemas/Connection';
 export { default as Contact } from 'types/schemas/Contact';
