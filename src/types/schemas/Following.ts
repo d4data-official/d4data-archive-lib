@@ -16,5 +16,5 @@ export default interface Following {
   /**
    * Following since date (optional)
    */
-  followedSince?: Date
+  followedSince?: Date | undefined
 }

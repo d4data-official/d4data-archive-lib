@@ -9,15 +9,15 @@ export default interface Connection {
   /**
    * Reference to location related to the IP
    */
-  location?: Location;
+  location?: Location | undefined
 
   /**
    * Browser agent + computer name detected by service
    */
-  browser?: string;
+  browser?: string | undefined
 
   /**
    * Timestamp of recorded connection
    */
-  timestamp: Date;
+  timestamp: Date | undefined
 }

@@ -7,22 +7,22 @@ export default interface Task {
   /**
    * date at witch the task was creates (timestamp)
    */
-  createdAt?: Date;
+  createdAt?: Date | undefined
 
   /**
    * date at witch the task was up: date (timestamp)
    */
-  updateAt?: number;
+  updateAt?: number | undefined
 
   /**
    * date at witch the task was ended (timestamp)
    */
-  endAt?: number;
+  endAt?: number | undefined
 
   /**
    * due date of the task (timestamp)
    */
-  dueDate?: Date;
+  dueDate?: Date | undefined
 
   /**
    * status of the task
@@ -32,15 +32,15 @@ export default interface Task {
   /**
    * description of the task
    */
-  description?: string;
+  description?: string | undefined
 
   /**
    * type of task
    */
-  taskType?: string;
+  taskType?: string | undefined
 
   /**
    * list of sub-task
    */
-  children?: Array<Task>;
+  children?: Array<Task> | undefined
 }

@@ -2,12 +2,12 @@ export default interface Transaction {
   /**
    * date of transaction (timestamp)
    */
-  date?: number;
+  date?: number | undefined
 
   /**
    * description of transaction
    */
-  description?: string;
+  description?: string | undefined
 
   /**
    * type of currency
@@ -22,12 +22,12 @@ export default interface Transaction {
   /**
    * status of transaction (pending, done ...)
    */
-  status?: string;
+  status?: string | undefined
 
   /**
    * method used for payment
    */
-  paymentMethod?: string;
+  paymentMethod?: string | undefined
 
   /**
    * product name

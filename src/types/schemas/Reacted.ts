@@ -7,15 +7,15 @@ export default interface Reacted {
   /**
    * name of the entity's type
    */
-  type: 'media' | 'post' | 'community' | 'externalLink';
+  type: 'media' | 'post' | 'community' | 'externalLink'
 
   /**
    * entity
    */
-  entity: Media | Post | Community | string;
+  entity: Media | Post | Community | string
 
   /**
    * Interface of property
    */
-  reaction?: Reaction;
+  reaction?: Reaction | undefined
 }

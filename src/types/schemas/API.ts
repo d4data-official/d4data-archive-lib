@@ -7,5 +7,5 @@ export default interface API {
   /**
    * date of API linking
    */
-  linkingDate?: Date;
+  linkingDate?: Date | undefined
 }
