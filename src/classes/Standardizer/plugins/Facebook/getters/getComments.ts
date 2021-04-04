@@ -1,5 +1,5 @@
 import Facebook from '../Facebook'
-import { Post } from '../../../../../types/schemas'
+import { Comment } from '../../../../../types/schemas'
 
 const COMMENTS_FILE = 'security_and_login_information/account_activity.json'
 
@@ -29,7 +29,7 @@ interface FBComments {
 Facebook.prototype.getComments = async function getComments(options) {
   const commentList = await this.parser.parseAsJSON<FBComments>(COMMENTS_FILE, options?.parsingOptions)
 
-  const comments : Array<Post> = commentList.comments.map((comment) => {
+  const comments : Array<Comment> = commentList.comments.map((comment) => {
     const externalLink = comment?.attachments?.[0]?.data?.[0].media?.uri
     return {
       creationDate: new Date(comment.timestamp * 1000),

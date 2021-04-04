@@ -1,5 +1,5 @@
 import Facebook from '../Facebook'
-import { Contact } from '../../../../../types/schemas';
+import { Profile } from '../../../../../types/schemas';
 
 const ACCOUNT_PROFILE_FILE = 'profile_information/profile_information.json'
 
@@ -48,7 +48,7 @@ interface FBProfile {
 Facebook.prototype.getProfile = async function getProfile(options) {
   const accountDetails = await this.parser.parseAsJSON<FBProfile>(ACCOUNT_PROFILE_FILE, options?.parsingOptions)
 
-  const account: Contact = {
+  const account: Profile = {
     firstName: accountDetails.profile.name.first_name,
     lastName: accountDetails.profile.name.last_name,
     gender: accountDetails.profile.gender.pronoun,
