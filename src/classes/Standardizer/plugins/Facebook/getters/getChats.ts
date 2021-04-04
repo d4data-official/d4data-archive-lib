@@ -27,7 +27,7 @@ interface FBChats {
   thread_path?: string
 }
 
-Facebook.prototype.getChats = async function getConnections(options) {
+Facebook.prototype.getChats = async function getChats(options) {
   const filesInbox = await this.parser.listFiles(MESSAGES_INBOX).then(
     (paths) => paths.filter((path) => path.endsWith('message_1.json')),
   )

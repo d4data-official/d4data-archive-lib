@@ -10,7 +10,7 @@ interface Friends {
   }>
 }
 
-Facebook.prototype.getFriends = async function getConnections(options) {
+Facebook.prototype.getFriends = async function getFriends(options) {
   const friendList = await this.parser.parseAsJSON<Friends>(ACCOUNT_FRIENDS_FILE, options?.parsingOptions)
 
   const friends : Array<Contact> = friendList.friends.map((friend) => ({
