@@ -13,6 +13,7 @@ export { default as Media } from 'types/schemas/Media';
 export { default as Message } from 'types/schemas/Message';
 export { default as Notification } from 'types/schemas/Notification';
 export { default as Post } from 'types/schemas/Post';
+export { default as Comment } from 'types/schemas/Comment';
 export { default as ProfilePicture } from 'types/schemas/ProfilePicture';
 export { default as Reacted } from 'types/schemas/Reacted';
 export { default as Reaction } from 'types/schemas/Reaction';

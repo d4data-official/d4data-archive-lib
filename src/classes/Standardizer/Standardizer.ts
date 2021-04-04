@@ -28,6 +28,7 @@ import { GetterOptions } from '../../types/standardizer/Standardizer'
 import GetterReturn from '../../types/standardizer/GetterReturn'
 import Getters from '../../types/standardizer/Getters'
 import Profile from '../../types/schemas/Profile'
+import Comment from '../../types/schemas/Comment'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -89,7 +90,7 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
-  async getComments(options?: GetterOptions): GetterReturn<Array<Post>> {
+  async getComments(options?: GetterOptions): GetterReturn<Array<Comment>> {
     return Promise.resolve(null)
   }
 
