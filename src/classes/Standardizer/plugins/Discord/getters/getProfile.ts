@@ -1,7 +1,7 @@
 import path from 'path'
 import Discord from '../Discord'
 import { Contact } from '../../../../../types/schemas'
-import { MediaType } from '../../../../../types/schemas/media'
+import { MediaType } from '../../../../../types/schemas/Media'
 
 const ACCOUNT_FILE = 'account/user.json'
 
