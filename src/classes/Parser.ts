@@ -1,7 +1,8 @@
 import path from 'path'
 import { JSDOM } from 'jsdom'
-import { PaginationOptions, ParsingOptions, Preprocessor, PreprocessorOptions } from '../types/Parsing'
+import { FilterOptions, PaginationOptions, ParsingOptions, Preprocessor, PreprocessorOptions } from '../types/Parsing'
 import listFiles, { OptionsListFiles } from '../modules/Parsing/listFiles'
+import findFiles from '../modules/Parsing/findFiles'
 import parseDir, { OptionsParseDir } from '../modules/Parsing/parseDir'
 import parseFile, { OptionsParseFile } from '../modules/Parsing/parseFile'
 import parseAsText, { OptionsParseAsText } from '../modules/Parsing/parseAsText'
@@ -62,6 +63,13 @@ export default class Parser {
    */
   async listFiles(relativeDirPath: string, options?: OptionsListFiles): Promise<Array<string>> {
     return listFiles(this.resolveRelativePath(relativeDirPath), options)
+  }
+
+  /**
+   * List all files that matches the given regular expression
+   */
+  async findFiles(regex: RegExp, relativePath?: string, options?: FilterOptions): Promise<Array<string>> {
+    return findFiles(regex, this.resolveRelativePath(relativePath || '.'), options)
   }
 
   /**
