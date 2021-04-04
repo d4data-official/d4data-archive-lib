@@ -1,3 +1,4 @@
+export { default as Profile } from 'types/schemas/Profile';
 export { default as API } from 'types/schemas/API';
 export { default as Archive } from 'types/schemas/Archive';
 export { default as AuthorizedDevice } from 'types/schemas/AuthorizedDevice';
