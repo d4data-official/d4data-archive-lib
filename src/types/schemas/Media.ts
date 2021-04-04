@@ -14,10 +14,10 @@ export default interface Media {
   /**
    * Media size in bytes
    */
-  size: number
+  size?: number
 
   /**
    * Media type
    */
-  type: MediaType
+  type?: MediaType
 }
