@@ -1,5 +1,4 @@
 import Facebook from '../Facebook'
-import { Chat } from '../../../../../types/schemas';
 
 const MESSAGES_INBOX = 'messages/inbox'
 const MESSAGES_ARCHIVE = 'messages/inbox'
@@ -27,7 +26,7 @@ interface FBChats {
   thread_path?: string
 }
 
-Facebook.prototype.getChats = async function getConnections(options) {
+Facebook.prototype.getChatMessages = async function getChatMessages(chatId, options) {
   const filesInbox = await this.parser.listFiles(MESSAGES_INBOX).then(
     (paths) => paths.filter((path) => path.endsWith('message_1.json')),
   )
@@ -35,16 +34,18 @@ Facebook.prototype.getChats = async function getConnections(options) {
     (paths) => paths.filter((path) => path.endsWith('message_1.json')),
   )
   const files = filesInbox.concat(filesArchive)
-  const chats = await Promise.all(files.map(
-    (file, index) => this.parser.parseAsJSON<FBChats>(file, options?.parsingOptions).then((chat) => ({
-      id: index.toString(),
-      title: chat.title,
-      participants: chat.participants.map((participant) => participant.name),
-    } as Chat)),
-  ))
+  const messageList = await this.parser.parseAsJSON<FBChats>(files[Number(chatId)], options?.parsingOptions)
+
+  const messages = messageList.messages.map((message) => ({
+    sender: message.sender_name,
+    text: message.content,
+    reactions: message.reactions?.map((reaction) => ({
+      name: reaction.reaction,
+    })),
+  }))
 
   return {
-    data: chats,
+    data: messages,
     parsedFiles: files,
   }
 }
