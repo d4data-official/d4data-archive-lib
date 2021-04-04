@@ -12,6 +12,7 @@
     "outDir": "dist",
     "baseUrl": "./src",
     "lib": [
+      "dom",
       "ESNext"
     ],
     "plugins": [
@@ -19,8 +20,8 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "test/**/*.ts"
+    "src/**/*",
+    "test/**/*"
   ],
   "exclude": [
     "node_modules",
