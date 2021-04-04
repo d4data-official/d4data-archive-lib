@@ -19,5 +19,5 @@ export default interface Media {
   /**
    * Media type
    */
-  type?: MediaType
+  type: MediaType
 }
