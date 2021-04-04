@@ -27,6 +27,7 @@ import Parser from '../Parser'
 import { GetterOptions } from '../../types/standardizer/Standardizer'
 import GetterReturn from '../../types/standardizer/GetterReturn'
 import Getters from '../../types/standardizer/Getters'
+import Profile from '../../types/schemas/Profile'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -56,7 +57,7 @@ export default abstract class Standardizer {
    */
   abstract get subStandardizers(): Array<Standardizer>
 
-  async getProfile(options?: GetterOptions): GetterReturn<Contact> {
+  async getProfile(options?: GetterOptions): GetterReturn<Profile> {
     return Promise.resolve(null)
   }
 
@@ -185,7 +186,7 @@ export default abstract class Standardizer {
    */
   static getterDataValidators(): Record<Getters, (data: any) => boolean> {
     return {
-      getProfile: data => is<Contact>(data),
+      getProfile: data => is<Profile>(data),
       getFriends: data => is<Array<Contact>>(data),
       getFollowings: data => is<Array<Following>>(data),
       getFollowers: data => is<Array<Contact>>(data),
@@ -215,7 +216,7 @@ export default abstract class Standardizer {
    */
   static getterDataAssertions(): Record<Getters, (data: any) => any> {
     return {
-      getProfile: data => assertType<Contact>(data),
+      getProfile: data => assertType<Profile>(data),
       getFriends: data => assertType<Array<Contact>>(data),
       getFollowings: data => assertType<Array<Following>>(data),
       getFollowers: data => assertType<Array<Contact>>(data),
