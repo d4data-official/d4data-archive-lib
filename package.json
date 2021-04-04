@@ -7,7 +7,7 @@
     "build": "cross-env NODE_ENV=production rimraf dist && ttsc",
     "dev": "cross-env NODE_ENV=development ts-node-dev -C ttypescript --respawn --transpile-only -- src/index.ts",
     "lint": "eslint --fix .",
-    "test": "cross-env TS_NODE_COMPILER=ttypescript ava -v",
+    "test": "ava -v",
     "prepare": "husky install"
   },
   "engines": {
@@ -15,14 +15,18 @@
   },
   "ava": {
     "files": [
-      "test/**/*"
+      "test/**/*",
+      "!test/utils/**/*"
     ],
     "extensions": [
       "ts"
     ],
     "require": [
       "ts-node/register"
-    ]
+    ],
+    "environmentVariables": {
+      "TS_NODE_COMPILER": "ttypescript"
+    }
   },
   "dependencies": {
     "cross-env": "^7.0.3",

@@ -1,13 +1,10 @@
-import Media from 'types/schemas/Media';
+import Media from 'types/schemas/Media'
 
 export default interface ProfilePicture {
-  /**
-   * Index of current contact picture in history array
-   */
-  currentPictureIndex?: number;
+  current: Media;
 
   /**
-   * History of contact picture
+   * History of contact picture if available
    */
-  history?: Array<Media>
+  history: Array<Media>
 }

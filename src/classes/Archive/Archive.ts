@@ -24,7 +24,7 @@ export default abstract class Archive {
   /**
    * Is archive has been extracted
    */
-  get isExtracted(): boolean {
+  isExtracted(): this is { extractedArchivePath: string } {
     return this.extractedArchivePath !== undefined
   }
 

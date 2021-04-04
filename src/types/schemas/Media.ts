@@ -1,4 +1,4 @@
-enum MediaType {
+export enum MediaType {
   IMAGE = 'image',
   VIDEO = 'video',
   AUDIO = 'audio',
@@ -6,14 +6,15 @@ enum MediaType {
 
 export default interface Media {
   /**
-   * Absolute path on the host
+   * URL to the media
+   * For local media use the file protocol in the URL (file:///path/to/media)
    */
-  path: string
+  url: string
 
   /**
    * Media size in bytes
    */
-  size: number
+  size?: number
 
   /**
    * Media type
