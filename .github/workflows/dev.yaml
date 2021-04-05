@@ -3,11 +3,11 @@
 
 name: Development CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
-    runs-on: ['self-hosted']
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -25,11 +25,18 @@ jobs:
         path: '**/node_modules'
         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
         
+    - run: mkdir archives
+      name: Create archives folder
+      
+    - run: wget -O archives.txt https://drive.google.com/u/0/uc?id=1y1EFuacVzA7VthawS9GYLZZulrcYtSPN&export=download && while read line; do wget $line; done < archives.txt
+      working-directory: ./archives
+      name: Download archives
+        
     - run: yarn install
       name: Install dependencies
       
     - run: yarn build
       name: Build project
     
-    - run: LOCAL_ARCHIVE_DIR=/archives yarn test
+    - run: LOCAL_ARCHIVE_DIR=./archives yarn test
       name: Run unit tests
