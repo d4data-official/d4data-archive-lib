@@ -2,7 +2,7 @@ import Discord from '../Discord'
 import { Reacted } from '../../../../../types/schemas'
 
 Discord.prototype.getReacted = async function getReacted(options) {
-  const events = await this.parser.findFiles(/(tns)|(analytics)/, './activity')
+  const eventFiles = await this.parser.findFiles(/(tns)|(analytics)/, './activity')
   if (events.length === 0) {
     return {
       data: [],
