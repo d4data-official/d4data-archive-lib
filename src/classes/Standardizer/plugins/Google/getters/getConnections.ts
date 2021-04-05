@@ -1,8 +1,7 @@
-import path from 'path';
 import Google from '../Google'
 import { Connection } from '../../../../../types/schemas';
 
-const CONNECTIONS_FOLDER = 'Compte Google/'.split(/\ /).join('\ ')
+const CONNECTIONS_FOLDER = 'Takeout/Compte\\ Google/'
 
 Google.prototype.getConnections = async function getConnections(options) {
   const files = await this.parser.listFiles(CONNECTIONS_FOLDER, { extensionWhitelist: ['html'] })
