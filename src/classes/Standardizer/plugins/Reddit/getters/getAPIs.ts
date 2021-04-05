@@ -5,7 +5,7 @@ Reddit.prototype.getAPIs = async function getAPIs(options) {
     'twitter.csv',
     options?.parsingOptions,
   )
-  const stck = APIRawData.map(api => ({
+  const apis = APIRawData.map(api => ({
     name: api.username,
   }))
   return {
