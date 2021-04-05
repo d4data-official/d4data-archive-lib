@@ -1,7 +1,7 @@
 import Google from '../Google'
 import { Chat } from '../../../../../types/schemas'
 
-const ACCOUNT_CHAT_FILE = 'Hangouts/Hangouts.json'
+const ACCOUNT_CHAT_FILE = 'Takeout/Hangouts/Hangouts.json'
 
 Google.prototype.getChats = async function getChats(options) {
   const rawChats = await this.parser.parseAsJSON(ACCOUNT_CHAT_FILE, options?.parsingOptions)
