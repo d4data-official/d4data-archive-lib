@@ -7,7 +7,8 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    if: 1==2
+    runs-on: ['self-hosted']
 
     strategy:
       matrix:
@@ -25,16 +26,6 @@ jobs:
         path: '**/node_modules'
         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
         
-    - run: mkdir archives
-      name: Create archives folder
-      
-    - run: wget -O archives.txt https://drive.google.com/u/0/uc?id=1y1EFuacVzA7VthawS9GYLZZulrcYtSPN&export=download && true || true
-      working-directory: ./archives
-      name: Download archives list
-      
-    - run: while read line; do wget -O $(echo $line | sha512sum -).zip $line; done < archives.txt && true || true
-      working-directory: ./archives
-      name: Download Archives
         
     - run: yarn install
       name: Install dependencies
@@ -42,5 +33,5 @@ jobs:
     - run: yarn build
       name: Build project
     
-    - run: LOCAL_ARCHIVE_DIR=./archives yarn test
+    - run: LOCAL_ARCHIVE_DIR=/archives yarn test
       name: Run unit tests
