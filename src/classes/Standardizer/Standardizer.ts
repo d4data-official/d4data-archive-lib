@@ -93,7 +93,7 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
-  async getChatMessages(chatId: string, options?: GetterOptions): GetterReturn<Array<Chat>> {
+  async getChatMessages(chatId: string, options?: GetterOptions): GetterReturn<Array<ChatMessage>> {
     return Promise.resolve(null)
   }
 
