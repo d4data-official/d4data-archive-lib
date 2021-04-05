@@ -8,7 +8,7 @@
     "dev": "cross-env NODE_ENV=development ts-node-dev -C ttypescript --respawn --transpile-only -- src/index.ts",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "test": "ava -v",
+    "test": "ava --timeout=5m -v",
     "prepare": "husky install"
   },
   "engines": {
