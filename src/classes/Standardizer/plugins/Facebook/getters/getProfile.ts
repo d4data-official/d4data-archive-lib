@@ -53,8 +53,8 @@ Facebook.prototype.getProfile = async function getProfile(options) {
     lastName: accountDetails.profile.name.last_name,
     gender: accountDetails.profile.gender.pronoun,
     mail: accountDetails.profile.emails.emails[0],
-    birthday: new Date(accountDetails.profile.birthday.year, accountDetails.profile.birthday.month
-        - 1, accountDetails.profile.birthday.day),
+    birthday: new Date(accountDetails.profile.birthday.year,
+      accountDetails.profile.birthday.month - 1, accountDetails.profile.birthday.day),
   }
 
   return {

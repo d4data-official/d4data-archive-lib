@@ -51,10 +51,7 @@ Facebook.prototype.getReacted = async function getReacted(options) {
     },
   }));
 
-  const reacted = [
-    ...likedPages,
-    ...likedPosts,
-  ]
+  const reacted = likedPages.concat(likedPosts)
 
   return {
     data: reacted,
