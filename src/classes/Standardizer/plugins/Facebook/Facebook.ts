@@ -4,7 +4,7 @@ import Standardizer, { EXTERNAL_GETTERS_DIR } from '../../Standardizer'
 import Services from '../../../../types/Services'
 import { PipelineStep } from '../../../Pipeline'
 
-const preProcessors: Array<PipelineStep> = [
+export const preProcessors: Array<PipelineStep> = [
   // Pre-processor to fix bad string encoding in Facebook archive JSON files
   async function* utf8Translator(stream) {
     if (stream !== undefined) {
