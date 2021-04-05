@@ -11,10 +11,7 @@ export default interface ChatMessage {
    */
   text?: string;
 
-  /**
-   * URL of the meta data if any
-   */
-  metaData?: string;
+  sendAt?: Date
 
   /**
    * reaction linked with message
