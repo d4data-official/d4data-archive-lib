@@ -2,10 +2,10 @@ export default interface Setting {
   /**
    * name of setting
    */
-  name: string;
+  name: string
 
   /**
    * value of setting
    */
-  value?: string;
+  value?: string | undefined
 }

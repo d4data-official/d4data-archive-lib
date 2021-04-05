@@ -7,10 +7,10 @@ export default interface AuthorizedDevice {
   /**
    * ip of device
    */
-  ip?: string;
+  ip?: string | undefined;
 
   /**
    * date when the device was authorized
    */
-  authorizationDate?: Date;
+  authorizationDate?: Date | undefined
 }

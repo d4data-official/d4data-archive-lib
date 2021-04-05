@@ -9,12 +9,17 @@ export default interface ChatMessage {
   /**
    * The text sent by the sender
    */
-  text?: string;
+  text?: string | undefined
+
+  /**
+   * URL of the meta data if any
+   */
+  metaData?: string | undefined
 
   sendAt?: Date
 
   /**
    * reaction linked with message
    */
-  reactions?: Array<Reaction>;
+  reactions?: Array<Reaction> | undefined
 }

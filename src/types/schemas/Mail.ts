@@ -19,7 +19,7 @@ export default interface Mail {
   /**
    * Object of the mail
    */
-  subject?: string;
+  subject?: string | undefined
 
   /**
    * content of the mail
@@ -29,5 +29,5 @@ export default interface Mail {
   /**
    * info of the file link in the mail
    */
-  attachments?: Array<Media>;
+  attachments?: Array<Media> | undefined
 }

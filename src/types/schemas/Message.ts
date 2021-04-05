@@ -17,7 +17,7 @@ export default interface Message {
   /**
    * Subject of the message
    */
-  title?: string;
+  title?: string | undefined
 
   /**
    * Message content

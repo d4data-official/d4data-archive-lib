@@ -1,40 +1,40 @@
 export interface Address {
-  languageCode?: string
-  city?: string
-  country?: string
-  line1?: string
-  line2?: string
-  state?: string
-  streetAddress?: string
-  zip?: string
+  languageCode?: string | undefined
+  city?: string | undefined
+  country?: string | undefined
+  line1?: string | undefined
+  line2?: string | undefined
+  state?: string | undefined
+  streetAddress?: string | undefined
+  zip?: string | undefined
 }
 
 export interface History {
   timestamp: number
   title: string
   url: string
-  faviconUrl?: string
-  clientId?: string
+  faviconUrl?: string | undefined
+  clientId?: string | undefined
 }
 
 export interface Extension {
   name: string
-  enabled?: boolean
-  incognitoEnabled?: boolean
-  version?: string
-  websiteUrl?: string
+  enabled?: boolean | undefined
+  incognitoEnabled?: boolean | undefined
+  version?: string | undefined
+  websiteUrl?: string | undefined
 }
 
 export interface SavedForm {
-  useCount?: number
-  lastUseDate?: number
-  firstName?: string
-  lastName?: string
-  fullName?: string
-  phoneNumber?: string
-  email?: string
-  companyName?: string
-  address?: Address
+  useCount?: number | undefined
+  lastUseDate?: number | undefined
+  firstName?: string | undefined
+  lastName?: string | undefined
+  fullName?: string | undefined
+  phoneNumber?: string | undefined
+  email?: string | undefined
+  companyName?: string | undefined
+  address?: Address | undefined
 }
 
 export interface Preference {
@@ -44,7 +44,7 @@ export interface Preference {
 
 export interface Theme {
   name: string
-  websiteUrl?: string
+  websiteUrl?: string | undefined
 }
 
 export default interface BrowserData {

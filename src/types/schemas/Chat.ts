@@ -3,7 +3,7 @@
  */
 
 export default interface Chat {
-  _id?: string
+  _id?: string | undefined
 
   /**
    * The name of the conversation
