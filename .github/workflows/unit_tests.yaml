@@ -25,9 +25,6 @@ jobs:
         
     - run: yarn install
       name: Install dependencies
-      
-    - run: yarn build
-      name: Build project
     
-    - run: LOCAL_ARCHIVE_DIR=/archives yarn test
+    - run: LOCAL_ARCHIVE_DIR=/archives npm run test
       name: Run unit tests
