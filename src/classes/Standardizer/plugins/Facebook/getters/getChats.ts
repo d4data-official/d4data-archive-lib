@@ -2,7 +2,7 @@ import Facebook from '../Facebook'
 import { Chat } from '../../../../../types/schemas';
 
 const MESSAGES_INBOX = 'messages/inbox'
-const MESSAGES_ARCHIVE = 'messages/inbox'
+const MESSAGES_ARCHIVE = 'messages/archived_threads'
 
 interface FBChats {
   participants: Array<{

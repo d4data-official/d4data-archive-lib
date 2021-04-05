@@ -1,7 +1,7 @@
 import Facebook from '../Facebook'
 
 const MESSAGES_INBOX = 'messages/inbox'
-const MESSAGES_ARCHIVE = 'messages/inbox'
+const MESSAGES_ARCHIVE = 'messages/archived_threads'
 
 interface FBChats {
   participants: Array<{
