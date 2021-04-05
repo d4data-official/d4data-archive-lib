@@ -55,8 +55,6 @@ Facebook.prototype.getProfile = async function getProfile(options) {
     mail: accountDetails.profile.emails.emails[0],
     birthday: new Date(accountDetails.profile.birthday.year, accountDetails.profile.birthday.month
         - 1, accountDetails.profile.birthday.day),
-    nickname: undefined,
-    username: undefined,
   }
 
   return {
