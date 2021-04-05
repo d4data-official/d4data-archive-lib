@@ -1,28 +1,23 @@
-name: Unit testing CI
+name: Unit tests using real archives
 
-on:
-  push:
-    branches: [ dev ]
-  pull_request:
-    branches: [ dev ]
+on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ['self-hosted']
 
     strategy:
       matrix:
         node-version: [15.x]
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-
-    - run: yarn install
+        node-version: ${{ matrix.node-version }}        
+        
+    - run: npm install
       name: Install dependencies
-
-    - run: yarn test
+    
+    - run: LOCAL_ARCHIVE_DIR=/archives npm run test
       name: Run unit tests
