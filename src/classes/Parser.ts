@@ -1,6 +1,7 @@
 import path from 'path'
 import { JSDOM } from 'jsdom'
 import { FilterOptions, PaginationOptions, ParsingOptions, Preprocessor, PreprocessorOptions } from '../types/Parsing'
+import filesExist from '../modules/Parsing/filesExist'
 import listFiles, { OptionsListFiles } from '../modules/Parsing/listFiles'
 import findFiles from '../modules/Parsing/findFiles'
 import parseDir, { OptionsParseDir } from '../modules/Parsing/parseDir'
@@ -63,6 +64,15 @@ export default class Parser {
    */
   async listFiles(relativeDirPath: string, options?: OptionsListFiles): Promise<Array<string>> {
     return listFiles(this.resolveRelativePath(relativeDirPath), options)
+  }
+
+  /**
+   * Checks if all files in the array of paths exists
+   * Returns true if all paths exists and false if at least one fails
+   */
+  async filesExist(dirPaths: Array<string>): Promise<boolean> {
+    const paths = dirPaths.map((relativePath) => this.resolveRelativePath(relativePath))
+    return filesExist(paths)
   }
 
   /**
