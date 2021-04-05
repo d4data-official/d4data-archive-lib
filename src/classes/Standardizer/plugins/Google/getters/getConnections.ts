@@ -1,7 +1,8 @@
 import Google from '../Google'
 import { Connection } from '../../../../../types/schemas';
 
-const CONNECTIONS_FOLDER = 'Takeout/Compte\\ Google/'
+// eslint-disable-next-line
+const CONNECTIONS_FOLDER = 'Takeout/Compte\ Google/'
 
 Google.prototype.getConnections = async function getConnections(options) {
   const files = await this.parser.listFiles(CONNECTIONS_FOLDER, { extensionWhitelist: ['html'] })
