@@ -9,7 +9,7 @@ Reddit.prototype.getAPIs = async function getAPIs(options) {
     name: api.username,
   }))
   return {
-    data: stck,
+    data: apis,
     parsedFiles: ['twitter.csv'],
   }
 }
