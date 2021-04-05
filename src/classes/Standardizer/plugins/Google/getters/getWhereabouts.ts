@@ -2,7 +2,7 @@ import Google from '../Google'
 import { Whereabout } from '../../../../../types/schemas';
 
 // eslint-disable-next-line
-const WHEREABOUTS_FILE = 'Takeout/Historique\ des\ Positions/Historique\ des\ Positions.json'
+const WHEREABOUTS_FILE = 'Takeout/Historique\ des\ positions/Historique\ des\ positions.json'
 
 interface GoogleWhereabouts {
   locations: Array<{
