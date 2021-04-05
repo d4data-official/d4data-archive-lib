@@ -10,7 +10,7 @@ Reddit.prototype.getReacted = async function getReacted(options) {
     'comment_votes.csv',
     options?.parsingOptions,
   )
-  const FinalRawData = ReactsPostRawData.concat(ReactsCommentRawData)
+  const finalRawData = reactsPostRawData.concat(reactsCommentRawData)
   const reacteds = FinalRawData.map((reaction):Reacted => ({
     type: 'post',
     entity: reaction.permalink,
