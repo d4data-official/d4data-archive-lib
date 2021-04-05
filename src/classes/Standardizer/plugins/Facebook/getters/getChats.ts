@@ -37,7 +37,7 @@ Facebook.prototype.getChats = async function getChats(options) {
   const files = filesInbox.concat(filesArchive)
   const chats = await Promise.all(files.map(
     (file, index) => this.parser.parseAsJSON<FBChats>(file, options?.parsingOptions).then((chat) => ({
-      id: index.toString(),
+      _id: index.toString(),
       title: chat.title,
       participants: chat.participants.map((participant) => participant.name),
     } as Chat)),
