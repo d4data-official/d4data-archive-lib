@@ -19,7 +19,7 @@ Facebook.prototype.getContacts = async function getContacts(options) {
 
   const contacts : Array<Contact> = contactList.address_book.address_book.map((contact) => ({
     displayName: contact.name,
-    Date: new Date(contact.created_timestamp * 1000),
+    date: new Date(contact.created_timestamp * 1000),
   }))
 
   return {
