@@ -16,6 +16,8 @@ export default interface ChatMessage {
    */
   metaData?: string | undefined
 
+  sendAt?: Date
+
   /**
    * reaction linked with message
    */
