@@ -16,7 +16,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}        
         
-    - run: yarn install
+    - run: npm install
       name: Install dependencies
     
     - run: LOCAL_ARCHIVE_DIR=/archives npm run test
