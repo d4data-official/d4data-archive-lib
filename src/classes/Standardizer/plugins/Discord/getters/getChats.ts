@@ -1,10 +1,5 @@
-import { type } from 'os';
-import fs from 'fs/promises'
 import Discord from '../Discord'
 import { Chat } from '../../../../../types/schemas'
-import { GetterOptions } from '../../../../../types/standardizer/Standardizer';
-
-const ACCOUNT_FILE = 'account/user.json'
 
 Discord.prototype.getChats = async function getChats(options) {
   const channels = await this.parser.findFiles(/channel.json$/, './messages/')
