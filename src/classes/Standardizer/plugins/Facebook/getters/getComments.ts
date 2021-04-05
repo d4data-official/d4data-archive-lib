@@ -1,7 +1,7 @@
 import Facebook from '../Facebook'
 import { Comment } from '../../../../../types/schemas'
 
-const COMMENTS_FILE = 'security_and_login_information/account_activity.json'
+const COMMENTS_FILE = 'comments/comments.json'
 
 interface FBComments {
   comments: Array<{

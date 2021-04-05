@@ -1,7 +1,7 @@
 import Facebook from '../Facebook'
 import { Notification } from '../../../../../types/schemas'
 
-const NOTIFICATIONS_FILE = 'security_and_login_information/account_activity.json'
+const NOTIFICATIONS_FILE = 'about_you/notifications.json'
 
 interface Notifications {
   notifications: Array<{

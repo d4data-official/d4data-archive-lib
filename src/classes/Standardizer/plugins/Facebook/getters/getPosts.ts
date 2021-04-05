@@ -1,7 +1,7 @@
 import Facebook from '../Facebook'
 import { Post } from '../../../../../types/schemas'
 
-const ACCOUNT_ACTIVITY_FILE = 'security_and_login_information/account_activity.json'
+const ACCOUNT_ACTIVITY_FILE = 'posts/your_posts_1.json'
 
 interface FBPost {
   timestamp: number,
@@ -34,7 +34,7 @@ Facebook.prototype.getPosts = async function getPosts(options) {
       creationDate: new Date(post.timestamp * 1000),
       title: post?.title,
       sender: 'Myself',
-      content: post?.data?.[0].post,
+      content: post?.data?.[0]?.post,
       metaData: {
         links: externalLink ? [externalLink] : undefined,
       },

@@ -4,7 +4,7 @@ import { Community, Following } from '../../../../../types/schemas'
 const FOLLOWINGS_FILE = 'following_and_followers/following.json'
 
 interface Followings {
-  followings: Array<{
+  following: Array<{
     name: string,
     timestamp: number
   }>
@@ -13,7 +13,7 @@ interface Followings {
 Facebook.prototype.getFollowings = async function getFollowings(options) {
   const followingList = await this.parser.parseAsJSON<Followings>(FOLLOWINGS_FILE, options?.parsingOptions)
 
-  const followings : Array<Following> = followingList.followings.map((pageFollowed) => ({
+  const followings : Array<Following> = followingList.following.map((pageFollowed) => ({
     type: 'community',
     entity: {
       name: pageFollowed.name,
