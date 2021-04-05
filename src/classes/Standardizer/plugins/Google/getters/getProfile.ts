@@ -1,3 +1,4 @@
+import path from 'path';
 import Google from '../Google'
 import { Media, Profile, ProfilePicture } from '../../../../../types/schemas';
 
@@ -42,7 +43,7 @@ Google.prototype.getProfile = async function getProfile(options) {
     birthday,
     profilePicture: {
       current: {
-        url: `file:///${ ACCOUNT_PROFILE_PICTURE_IMAGE }`,
+        url: `file:///${ path.resolve(ACCOUNT_PROFILE_PICTURE_IMAGE) }`,
       } as Media,
     } as ProfilePicture,
   }
