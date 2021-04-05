@@ -9,7 +9,7 @@ Discord.prototype.getReacted = async function getReacted(options) {
       parsedFiles: [],
     }
   }
-  const reactions = (await this.parser.parseAsJSONL(events[0], {
+  const reactions = (await this.parser.parseAsJSONL(eventFiles[0], {
     filter: (unparsedLine) => (unparsedLine.startsWith('{"event_type":"add_reaction"')),
     ...options?.parsingOptions,
   }))
