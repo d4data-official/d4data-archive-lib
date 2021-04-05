@@ -3,21 +3,22 @@
 import fs from 'fs'
 import path from 'path'
 import {
-  Profile,
   API,
   AuthorizedDevice,
   BrowserData,
   Chat,
   ChatMessage,
+  Comment,
   Community,
   Connection,
   Contact,
   Following,
   Mail,
   Media,
+  Message,
   Notification,
   Post,
-  Comment,
+  Profile,
   Reacted,
   Setting,
   Task,
@@ -30,7 +31,7 @@ import Services from '../../types/Services'
 import Parser from '../Parser'
 import { GetterOptions } from '../../types/standardizer/Standardizer'
 import GetterReturn from '../../types/standardizer/GetterReturn'
-import { MediaType } from '../../types/schemas/Media';
+import { MediaType } from '../../types/schemas/Media'
 import Getters from '../../types/standardizer/Getters'
 
 export const PLUGINS_DIR = 'plugins'
@@ -102,6 +103,10 @@ export default abstract class Standardizer {
   }
 
   async getPosts(options?: GetterOptions): GetterReturn<Array<Post>> {
+    return Promise.resolve(null)
+  }
+
+  async getMessages(options?: GetterOptions): GetterReturn<Array<Message>> {
     return Promise.resolve(null)
   }
 
@@ -223,6 +228,7 @@ export default abstract class Standardizer {
       getChatMessages: data => is<Array<ChatMessage>>(data),
       getComments: data => is<Array<Post>>(data),
       getPosts: data => is<Array<Post>>(data),
+      getMessages: data => is<Array<Message>>(data),
       getAPIs: data => is<Array<API>>(data),
       getConnections: data => is<Array<Connection>>(data),
       getCommunities: data => is<Array<Community>>(data),
@@ -254,6 +260,7 @@ export default abstract class Standardizer {
       getChatMessages: data => assertType<Array<ChatMessage>>(data),
       getComments: data => assertType<Array<Post>>(data),
       getPosts: data => assertType<Array<Post>>(data),
+      getMessages: data => assertType<Array<Message>>(data),
       getAPIs: data => assertType<Array<API>>(data),
       getConnections: data => assertType<Array<Connection>>(data),
       getCommunities: data => assertType<Array<Community>>(data),
