@@ -36,7 +36,7 @@ Google.prototype.getBrowserData = async function getBrowserData(options) {
   }
   const autoFill = await this.parser.parseAsJSON(files.autofill, options?.parsingOptions)
   const history = await this.parser.parseAsJSON(files.history, options?.parsingOptions)
-  const dictionary = await this.parser.parseAsJSON(files.dictionary, options?.parsingOptions)
+  const dictionary = await this.parser.parseAsCSV(files.dictionary, options?.parsingOptions)
   const extensions = await this.parser.parseAsJSON(files.extensions, options?.parsingOptions)
   const searchEngines = await this.parser.parseAsJSON(files.searchEngines, options?.parsingOptions)
   const syncSettings = await this.parser.parseAsJSON(files.syncSettings, options?.parsingOptions)
