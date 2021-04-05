@@ -11,6 +11,6 @@ Discord.prototype.getAPIs = async function getAPIs(options) {
 
   return {
     data: connections,
-    parsedFiles: ['user.json'],
+    parsedFiles: ['account/user.json'],
   }
 }
