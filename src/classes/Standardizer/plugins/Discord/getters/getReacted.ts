@@ -26,6 +26,6 @@ Discord.prototype.getReacted = async function getReacted(options) {
   })
   return {
     data: reacted,
-    parsedFiles: events,
+    parsedFiles: eventFiles,
   }
 }
