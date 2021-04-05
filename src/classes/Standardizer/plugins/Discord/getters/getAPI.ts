@@ -5,7 +5,12 @@ Discord.prototype.getAPIs = async function getAPIs(options) {
     'account/user.json',
     options?.parsingOptions,
   )
-  return profileRawData.connections.map((connection: any) => ({
+  const connections = profileRawData.connections.map((connection: any) => ({
     name: connection.type,
   }))
+
+  return {
+    data: connections,
+    parsedFiles: ['user.json'],
+  }
 }
