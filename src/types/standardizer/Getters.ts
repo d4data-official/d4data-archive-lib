@@ -10,6 +10,7 @@ enum Getters {
   CHAT_MESSAGES = 'getChatMessages',
   COMMENTS = 'getComments',
   POSTS = 'getPosts',
+  MESSAGES = 'getMessages',
   APIS = 'getAPIs',
   CONNECTIONS = 'getConnections',
   COMMUNITIES = 'getCommunities',
