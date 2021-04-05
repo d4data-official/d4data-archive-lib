@@ -32,7 +32,7 @@ jobs:
       working-directory: ./archives
       name: Download archives list
       
-    - run: while read line; do wget $line; done < archives.txt && true || true
+    - run: while read line; do wget -O $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1).zip $line; done < archives.txt && true || true
       working-directory: ./archives
       name: Download Archives
         
