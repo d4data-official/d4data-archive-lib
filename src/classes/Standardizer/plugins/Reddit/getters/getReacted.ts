@@ -6,7 +6,7 @@ Reddit.prototype.getReacted = async function getReacted(options) {
     'post_votes.csv',
     options?.parsingOptions,
   )
-  const ReactsCommentRawData = await this.parser.parseAsCSV(
+  const reactsCommentRawData = await this.parser.parseAsCSV(
     'comment_votes.csv',
     options?.parsingOptions,
   )
