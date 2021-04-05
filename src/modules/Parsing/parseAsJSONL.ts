@@ -19,7 +19,7 @@ export default async function parseAsJSONL<T = any>(
   });
 
   rl.on('line', (line) => {
-    if (i < (options?.pagination?.offset || 0)) {
+    if (i < (options?.pagination?.offset ?? 0)) {
       i += 1
       return
     }
