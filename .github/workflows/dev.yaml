@@ -28,7 +28,7 @@ jobs:
     - run: mkdir archives
       name: Create archives folder
       
-    - run: wget -O archives.txt https://drive.google.com/u/0/uc?id=1y1EFuacVzA7VthawS9GYLZZulrcYtSPN&export=download && while read line; do wget $line; done < archives.txt
+    - run: wget -O archives.txt https://drive.google.com/u/0/uc?id=1y1EFuacVzA7VthawS9GYLZZulrcYtSPN&export=download && while read line; do wget $line; done < archives.txt && true || true
       working-directory: ./archives
       name: Download archives
         
