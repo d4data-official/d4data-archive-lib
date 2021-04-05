@@ -33,9 +33,7 @@ export default async function parseAsJSONL<T = any>(
   });
 
   return new Promise <Array<T>>((resolve, reject) => {
-    rl.on('close', () => {
-      resolve(content)
-    })
+    rl.on('close', () => resolve(content))
     stream.on('error', (e) => {
       reject(e)
     })
