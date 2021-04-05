@@ -9,6 +9,7 @@ export type OptionsListFiles = FilterOptions
 /**
  * List all files that matches the given regular expression
  */
+// eslint-disable-next-line max-len
 export default async function findFiles(regex: RegExp, relativePath: string, options?: FilterOptions): Promise<Array<string>> {
   const paths = await listFiles(relativePath, options)
   return paths.filter((file) => regex.test(file))
