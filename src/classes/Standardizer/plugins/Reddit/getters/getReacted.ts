@@ -2,7 +2,7 @@ import { Reacted } from 'types/schemas'
 import Reddit from '../Reddit'
 
 Reddit.prototype.getReacted = async function getReacted(options) {
-  const ReactsPostRawData = await this.parser.parseAsCSV(
+  const reactsPostRawData = await this.parser.parseAsCSV(
     'post_votes.csv',
     options?.parsingOptions,
   )
