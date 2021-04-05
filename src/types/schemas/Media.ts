@@ -14,7 +14,7 @@ export default interface Media {
   /**
    * Media size in bytes
    */
-  size?: number
+  size?: number | undefined
 
   /**
    * Media type

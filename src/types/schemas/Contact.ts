@@ -4,55 +4,55 @@ export default interface Contact {
   /**
    * Display name / profile name of the contact
    */
-  displayName?: string;
+  displayName?: string | undefined
 
   /**
    * Firstname of the contact
    */
-  firstName?: string;
+  firstName?: string | undefined
 
   /**
    * Lastname of the contact
    */
-  lastName?: string;
+  lastName?: string | undefined
 
   /**
    * Username of the contact account
    */
-  username?: string;
+  username?: string | undefined
 
   /**
    * Nickname given to the contact by the archive owner
    */
-  nickname?: string;
+  nickname?: string | undefined
 
   /**
    * Gender of the contact
    */
-  gender?: string;
+  gender?: string | undefined
 
   /**
    * Birthday in timestamp format
    */
-  birthday?: Date;
+  birthday?: Date | undefined
 
   /**
    * Number of phone of a contact
    */
-  phone?: string;
+  phone?: string | undefined
 
   /**
    * Mail of the contact
    */
-  mail?: string;
+  mail?: string | undefined
 
   /**
    * Since when the contact is in the conctact list of the owner
    */
-  date?: Date;
+  date?: Date | undefined
 
   /**
    * Contact's profile picture object
    */
-  profilePicture?: ProfilePicture;
+  profilePicture?: ProfilePicture | undefined
 }

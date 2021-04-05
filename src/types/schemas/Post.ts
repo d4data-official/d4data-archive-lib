@@ -8,27 +8,27 @@ export default interface Post {
 
   sender: string
 
-  title?: string;
+  title?: string | undefined
 
-  content?: string;
+  content?: string | undefined
 
   metaData?: {
     /**
      * Post reactions (ex: likes)
      */
-    reactions?: Array<Reaction>;
+    reactions?: Array<Reaction> | undefined
 
     /**
      * List of URL associated with the post
      */
-    links?: Array<string>;
+    links?: Array<string> | undefined
 
-    userTags?: Array<string>
+    userTags?: Array<string> | undefined
 
-    locations?: Location;
+    locations?: Location | undefined
 
-    events?: Event;
+    events?: Event | undefined
 
-    medias?: Array<Media>;
-  }
+    medias?: Array<Media> | undefined
+  } | undefined
 }

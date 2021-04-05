@@ -30,4 +30,4 @@ LOCAL_ARCHIVE_DIR=/path/to/your/archive/dir yarn test
 
 *Install linux* :yum:
 
-Seriously, I don't know ¯\_(ツ)_/¯
+Seriously, I don't know ¯\\\_(ツ)\_/¯

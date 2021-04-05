@@ -19,22 +19,22 @@ export interface RelativePosition {
   /**
    * City within human-readable address
    */
-  city?: string;
+  city?: string | undefined
 
   /**
    * Country within human-readable address
    */
-  country?: string;
+  country?: string | undefined
 
   /**
    * Address within human-readable address
    */
-  address?: string;
+  address?: string | undefined
 
   /**
    * Zip code within human-readable address
    */
-  zipcode?: string;
+  zipcode?: string | undefined
 }
 
 /**
@@ -44,10 +44,10 @@ export default interface Location {
   /**
    * Position using latitude and longitude absolute coordinates
    */
-  absolutePosition?: AbsolutePosition;
+  absolutePosition?: AbsolutePosition | undefined
 
   /**
    * Human-readable address/city
    */
-  relativePosition?: RelativePosition;
+  relativePosition?: RelativePosition | undefined
 }

@@ -6,8 +6,9 @@
     "start": "node .",
     "build": "cross-env NODE_ENV=production rimraf dist && ttsc",
     "dev": "cross-env NODE_ENV=development ts-node-dev -C ttypescript --respawn --transpile-only -- src/index.ts",
-    "lint": "eslint --fix .",
-    "test": "ava -v",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "ava --timeout=5m -v",
     "prepare": "husky install"
   },
   "engines": {

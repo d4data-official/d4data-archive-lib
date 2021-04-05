@@ -1,4 +1,3 @@
-export { default as Profile } from 'types/schemas/Profile';
 export { default as API } from 'types/schemas/API';
 export { default as Archive } from 'types/schemas/Archive';
 export { default as AuthorizedDevice } from 'types/schemas/AuthorizedDevice';
@@ -14,6 +13,7 @@ export { default as Mail } from 'types/schemas/Mail';
 export { default as Media } from 'types/schemas/Media';
 export { default as Message } from 'types/schemas/Message';
 export { default as Notification } from 'types/schemas/Notification';
+export { default as Profile } from 'types/schemas/Profile';
 export { default as Post } from 'types/schemas/Post';
 export { default as Comment } from 'types/schemas/Comment';
 export { default as ProfilePicture } from 'types/schemas/ProfilePicture';

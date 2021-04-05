@@ -4,15 +4,15 @@ export default interface Archive {
   /**
    * Archive size in bytes
    */
-  size?: number;
+  size?: number | undefined
 
   /**
    * Archive creation date in timestamp format
    */
-  creationDate?: Date;
+  creationDate?: Date | undefined
 
   /**
    * Archive service name
    */
-  service: Services;
+  service: Services
 }
