@@ -30,8 +30,10 @@ interface GoogleProfile {
 }
 
 Google.prototype.getProfile = async function getProfile(options) {
+  if (!(await this.parser.filesExist([ACCOUNT_PROFILE_FILE]))) {
+    return null
+  }
   const accountDetails = await this.parser.parseAsJSON<GoogleProfile>(ACCOUNT_PROFILE_FILE, options?.parsingOptions)
-
   const birthday = accountDetails?.birthday ? new Date(accountDetails.birthday) : undefined
 
   const account: Profile = {

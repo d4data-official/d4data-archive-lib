@@ -13,8 +13,10 @@ interface GoogleWhereabouts {
 }
 
 Google.prototype.getWhereabouts = async function getWhereabouts(options) {
+  if (!(await this.parser.filesExist([WHEREABOUTS_FILE]))) {
+    return null
+  }
   const whereaboutList = await this.parser.parseAsJSON<GoogleWhereabouts>(WHEREABOUTS_FILE, options?.parsingOptions)
-
   const whereabouts : Array<Whereabout> = whereaboutList.locations.map((whereabout) => ({
     recordDate: new Date(whereabout.timestampMs),
     location: {
