@@ -24,11 +24,13 @@ import {
   Transaction,
   Whereabout,
 } from 'types/schemas'
+import fsAsync from 'fs/promises'
 import { assertType, is } from 'typescript-is'
 import Services from '../../types/Services'
 import Parser from '../Parser'
 import { GetterOptions } from '../../types/standardizer/Standardizer'
 import GetterReturn from '../../types/standardizer/GetterReturn'
+import { MediaType } from '../../types/schemas/Media';
 import Getters from '../../types/standardizer/Getters'
 
 export const PLUGINS_DIR = 'plugins'
@@ -124,7 +126,25 @@ export default abstract class Standardizer {
   }
 
   async getMedias(options?: GetterOptions): GetterReturn<Array<Media>> {
-    return Promise.resolve(null)
+    const formats = {
+      [MediaType.IMAGE]: ['png', 'jpg', 'jpeg', 'webp', 'ico', 'gif', 'bmp'],
+      [MediaType.VIDEO]: ['mp4', 'avi', 'webm', 'mov', 'flv', 'mkv'],
+      [MediaType.AUDIO]: ['ogg', 'mp3', 'aac', 'pcm'],
+    }
+    const allFormats: Array<string> = Object.values(formats).flat()
+    const files = await this.parser.listFiles('.', { extensionWhitelist: allFormats })
+    const medias = files.map(async (file): Promise<Media> => {
+      const extension: string = path.parse(file).ext.slice(1)
+      return {
+        url: `file:///${ file }`,
+        type: <MediaType>Object.keys(formats).find((mediaType) => formats[<MediaType>mediaType].includes(extension)),
+        size: (await fsAsync.stat(file)).size,
+      }
+    })
+    return {
+      data: await Promise.all(medias),
+      parsedFiles: [],
+    }
   }
 
   async getTransactions(options?: GetterOptions): GetterReturn<Array<Transaction>> {
