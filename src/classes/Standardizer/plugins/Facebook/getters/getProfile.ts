@@ -11,17 +11,17 @@ interface FBProfile {
       middle_name: string,
       last_name: string,
     },
-    emails: {
-      emails: Array<string>,
+    emails?: {
+      emails?: Array<string>,
     },
     birthday: {
       year: number,
       month: number,
       day: number,
     },
-    gender: {
-      gender_option: string,
-      pronoun: string,
+    gender?: {
+      gender_option?: string,
+      pronoun?: string,
     },
     previous_names: Array<any>,
     other_names: Array<any>,
@@ -51,8 +51,8 @@ Facebook.prototype.getProfile = async function getProfile(options) {
   const account: Profile = {
     firstName: accountDetails.profile.name.first_name,
     lastName: accountDetails.profile.name.last_name,
-    gender: accountDetails.profile.gender.pronoun,
-    mail: accountDetails.profile.emails.emails[0],
+    gender: accountDetails.profile?.gender?.pronoun,
+    mail: accountDetails.profile?.emails?.emails?.[0],
     birthday: new Date(accountDetails.profile.birthday.year,
       accountDetails.profile.birthday.month - 1, accountDetails.profile.birthday.day),
   }
