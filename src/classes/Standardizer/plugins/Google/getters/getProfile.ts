@@ -1,6 +1,6 @@
-import path from 'path';
 import Google from '../Google'
 import { Media, Profile, ProfilePicture } from '../../../../../types/schemas';
+import { MediaType } from '../../../../../types/schemas/Media';
 
 const ACCOUNT_PROFILE_FOLDER = 'Takeout/Profil'
 const ACCOUNT_PROFILE_FILE = `${ ACCOUNT_PROFILE_FOLDER }/Profil.json`
@@ -43,7 +43,8 @@ Google.prototype.getProfile = async function getProfile(options) {
     birthday,
     profilePicture: {
       current: {
-        url: `file://${ path.resolve(ACCOUNT_PROFILE_PICTURE_IMAGE) }`,
+        url: `file://${ this.path }/${ ACCOUNT_PROFILE_PICTURE_IMAGE }`,
+        type: MediaType.IMAGE,
       } as Media,
     } as ProfilePicture,
   }
