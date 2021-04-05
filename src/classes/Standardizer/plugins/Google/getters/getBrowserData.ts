@@ -31,6 +31,9 @@ interface GoogleExtension {
 }
 
 Google.prototype.getBrowserData = async function getBrowserData(options) {
+  if (!(await this.parser.filesExist(Object.values(files)))) {
+    return null
+  }
   const autoFill = await this.parser.parseAsJSON(files.autofill, options?.parsingOptions)
   const history = await this.parser.parseAsJSON(files.history, options?.parsingOptions)
   const dictionary = await this.parser.parseAsJSON(files.dictionary, options?.parsingOptions)
