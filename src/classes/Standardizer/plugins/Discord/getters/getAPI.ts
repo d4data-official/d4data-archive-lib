@@ -1,8 +1,6 @@
-import Standardizer from 'classes/Standardizer/Standardizer'
-import { GetterOptions } from 'types/standardizer/Standardizer'
-import API from 'types/schemas/API'
+import Discord from '../Discord'
 
-export default async function getAPI(this: Standardizer, options?: GetterOptions): Promise<API> {
+Discord.prototype.getAPIs = async function getAPIs(options) {
   const profileRawData = await this.parser.parseAsJSON(
     'account/user.json',
     options?.parsingOptions,
