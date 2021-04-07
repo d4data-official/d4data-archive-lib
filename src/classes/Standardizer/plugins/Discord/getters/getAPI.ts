@@ -7,6 +7,7 @@ Discord.prototype.getAPIs = async function getAPIs(options) {
   )
   const connections = profileRawData.connections.map((connection: any) => ({
     name: connection.type,
+    username: connection.name,
   }))
 
   return {
