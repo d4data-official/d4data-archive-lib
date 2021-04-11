@@ -10,6 +10,7 @@
     "lint:fix": "eslint --fix .",
     "test": "ava --timeout=5m -v",
     "test:cov": "nyc npm run test",
+    "debug": "cross-env NODE_ENV=test ts-node --project debug/tsconfig.json -C ttypescript --transpile-only -- debug/debug.ts",
     "prepare": "husky install"
   },
   "engines": {
