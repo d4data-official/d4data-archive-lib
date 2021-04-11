@@ -72,11 +72,11 @@ Google.prototype.getBrowserData = async function getBrowserData(options) {
     savedForms: rawBrowserData.autoFill?.map((savedForm: GoogleSavedForm) => ({
       useCount: savedForm.use_count,
       lastUseDate: savedForm.use_date,
-      firstName: savedForm.name_first[0],
-      lastName: savedForm.name_last[0],
-      fullName: savedForm.name_full[0],
-      phoneNumber: savedForm.phone_home_whole_number[0],
-      email: savedForm.email_address[0],
+      firstName: savedForm.name_first?.[0],
+      lastName: savedForm.name_last?.[0],
+      fullName: savedForm.name_full?.[0],
+      phoneNumber: savedForm.phone_home_whole_number?.[0],
+      email: savedForm.email_address?.[0],
       companyName: savedForm.company_name,
       address: {
         languageCode: savedForm.address_home_language_code,
