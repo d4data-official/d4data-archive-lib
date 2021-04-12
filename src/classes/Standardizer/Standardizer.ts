@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import fs from 'fs'
+import fs, { promises as fsPromises } from 'fs'
 import path from 'path'
 import {
   API,
@@ -25,7 +25,6 @@ import {
   Transaction,
   Whereabout,
 } from 'types/schemas'
-import fsAsync from 'fs/promises'
 import { assertType, is } from 'typescript-is'
 import Services from '../../types/Services'
 import Parser from '../Parser'
@@ -143,7 +142,7 @@ export default abstract class Standardizer {
       return {
         url: `file:///${ file }`,
         type: <MediaType>Object.keys(formats).find((mediaType) => formats[<MediaType>mediaType].includes(extension)),
-        size: (await fsAsync.stat(file)).size,
+        size: (await fsPromises.stat(file)).size,
       }
     })
     return {

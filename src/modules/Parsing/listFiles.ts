@@ -1,5 +1,5 @@
 import path from 'path'
-import { readdir, stat } from 'fs/promises';
+import { promises as fsPromises } from 'fs';
 import { FilterOptions } from '../../types/Parsing'
 
 export type OptionsListFiles = FilterOptions
@@ -13,10 +13,10 @@ export default async function listFiles(dirPath: string, options?: FilterOptions
 }
 
 async function getFiles(dir: string, files_: Array<string> = [], options?: FilterOptions) {
-  const files = await readdir(dir);
+  const files = await fsPromises.readdir(dir);
   for await (const file of files) {
     const name = path.resolve(dir, file);
-    if ((await stat(name)).isDirectory()) {
+    if ((await fsPromises.stat(name)).isDirectory()) {
       await getFiles(name, files_, options);
     } else {
       const extension = name.split('.').pop()?.toLowerCase() ?? ''
