@@ -182,10 +182,12 @@ export default abstract class Standardizer {
    */
   static getPlugins(): Promise<Array<typeof Standardizer>> {
     return fs.promises.readdir(path.resolve(__dirname, PLUGINS_DIR))
-      .then(dirContent => dirContent.map(
-        service => import(path.resolve(__dirname, PLUGINS_DIR, service, service))
-          .then(importedModule => importedModule.default),
-      ))
+      .then(dirContent => dirContent
+        .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+        .map(
+          service => import(path.resolve(__dirname, PLUGINS_DIR, service, service))
+            .then(importedModule => importedModule.default),
+        ))
       .then(promiseArr => Promise.all(promiseArr))
   }
 
@@ -193,10 +195,12 @@ export default abstract class Standardizer {
    * List all Standardizer plugins contained in the services sub-directory synchronously
    */
   static getPluginsSync(): Array<typeof Standardizer> {
-    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR)).map(
-      // eslint-disable-next-line import/no-dynamic-require,global-require
-      service => require(path.resolve(__dirname, PLUGINS_DIR, service, service)).default,
-    )
+    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR))
+      .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+      .map(
+        // eslint-disable-next-line import/no-dynamic-require,global-require
+        service => require(path.resolve(__dirname, PLUGINS_DIR, service, service)).default,
+      )
   }
 
   /**

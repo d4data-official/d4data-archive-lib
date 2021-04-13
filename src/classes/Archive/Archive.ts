@@ -6,7 +6,6 @@ import Services from '../../types/Services'
 import Config from '../../modules/Config'
 
 export const PLUGINS_DIR = 'plugins'
-
 export const OUTPUT_DIR = Config.archiveOutputDir
 
 export default abstract class Archive {
@@ -73,10 +72,12 @@ export default abstract class Archive {
    */
   static getPlugins(): Promise<Array<typeof Archive>> {
     return fs.promises.readdir(path.resolve(__dirname, PLUGINS_DIR))
-      .then(dirContent => dirContent.map(
-        service => import(path.resolve(__dirname, PLUGINS_DIR, service))
-          .then(importedModule => importedModule.default),
-      ))
+      .then(dirContent => dirContent
+        .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+        .map(
+          service => import(path.resolve(__dirname, PLUGINS_DIR, service))
+            .then(importedModule => importedModule.default),
+        ))
       .then(promiseArr => Promise.all(promiseArr))
   }
 
@@ -84,9 +85,12 @@ export default abstract class Archive {
    * List all Archive plugins contained in the services sub-directory synchronously
    */
   static getPluginsSync(): Array<typeof Archive> {
-    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR)).map(
-      // eslint-disable-next-line import/no-dynamic-require,global-require
-      service => require(path.resolve(__dirname, PLUGINS_DIR, service)).default,
-    )
+
+    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR))
+      .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+      .map(
+        // eslint-disable-next-line import/no-dynamic-require,global-require
+        service => require(path.resolve(__dirname, PLUGINS_DIR, service)).default,
+      )
   }
 }
