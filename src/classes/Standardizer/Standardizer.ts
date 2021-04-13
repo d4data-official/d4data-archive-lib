@@ -203,6 +203,10 @@ export default abstract class Standardizer {
    * Import synchronously external getters from given directory.
    */
   static importExternalGettersSync(dirPath: string): void {
+    if (!fs.existsSync(dirPath)) {
+      return
+    }
+
     const getterFiles = fs.readdirSync(dirPath)
       .filter(file => Standardizer.getters.includes(path.parse(file).name))
 
