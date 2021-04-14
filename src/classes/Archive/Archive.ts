@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { v4 as uuidV4 } from 'uuid'
 import extractArchive, { ArchiveFormat, ExtractOptions, identifyArchiveFormat } from '../../modules/ArchiveExtraction'
 import Standardizer from '../Standardizer/Standardizer'
 import Services from '../../types/Services'
@@ -17,7 +18,11 @@ export default abstract class Archive {
 
   constructor(archivePath: string, outputDir?: string) {
     this.path = archivePath
-    this.outputDir = outputDir ?? OUTPUT_DIR
+    this.outputDir = outputDir ?? this.defaultOutputDir
+  }
+
+  get defaultOutputDir() {
+    return path.resolve(OUTPUT_DIR, `${ this.service }-${ uuidV4() }`)
   }
 
   /**
