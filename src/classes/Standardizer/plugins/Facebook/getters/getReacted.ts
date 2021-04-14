@@ -29,7 +29,7 @@ Facebook.prototype.getReacted = async function getReacted(options) {
   const likedPostList = await this.parser.parseAsJSON<PostsLiked>(LIKED_POSTS_FILE, options?.parsingOptions)
 
   const likedPages : Array<Reacted> = likedPageList.page_likes.map((like) => ({
-    type: 'community',
+    entityType: 'community',
     entity: {
       name: like.name,
     } as Community,
@@ -40,7 +40,7 @@ Facebook.prototype.getReacted = async function getReacted(options) {
   }));
 
   const likedPosts : Array<Reacted> = likedPostList.reactions.map((reaction) => ({
-    type: 'post',
+    entityType: 'post',
     entity: {
       name: reaction.title,
     } as Community,
