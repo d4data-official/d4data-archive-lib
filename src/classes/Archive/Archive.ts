@@ -90,7 +90,6 @@ export default abstract class Archive {
    * List all Archive plugins contained in the services sub-directory synchronously
    */
   static getPluginsSync(): Array<typeof Archive> {
-
     return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR))
       .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
       .map(
