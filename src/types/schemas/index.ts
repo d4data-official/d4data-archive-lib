@@ -1,5 +1,5 @@
 export { default as API } from 'types/schemas/API';
-export { default as Archive } from 'types/schemas/Archive';
+export { default as ArchiveMetaData } from 'types/schemas/ArchiveMetaData';
 export { default as AuthorizedDevice } from 'types/schemas/AuthorizedDevice';
 export { default as Chat } from 'types/schemas/Chat';
 export { default as ChatMessage } from 'types/schemas/ChatMessage';
