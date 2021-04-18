@@ -5,6 +5,7 @@ import extractArchive, { ArchiveFormat, ExtractOptions, identifyArchiveFormat } 
 import Standardizer from '../Standardizer/Standardizer'
 import Services from '../../types/Services'
 import Config from '../../modules/Config'
+import ArchiveMetaData from '../../types/schemas/ArchiveMetaData'
 
 export const PLUGINS_DIR = 'plugins'
 export const OUTPUT_DIR = Config.archiveOutputDir
@@ -57,7 +58,7 @@ export default abstract class Archive {
   /**
    * Get archive metadata
    */
-  async getMetadata(): Promise<Archive> {
+  async getMetadata(): Promise<ArchiveMetaData> {
     return Promise.reject()
   }
 
