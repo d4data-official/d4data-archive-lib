@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs, { promises as fsPromises } from 'fs'
 import path from 'path'
 import { v4 as uuidV4 } from 'uuid'
 import extractArchive, { ArchiveFormat, ExtractOptions, identifyArchiveFormat } from '../../modules/ArchiveExtraction'
@@ -59,7 +59,13 @@ export default abstract class Archive {
    * Get archive metadata
    */
   async getMetadata(): Promise<ArchiveMetaData> {
-    return Promise.reject()
+    const stat = await fsPromises.stat(this.path)
+
+    return {
+      service: this.service,
+      size: stat.size,
+      creationDate: stat.birthtime,
+    }
   }
 
   /**
