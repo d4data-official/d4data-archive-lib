@@ -1,36 +1,36 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import fs from 'fs'
+import fs, { promises as fsPromises } from 'fs'
 import path from 'path'
 import {
-  Profile,
   API,
   AuthorizedDevice,
   BrowserData,
   Chat,
   ChatMessage,
+  Comment,
   Community,
   Connection,
   Contact,
   Following,
   Mail,
   Media,
+  Message,
   Notification,
   Post,
-  Comment,
+  Profile,
   Reacted,
   Setting,
   Task,
   Transaction,
   Whereabout,
 } from 'types/schemas'
-import fsAsync from 'fs/promises'
 import { assertType, is } from 'typescript-is'
 import Services from '../../types/Services'
 import Parser from '../Parser'
 import { GetterOptions } from '../../types/standardizer/Standardizer'
 import GetterReturn from '../../types/standardizer/GetterReturn'
-import { MediaType } from '../../types/schemas/Media';
+import { MediaType } from '../../types/schemas/Media'
 import Getters from '../../types/standardizer/Getters'
 
 export const PLUGINS_DIR = 'plugins'
@@ -105,6 +105,10 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
+  async getMessages(options?: GetterOptions): GetterReturn<Array<Message>> {
+    return Promise.resolve(null)
+  }
+
   async getAPIs(options?: GetterOptions): GetterReturn<Array<API>> {
     return Promise.resolve(null)
   }
@@ -138,7 +142,7 @@ export default abstract class Standardizer {
       return {
         url: `file:///${ file }`,
         type: <MediaType>Object.keys(formats).find((mediaType) => formats[<MediaType>mediaType].includes(extension)),
-        size: (await fsAsync.stat(file)).size,
+        size: (await fsPromises.stat(file)).size,
       }
     })
     return {
@@ -178,10 +182,12 @@ export default abstract class Standardizer {
    */
   static getPlugins(): Promise<Array<typeof Standardizer>> {
     return fs.promises.readdir(path.resolve(__dirname, PLUGINS_DIR))
-      .then(dirContent => dirContent.map(
-        service => import(path.resolve(__dirname, PLUGINS_DIR, service, service))
-          .then(importedModule => importedModule.default),
-      ))
+      .then(dirContent => dirContent
+        .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+        .map(
+          service => import(path.resolve(__dirname, PLUGINS_DIR, service, service))
+            .then(importedModule => importedModule.default),
+        ))
       .then(promiseArr => Promise.all(promiseArr))
   }
 
@@ -189,16 +195,22 @@ export default abstract class Standardizer {
    * List all Standardizer plugins contained in the services sub-directory synchronously
    */
   static getPluginsSync(): Array<typeof Standardizer> {
-    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR)).map(
-      // eslint-disable-next-line import/no-dynamic-require,global-require
-      service => require(path.resolve(__dirname, PLUGINS_DIR, service, service)).default,
-    )
+    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR))
+      .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+      .map(
+        // eslint-disable-next-line import/no-dynamic-require,global-require
+        service => require(path.resolve(__dirname, PLUGINS_DIR, service, service)).default,
+      )
   }
 
   /**
    * Import synchronously external getters from given directory.
    */
   static importExternalGettersSync(dirPath: string): void {
+    if (!fs.existsSync(dirPath)) {
+      return
+    }
+
     const getterFiles = fs.readdirSync(dirPath)
       .filter(file => Standardizer.getters.includes(path.parse(file).name))
 
@@ -223,6 +235,7 @@ export default abstract class Standardizer {
       getChatMessages: data => is<Array<ChatMessage>>(data),
       getComments: data => is<Array<Post>>(data),
       getPosts: data => is<Array<Post>>(data),
+      getMessages: data => is<Array<Message>>(data),
       getAPIs: data => is<Array<API>>(data),
       getConnections: data => is<Array<Connection>>(data),
       getCommunities: data => is<Array<Community>>(data),
@@ -254,6 +267,7 @@ export default abstract class Standardizer {
       getChatMessages: data => assertType<Array<ChatMessage>>(data),
       getComments: data => assertType<Array<Post>>(data),
       getPosts: data => assertType<Array<Post>>(data),
+      getMessages: data => assertType<Array<Message>>(data),
       getAPIs: data => assertType<Array<API>>(data),
       getConnections: data => assertType<Array<Connection>>(data),
       getCommunities: data => assertType<Array<Community>>(data),

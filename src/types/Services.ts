@@ -1,9 +1,9 @@
 enum Services {
-  UNKNOWN = 'UNKNOWN',
-  FACEBOOK = 'FACEBOOK',
-  DISCORD = 'DISCORD',
-  REDDIT = 'REDDIT',
-  GOOGLE = 'GOOGLE',
+  UNKNOWN = 'Unknown',
+  FACEBOOK = 'Facebook',
+  DISCORD = 'Discord',
+  REDDIT = 'Reddit',
+  GOOGLE = 'Google',
 }
 
 export default Services
