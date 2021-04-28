@@ -1,26 +1,24 @@
-import Pipeline from 'classes/Pipeline';
-import { AuthorizedDevice } from 'types/schemas'
+import parseHtmlTable from '../../../../../modules/Parsing/html/parseHtmlTable';
+import { AuthorizedDevice } from '../../../../../types/schemas';
 import Google from '../Google';
 
 Google.prototype.getAuthorizedDevices = async function getAuthorizedDevices(options) {
-  const file = await this.parser.listFiles('Compte Google/')
-  const AuthorizedDevicePostRawData = await this.parser.parseAsHTML(
-    Pipeline.fromFile(file[0])).then(dom => {
-      const htmlTable = dom.window.document.querySelector('tr')
-      if (!htmlTable) {
-        throw new Error ('no html table found')
-      }
-    })
-  //  test.next().value[1].querySelectorAll('th').entries()
-  // eslint-disable-next-line no-restricted-syntax
-  //  console.log(test2.next().value[1].textContent)
-  /*  const authorizedDevices = AuthorizedDevicePostRawData.map((authorizedDevice):AuthorizedDevice => ({
-    name: ,
-    ip: reaction.permalink,
-    authorizationDate: ,
-  })) */
+  const files = await this.parser.findFiles(/Device-.*\.html$/,
+    'Takeout/Service de configuration de l_appareil Android')
+  const bodyList = await Promise.all(files.map((file) => this.parser.parseAsHTML(file).then(
+    dom => dom.window.document.body.textContent,
+  )))
+  const modeleList = bodyList.map(body => body?.match(/Modèle : (.*)/)?.[1]).filter(result => result)
+  const timeList = bodyList.map(body => body?.match(/Date et heure d'enregistrement : (.*)/)?.[1])
+    .filter(result => result)
+  const authorizedDevices: Array<AuthorizedDevice> = modeleList.map((modele, index): AuthorizedDevice => (
+    {
+      name: modele!,
+      authorizationDate: new Date(timeList[index]!),
+    }
+  ))
   return {
-    data: [],
-    parsedFiles: ['friends.csv'],
+    data: authorizedDevices,
+    parsedFiles: files,
   }
 }
