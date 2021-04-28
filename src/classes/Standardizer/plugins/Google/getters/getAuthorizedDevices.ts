@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import parseHtmlTable from '../../../../../modules/Parsing/html/parseHtmlTable';
 import { AuthorizedDevice } from '../../../../../types/schemas';
 import Google from '../Google';
