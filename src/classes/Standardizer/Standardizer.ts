@@ -138,11 +138,14 @@ export default abstract class Standardizer {
     const allFormats: Array<string> = Object.values(formats).flat()
     const files = await this.parser.listFiles('.', { extensionWhitelist: allFormats })
     const medias = files.map(async (file): Promise<Media> => {
-      const extension: string = path.parse(file).ext.slice(1)
+      const parsedPath = path.parse(file)
+      const extension: string = parsedPath.ext.slice(1)
       return {
         url: `file:///${ file }`,
         type: <MediaType>Object.keys(formats).find((mediaType) => formats[<MediaType>mediaType].includes(extension)),
         size: (await fsPromises.stat(file)).size,
+        fileName: parsedPath.base,
+        fileExt: extension,
       }
     })
     return {
@@ -167,7 +170,7 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
-  async getMail(options?: GetterOptions): GetterReturn<Array<Mail>> {
+  async getMails(options?: GetterOptions): GetterReturn<Array<Mail>> {
     return Promise.resolve(null)
   }
 
@@ -246,7 +249,7 @@ export default abstract class Standardizer {
       getBrowserData: data => is<BrowserData>(data),
       getTasks: data => is<Array<Task>>(data),
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
-      getMail: data => is<Array<Mail>>(data),
+      getMails: data => is<Array<Mail>>(data),
     }
   }
 
@@ -278,7 +281,7 @@ export default abstract class Standardizer {
       getBrowserData: data => assertType<BrowserData>(data),
       getTasks: data => assertType<Array<Task>>(data),
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
-      getMail: data => assertType<Array<Mail>>(data),
+      getMails: data => assertType<Array<Mail>>(data),
     }
   }
 }
