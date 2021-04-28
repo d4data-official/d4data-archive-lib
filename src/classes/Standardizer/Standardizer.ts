@@ -170,7 +170,7 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
-  async getMail(options?: GetterOptions): GetterReturn<Array<Mail>> {
+  async getMails(options?: GetterOptions): GetterReturn<Array<Mail>> {
     return Promise.resolve(null)
   }
 
@@ -249,7 +249,7 @@ export default abstract class Standardizer {
       getBrowserData: data => is<BrowserData>(data),
       getTasks: data => is<Array<Task>>(data),
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
-      getMail: data => is<Array<Mail>>(data),
+      getMails: data => is<Array<Mail>>(data),
     }
   }
 
@@ -281,7 +281,7 @@ export default abstract class Standardizer {
       getBrowserData: data => assertType<BrowserData>(data),
       getTasks: data => assertType<Array<Task>>(data),
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
-      getMail: data => assertType<Array<Mail>>(data),
+      getMails: data => assertType<Array<Mail>>(data),
     }
   }
 }

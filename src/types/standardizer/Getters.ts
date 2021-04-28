@@ -21,7 +21,7 @@ enum Getters {
   BROWSER_DATA = 'getBrowserData',
   TASKS = 'getTasks',
   AUTHORIZED_DEVICES = 'getAuthorizedDevices',
-  MAIL = 'getMail',
+  MAIL = 'getMails',
 }
 
 export default Getters
