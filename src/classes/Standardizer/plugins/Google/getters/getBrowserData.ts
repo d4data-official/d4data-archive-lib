@@ -53,7 +53,7 @@ Google.prototype.getBrowserData = async function getBrowserData(options) {
   const browserData : BrowserData = {
     history: rawBrowserData.history?.map(
       (historyEntry: GoogleHistoryEntry) => ({
-        timestamp: historyEntry.time_usec as number / 1000000,
+        datetime: new Date(historyEntry.time_usec as number / 1000),
         title: historyEntry.title,
         url: historyEntry.url,
         faviconUrl: historyEntry.favicon_url,
