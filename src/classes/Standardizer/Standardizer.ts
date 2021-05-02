@@ -138,11 +138,14 @@ export default abstract class Standardizer {
     const allFormats: Array<string> = Object.values(formats).flat()
     const files = await this.parser.listFiles('.', { extensionWhitelist: allFormats })
     const medias = files.map(async (file): Promise<Media> => {
-      const extension: string = path.parse(file).ext.slice(1)
+      const parsedPath = path.parse(file)
+      const extension: string = parsedPath.ext.slice(1)
       return {
         url: `file:///${ file }`,
         type: <MediaType>Object.keys(formats).find((mediaType) => formats[<MediaType>mediaType].includes(extension)),
         size: (await fsPromises.stat(file)).size,
+        fileName: parsedPath.base,
+        fileExt: extension,
       }
     })
     return {
@@ -167,7 +170,7 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
-  async getMail(options?: GetterOptions): GetterReturn<Array<Mail>> {
+  async getMails(options?: GetterOptions): GetterReturn<Array<Mail>> {
     return Promise.resolve(null)
   }
 
@@ -182,10 +185,12 @@ export default abstract class Standardizer {
    */
   static getPlugins(): Promise<Array<typeof Standardizer>> {
     return fs.promises.readdir(path.resolve(__dirname, PLUGINS_DIR))
-      .then(dirContent => dirContent.map(
-        service => import(path.resolve(__dirname, PLUGINS_DIR, service, service))
-          .then(importedModule => importedModule.default),
-      ))
+      .then(dirContent => dirContent
+        .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+        .map(
+          service => import(path.resolve(__dirname, PLUGINS_DIR, service, service))
+            .then(importedModule => importedModule.default),
+        ))
       .then(promiseArr => Promise.all(promiseArr))
   }
 
@@ -193,16 +198,22 @@ export default abstract class Standardizer {
    * List all Standardizer plugins contained in the services sub-directory synchronously
    */
   static getPluginsSync(): Array<typeof Standardizer> {
-    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR)).map(
-      // eslint-disable-next-line import/no-dynamic-require,global-require
-      service => require(path.resolve(__dirname, PLUGINS_DIR, service, service)).default,
-    )
+    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR))
+      .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+      .map(
+        // eslint-disable-next-line import/no-dynamic-require,global-require
+        service => require(path.resolve(__dirname, PLUGINS_DIR, service, service)).default,
+      )
   }
 
   /**
    * Import synchronously external getters from given directory.
    */
   static importExternalGettersSync(dirPath: string): void {
+    if (!fs.existsSync(dirPath)) {
+      return
+    }
+
     const getterFiles = fs.readdirSync(dirPath)
       .filter(file => Standardizer.getters.includes(path.parse(file).name))
 
@@ -238,7 +249,7 @@ export default abstract class Standardizer {
       getBrowserData: data => is<BrowserData>(data),
       getTasks: data => is<Array<Task>>(data),
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
-      getMail: data => is<Array<Mail>>(data),
+      getMails: data => is<Array<Mail>>(data),
     }
   }
 
@@ -270,7 +281,7 @@ export default abstract class Standardizer {
       getBrowserData: data => assertType<BrowserData>(data),
       getTasks: data => assertType<Array<Task>>(data),
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
-      getMail: data => assertType<Array<Mail>>(data),
+      getMails: data => assertType<Array<Mail>>(data),
     }
   }
 }
