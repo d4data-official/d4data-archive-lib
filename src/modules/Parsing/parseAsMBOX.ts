@@ -11,8 +11,8 @@ export type OptionsParseAsMBOX = ParsingOptions & PaginationOptions
  */
 export default async function parseAsMBOX(pipeline: Pipeline, options?: OptionsParseAsMBOX): Promise<Array<any>> {
   return mboxParser(pipeline.run(), {
-    pageSize: 5000, // Number of mail to return
-    pageNumber: 1, // Index of the 'page' you want
+    pageSize: options?.pagination?.items ?? 50,
+    pageNumber: 1, // tmp
   }).then((mails: Array<ParsedMail>) => {
     const address: Array<string> = []
     for (let x: number = 0; x < mails.length; x += 1) {
