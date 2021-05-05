@@ -7,7 +7,7 @@ export interface Task {
   /**
    * status of the task
    */
-  status: string
+  status: 'todo' | 'done'
 
   /**
    * date at witch the task was creates
