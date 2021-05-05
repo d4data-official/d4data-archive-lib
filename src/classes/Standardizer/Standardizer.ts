@@ -21,7 +21,7 @@ import {
   Profile,
   Reacted,
   Setting,
-  Task,
+  TaskList,
   Transaction,
   Whereabout,
 } from 'types/schemas'
@@ -162,7 +162,7 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
-  async getTasks(options?: GetterOptions): GetterReturn<Array<Task>> {
+  async getTasks(options?: GetterOptions): GetterReturn<Array<TaskList>> {
     return Promise.resolve(null)
   }
 
@@ -247,7 +247,7 @@ export default abstract class Standardizer {
       getMedias: data => is<Array<Media>>(data),
       getTransactions: data => is<Array<Transaction>>(data),
       getBrowserData: data => is<BrowserData>(data),
-      getTasks: data => is<Array<Task>>(data),
+      getTasks: data => is<Array<TaskList>>(data),
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
       getMails: data => is<Array<Mail>>(data),
     }
@@ -279,7 +279,7 @@ export default abstract class Standardizer {
       getMedias: data => assertType<Array<Media>>(data),
       getTransactions: data => assertType<Array<Transaction>>(data),
       getBrowserData: data => assertType<BrowserData>(data),
-      getTasks: data => assertType<Array<Task>>(data),
+      getTasks: data => assertType<Array<TaskList>>(data),
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
       getMails: data => assertType<Array<Mail>>(data),
     }
