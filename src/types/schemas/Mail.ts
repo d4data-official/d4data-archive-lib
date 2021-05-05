@@ -14,7 +14,7 @@ export default interface Mail {
   /**
    * Date at the time the mail was send
    */
-  date: Date;
+  date?: Date;
 
   /**
    * Object of the mail
