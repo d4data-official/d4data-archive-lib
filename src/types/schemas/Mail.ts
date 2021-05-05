@@ -9,7 +9,7 @@ export default interface Mail {
   /**
    * Receiver of the mail
    */
-  to: string
+  to: Array<string>
 
   /**
    * Date at the time the mail was send
