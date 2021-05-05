@@ -2,14 +2,14 @@ import Discord from '../Discord'
 import { Reacted } from '../../../../../types/schemas'
 
 Discord.prototype.getReacted = async function getReacted(options) {
-  const events = await this.parser.findFiles(/(tns)|(analytics)/, './activity')
-  if (events.length === 0) {
+  const eventFiles = await this.parser.findFiles(/(tns)|(analytics)/, './activity')
+  if (eventFiles.length === 0) {
     return {
       data: [],
       parsedFiles: [],
     }
   }
-  const reactions = (await this.parser.parseAsJSONL(events[0], {
+  const reactions = (await this.parser.parseAsJSONL(eventFiles[0], {
     filter: (unparsedLine) => (unparsedLine.startsWith('{"event_type":"add_reaction"')),
     ...options?.parsingOptions,
   }))
@@ -26,6 +26,6 @@ Discord.prototype.getReacted = async function getReacted(options) {
   })
   return {
     data: reacted,
-    parsedFiles: events,
+    parsedFiles: eventFiles,
   }
 }
