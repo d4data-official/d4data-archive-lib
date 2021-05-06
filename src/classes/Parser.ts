@@ -66,6 +66,14 @@ export default class Parser {
   }
 
   /**
+   * Clone this Parser instance
+   * Keep only path and pre-processors
+   */
+  clone(): Parser {
+    return new Parser(this.path, this.preprocessors)
+  }
+
+  /**
    * Merge parsing options with default Parser options
    */
   mergeOptions(
