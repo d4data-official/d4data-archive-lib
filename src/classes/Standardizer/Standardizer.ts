@@ -61,6 +61,13 @@ export default abstract class Standardizer {
    */
   abstract get subStandardizers(): Array<Standardizer>
 
+  /**
+   * Return cloned instance of Parser, must be use by getters to keep track of parsed files
+   */
+  newParser(): Parser {
+    return this.parser.clone()
+  }
+
   async getProfile(options?: GetterOptions): GetterReturn<Profile> {
     return Promise.resolve(null)
   }
