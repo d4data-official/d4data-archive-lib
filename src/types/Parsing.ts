@@ -18,5 +18,8 @@ export interface PreprocessorOptions {
   preprocessors?: Array<Preprocessor>
 }
 
+
 export interface ParsingOptions {
 }
+
+export type FullParsingOptions = ParsingOptions & PreprocessorOptions & PaginationOptions

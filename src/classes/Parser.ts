@@ -76,9 +76,7 @@ export default class Parser {
   /**
    * Merge parsing options with default Parser options
    */
-  mergeOptions(
-    options?: ParsingOptions & PreprocessorOptions & PaginationOptions,
-  ): ParsingOptions & PreprocessorOptions & PaginationOptions {
+  mergeOptions(options?: FullParsingOptions): FullParsingOptions {
     return {
       // Default pagination option values
       pagination: {
