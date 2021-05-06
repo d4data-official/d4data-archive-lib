@@ -18,7 +18,6 @@ export interface PreprocessorOptions {
   preprocessors?: Array<Preprocessor>
 }
 
-
 export interface ParsingOptions {
 }
 
