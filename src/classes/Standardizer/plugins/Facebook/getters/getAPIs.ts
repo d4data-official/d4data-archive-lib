@@ -1,5 +1,6 @@
 import Facebook from '../Facebook'
 import { API } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const APIS_FILE = 'apps_and_websites/apps_and_websites.json'
 
@@ -10,16 +11,11 @@ interface APIS {
   }>
 }
 
-Facebook.prototype.getAPIs = async function getAPIs(options) {
-  const APIs = await this.parser.parseAsJSON<APIS>(APIS_FILE, options?.parsingOptions)
+Facebook.prototype.getAPIs = withAutoParser(async parser => {
+  const APIs = await parser.parseAsJSON<APIS>(APIS_FILE)
 
-  const apis : Array<API> = APIs.installed_apps.map((thisApi) => ({
+  return APIs.installed_apps.map((thisApi): API => ({
     name: thisApi.name,
-    timestamp: new Date(thisApi.added_timestamp * 1000),
+    linkingDate: new Date(thisApi.added_timestamp * 1000),
   }))
-
-  return {
-    data: apis,
-    parsedFiles: [APIS_FILE],
-  }
-}
+})
