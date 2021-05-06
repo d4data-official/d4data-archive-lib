@@ -1,6 +1,13 @@
 import path from 'path'
 import { JSDOM } from 'jsdom'
-import { FilterOptions, PaginationOptions, ParsingOptions, Preprocessor, PreprocessorOptions } from '../types/Parsing'
+import {
+  FilterOptions,
+  FullParsingOptions,
+  PaginationOptions,
+  ParsingOptions,
+  Preprocessor,
+  PreprocessorOptions,
+} from '../types/Parsing'
 import listFiles, { OptionsListFiles } from '../modules/Parsing/listFiles'
 import findFiles from '../modules/Parsing/findFiles'
 import parseDir, { OptionsParseDir } from '../modules/Parsing/parseDir'
@@ -25,6 +32,13 @@ export default class Parser {
    */
   readonly parsedFiles: Array<string> = []
 
+  defaultOptions: ParsingOptions & PaginationOptions = {
+    pagination: {
+      offset: 0,
+      items: 50,
+    },
+  }
+
   constructor(extractedArchivePath: string, preprocessors: Array<Preprocessor> = []) {
     this.path = extractedArchivePath
     this.preprocessors = preprocessors
@@ -48,6 +62,17 @@ export default class Parser {
     this.savePath(absolutePath)
 
     return absolutePath
+  }
+
+  /**
+   * Merge given options with this Parser default options
+   * Default options are given to each parsing methods of this Parser
+   */
+  mergeWithDefaultOptions(options: ParsingOptions & PaginationOptions): void {
+    this.defaultOptions = {
+      ...this.defaultOptions,
+      ...options,
+    }
   }
 
   /**
@@ -78,11 +103,7 @@ export default class Parser {
    */
   mergeOptions(options?: FullParsingOptions): FullParsingOptions {
     return {
-      // Default pagination option values
-      pagination: {
-        offset: 0,
-        items: 50,
-      },
+      ...this.defaultOptions,
       ...options,
       preprocessors: options?.preprocessors ? this.preprocessors.concat(options.preprocessors) : this.preprocessors,
     }
