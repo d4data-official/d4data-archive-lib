@@ -14,17 +14,20 @@
     "new-cap": "off",
     "no-return-assign": "off",
     "arrow-parens": "off",
-    "max-len": ["error", { "code": 120 }],
+    "max-len": ["error", {"code": 120}],
     "consistent-return": "off",
     "template-curly-spacing": ["error", "always"],
-    "object-curly-newline": ["error", {
-      "ImportDeclaration": { "multiline": true }
-    }],
+    "object-curly-newline": [
+      "error", {
+        "ImportDeclaration": {"multiline": true}
+      }
+    ],
     "class-methods-use-this": "off",
     "no-console": "off",
-    "no-use-before-define": ["error", { "functions": false, "classes": true, "variables": true }],
+    "no-use-before-define": ["error", {"functions": false, "classes": true, "variables": true}],
     "import/no-named-as-default-member": "off",
     "no-continue": "off",
+    "@typescript-eslint/no-shadow": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/semi": "off",
