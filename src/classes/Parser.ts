@@ -20,9 +20,34 @@ export default class Parser {
 
   preprocessors: Array<Preprocessor>
 
+  /**
+   * List of absolute files path parsed by this Parser instance
+   */
+  readonly parsedFiles: Array<string> = []
+
   constructor(extractedArchivePath: string, preprocessors: Array<Preprocessor> = []) {
     this.path = extractedArchivePath
     this.preprocessors = preprocessors
+  }
+
+  /**
+   * Save given path in parsed file list by avoiding duplicate entries
+   */
+  private savePath(absolutePath: string): void {
+    if (!this.parsedFiles.includes(absolutePath)) {
+      this.parsedFiles.push(absolutePath)
+    }
+  }
+
+  /**
+   * Resolve path relative to the archive root and save it in parsed file list
+   */
+  private resolveAndSavePath(relativePath: string): string {
+    const absolutePath = this.resolveRelativePath(relativePath)
+
+    this.savePath(absolutePath)
+
+    return absolutePath
   }
 
   /**
@@ -76,6 +101,7 @@ export default class Parser {
    * Parse directory files recursively from given path for any supported file format
    */
   async parseDir(relativeDirPath: string, options?: OptionsParseDir): Promise<Array<Record<string, any>>> {
+    // TODO: implement parsed files saving
     return parseDir(this.resolveRelativePath(relativeDirPath), this.mergeOptions(options))
   }
 
@@ -84,7 +110,7 @@ export default class Parser {
    * Throw error if can't access file or if parsing fail
    */
   async parseFile<T = any>(relativeFilePath: string, options?: OptionsParseFile & PreprocessorOptions): Promise<T> {
-    return parseFile<T>(this.resolveRelativePath(relativeFilePath), this.mergeOptions(options))
+    return parseFile<T>(this.resolveAndSavePath(relativeFilePath), this.mergeOptions(options))
   }
 
   /**
@@ -95,7 +121,7 @@ export default class Parser {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsText(
-      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      Pipeline.fromFile(this.resolveAndSavePath(relativeFilePath), mergedOptions.preprocessors),
       mergedOptions,
     )
   }
@@ -111,7 +137,7 @@ export default class Parser {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsJSON(
-      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      Pipeline.fromFile(this.resolveAndSavePath(relativeFilePath), mergedOptions.preprocessors),
       mergedOptions,
     )
   }
@@ -127,7 +153,7 @@ export default class Parser {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsJSONL(
-      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      Pipeline.fromFile(this.resolveAndSavePath(relativeFilePath), mergedOptions.preprocessors),
       mergedOptions,
     )
   }
@@ -140,7 +166,7 @@ export default class Parser {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsHTML(
-      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      Pipeline.fromFile(this.resolveAndSavePath(relativeFilePath), mergedOptions.preprocessors),
       mergedOptions,
     )
   }
@@ -156,7 +182,7 @@ export default class Parser {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsCSV(
-      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      Pipeline.fromFile(this.resolveAndSavePath(relativeFilePath), mergedOptions.preprocessors),
       mergedOptions,
     )
   }
@@ -169,7 +195,7 @@ export default class Parser {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsMBOX(
-      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      Pipeline.fromFile(this.resolveAndSavePath(relativeFilePath), mergedOptions.preprocessors),
       mergedOptions,
     )
   }
@@ -182,7 +208,7 @@ export default class Parser {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsVCARD(
-      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      Pipeline.fromFile(this.resolveAndSavePath(relativeFilePath), mergedOptions.preprocessors),
       mergedOptions,
     )
   }
@@ -195,7 +221,7 @@ export default class Parser {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsICS(
-      Pipeline.fromFile(this.resolveRelativePath(relativeFilePath), mergedOptions.preprocessors),
+      Pipeline.fromFile(this.resolveAndSavePath(relativeFilePath), mergedOptions.preprocessors),
       mergedOptions,
     )
   }
