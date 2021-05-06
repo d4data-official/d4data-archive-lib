@@ -8,12 +8,8 @@ export type WrappedGetter<T> = (this: Standardizer, parser: Parser, options?: Ge
 
 export default function withAutoParser<T>(externalGetter: WrappedGetter<T>): Getter<T> {
   return async function (this: Standardizer, options?: GetterOptions): GetterReturn<T> {
-    const parser = this.newParser()
+    const parser = this.newParser(options?.parsingOptions)
     const boundGetter = externalGetter.bind(this)
-
-    if (options?.parsingOptions) {
-      parser.mergeWithDefaultOptions(options.parsingOptions)
-    }
 
     return {
       data: await boundGetter(parser, options),
