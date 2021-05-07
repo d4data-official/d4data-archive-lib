@@ -1,5 +1,6 @@
 # D4Data Archive Lib
 
+![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/d4data-official/archive-lib?include_prereleases)
 [![GitHub issues](https://img.shields.io/github/issues-raw/d4data-official/archive-lib)](https://github.com/d4data-official/archive-lib)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/d4data-official/archive-lib)](https://github.com/d4data-official/archive-lib)
 
