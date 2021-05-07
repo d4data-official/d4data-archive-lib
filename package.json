@@ -69,5 +69,15 @@
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0",
     "ttypescript": "^1.5.12"
-  }
+  },
+  "keywords": [
+    "d4data",
+    "GDPR",
+    "personal data",
+    "archive",
+    "facebook",
+    "google",
+    "discord",
+    "reddit"
+  ]
 }
