@@ -14,7 +14,8 @@
     "test": "ava --timeout=5m -v",
     "test:cov": "nyc npm run test",
     "debug": "cross-env NODE_ENV=test ts-node --project debug/tsconfig.json -C ttypescript --transpile-only -- debug/debug.ts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "engines": {
     "node": ">=15"
