@@ -1,5 +1,5 @@
 {
-  "name": "d4data-archive-lib",
+  "name": "@d4data/archive-lib",
   "version": "0.1.0",
   "main": "dist/src/index.js",
   "scripts": {
