@@ -2,6 +2,10 @@
   "name": "@d4data/archive-lib",
   "description": "Library to extract and normalize data from GDPR personal data archives",
   "version": "0.1.0-alpha.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d4data-official/archive-lib.git"
+  },
   "main": "dist/src/index.js",
   "files": [
     "dist/"
