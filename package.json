@@ -1,5 +1,6 @@
 {
   "name": "@d4data/archive-lib",
+  "description": "Library to extract and normalize data from GDPR personal data archives",
   "version": "0.1.0-alpha.1",
   "main": "dist/src/index.js",
   "files": [
