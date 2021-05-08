@@ -9,12 +9,12 @@ export default interface Mail {
   /**
    * Receiver of the mail
    */
-  to: string
+  to: Array<string>
 
   /**
    * Date at the time the mail was send
    */
-  date: Date;
+  date?: Date | undefined;
 
   /**
    * Object of the mail
@@ -24,7 +24,7 @@ export default interface Mail {
   /**
    * content of the mail
    */
-  content: string
+  content?: string | undefined
 
   /**
    * info of the file link in the mail

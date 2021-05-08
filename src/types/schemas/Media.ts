@@ -12,6 +12,16 @@ export default interface Media {
   url: string
 
   /**
+   * File name if known
+   */
+  fileName?: string | undefined
+
+  /**
+   * File extension if known
+   */
+  fileExt?: string | undefined
+
+  /**
    * Media size in bytes
    */
   size?: number | undefined

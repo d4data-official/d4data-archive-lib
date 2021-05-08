@@ -1,5 +1,5 @@
 export { default as API } from 'types/schemas/API';
-export { default as Archive } from 'types/schemas/Archive';
+export { default as ArchiveMetaData } from 'types/schemas/ArchiveMetaData';
 export { default as AuthorizedDevice } from 'types/schemas/AuthorizedDevice';
 export { default as Chat } from 'types/schemas/Chat';
 export { default as ChatMessage } from 'types/schemas/ChatMessage';
@@ -20,7 +20,7 @@ export { default as ProfilePicture } from 'types/schemas/ProfilePicture';
 export { default as Reacted } from 'types/schemas/Reacted';
 export { default as Reaction } from 'types/schemas/Reaction';
 export { default as Setting } from 'types/schemas/Setting';
-export { default as Task } from 'types/schemas/Task';
+export { default as TaskList } from 'types/schemas/TaskList';
 export { default as Transaction } from 'types/schemas/Transaction';
 export { default as Whereabout } from 'types/schemas/Whereabout';
 export { default as BrowserData } from 'types/schemas/BrowserData';

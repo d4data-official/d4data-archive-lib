@@ -10,6 +10,7 @@ enum Getters {
   CHAT_MESSAGES = 'getChatMessages',
   COMMENTS = 'getComments',
   POSTS = 'getPosts',
+  MESSAGES = 'getMessages',
   APIS = 'getAPIs',
   CONNECTIONS = 'getConnections',
   COMMUNITIES = 'getCommunities',
@@ -20,7 +21,7 @@ enum Getters {
   BROWSER_DATA = 'getBrowserData',
   TASKS = 'getTasks',
   AUTHORIZED_DEVICES = 'getAuthorizedDevices',
-  MAIL = 'getMail',
+  MAIL = 'getMails',
 }
 
 export default Getters
