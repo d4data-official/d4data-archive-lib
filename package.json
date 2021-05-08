@@ -1,7 +1,15 @@
 {
-  "name": "d4data-archive-lib",
-  "version": "0.1.0",
-  "main": "dist/index.js",
+  "name": "@d4data/archive-lib",
+  "description": "Library to extract and normalize data from GDPR personal data archives",
+  "version": "0.1.0-alpha.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d4data-official/archive-lib.git"
+  },
+  "main": "dist/src/index.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "start": "node .",
     "build": "cross-env NODE_ENV=production rimraf dist && ttsc",
@@ -11,10 +19,11 @@
     "test": "ava --timeout=5m -v",
     "test:cov": "nyc npm run test",
     "debug": "cross-env NODE_ENV=test ts-node --project debug/tsconfig.json -C ttypescript --transpile-only -- debug/debug.ts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "engines": {
-    "node": "^15"
+    "node": ">=15"
   },
   "ava": {
     "files": [
@@ -34,7 +43,6 @@
   "dependencies": {
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
     "iconv-lite": "^0.6.2",
     "jsdom": "^16.5.1",
     "papaparse": "^5.3.0",
@@ -42,6 +50,7 @@
     "typescript": "^4.1.5",
     "typescript-is": "^0.18.2",
     "vcf": "^2.1.0",
+    "uuid": "^8.3.2",
     "yauzl": "^2.10.0"
   },
   "devDependencies": {
@@ -49,6 +58,7 @@
     "@types/node": "^14.14.26",
     "@types/papaparse": "^5.2.5",
     "@types/vcf": "^2.0.3",
+    "@types/uuid": "^8.3.0",
     "@types/yauzl": "^2.9.1",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
@@ -61,5 +71,15 @@
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0",
     "ttypescript": "^1.5.12"
-  }
+  },
+  "keywords": [
+    "d4data",
+    "GDPR",
+    "personal data",
+    "archive",
+    "facebook",
+    "google",
+    "discord",
+    "reddit"
+  ]
 }

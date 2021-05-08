@@ -10,7 +10,7 @@ export interface Address {
 }
 
 export interface History {
-  timestamp: number
+  datetime: Date
   title: string
   url: string
   faviconUrl?: string | undefined

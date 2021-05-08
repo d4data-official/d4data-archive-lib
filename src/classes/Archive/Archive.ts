@@ -1,12 +1,13 @@
-import fs from 'fs'
+import fs, { promises as fsPromises } from 'fs'
 import path from 'path'
+import { v4 as uuidV4 } from 'uuid'
 import extractArchive, { ArchiveFormat, ExtractOptions, identifyArchiveFormat } from '../../modules/ArchiveExtraction'
 import Standardizer from '../Standardizer/Standardizer'
 import Services from '../../types/Services'
 import Config from '../../modules/Config'
+import ArchiveMetaData from '../../types/schemas/ArchiveMetaData'
 
 export const PLUGINS_DIR = 'plugins'
-
 export const OUTPUT_DIR = Config.archiveOutputDir
 
 export default abstract class Archive {
@@ -18,7 +19,11 @@ export default abstract class Archive {
 
   constructor(archivePath: string, outputDir?: string) {
     this.path = archivePath
-    this.outputDir = outputDir ?? OUTPUT_DIR
+    this.outputDir = outputDir ?? this.defaultOutputDir
+  }
+
+  get defaultOutputDir() {
+    return path.resolve(OUTPUT_DIR, `${ this.service }-${ uuidV4() }`)
   }
 
   /**
@@ -53,8 +58,14 @@ export default abstract class Archive {
   /**
    * Get archive metadata
    */
-  async getMetadata(): Promise<Archive> {
-    return Promise.reject()
+  async getMetadata(): Promise<ArchiveMetaData> {
+    const stat = await fsPromises.stat(this.path)
+
+    return {
+      service: this.service,
+      size: stat.size,
+      creationDate: stat.birthtime,
+    }
   }
 
   /**
@@ -73,10 +84,12 @@ export default abstract class Archive {
    */
   static getPlugins(): Promise<Array<typeof Archive>> {
     return fs.promises.readdir(path.resolve(__dirname, PLUGINS_DIR))
-      .then(dirContent => dirContent.map(
-        service => import(path.resolve(__dirname, PLUGINS_DIR, service))
-          .then(importedModule => importedModule.default),
-      ))
+      .then(dirContent => dirContent
+        .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+        .map(
+          service => import(path.resolve(__dirname, PLUGINS_DIR, service))
+            .then(importedModule => importedModule.default),
+        ))
       .then(promiseArr => Promise.all(promiseArr))
   }
 
@@ -84,9 +97,11 @@ export default abstract class Archive {
    * List all Archive plugins contained in the services sub-directory synchronously
    */
   static getPluginsSync(): Array<typeof Archive> {
-    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR)).map(
-      // eslint-disable-next-line import/no-dynamic-require,global-require
-      service => require(path.resolve(__dirname, PLUGINS_DIR, service)).default,
-    )
+    return fs.readdirSync(path.resolve(__dirname, PLUGINS_DIR))
+      .filter(file => Object.values<string>(Services).includes(path.parse(file).name))
+      .map(
+        // eslint-disable-next-line import/no-dynamic-require,global-require
+        service => require(path.resolve(__dirname, PLUGINS_DIR, service)).default,
+      )
   }
 }
