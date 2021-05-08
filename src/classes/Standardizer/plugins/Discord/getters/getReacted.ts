@@ -16,7 +16,7 @@ Discord.prototype.getReacted = async function getReacted(options) {
   const reacted = reactions.map((reaction): Reacted => {
     const guild = reaction?.guild_id ?? '@me'
     return {
-      type: 'externalLink',
+      entityType: 'externalLink',
       entity: `https://discordapp.com/channels/${ guild }/${ reaction?.channel_id }/${ reaction?.message_id }`,
       reaction: {
         name: reaction.emoji_name,
