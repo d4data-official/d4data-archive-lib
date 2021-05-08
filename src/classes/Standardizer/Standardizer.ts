@@ -188,7 +188,7 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
-  async getNotes(options?: GetterOptions): GetterReturn<Array<TaskList>> {
+  async getNotes(options?: GetterOptions): GetterReturn<Array<Message>> {
     return Promise.resolve(null)
   }
 
