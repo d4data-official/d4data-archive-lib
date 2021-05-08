@@ -6,8 +6,8 @@ interface GoogleNotes {
   isTrashed: boolean,
   isPinned: boolean,
   isArchived: boolean,
-  textContent: string,
-  title: string,
+  textContent?: string,
+  title?: string,
   userEditedTimeStampUsec: number
 }
 
@@ -19,8 +19,8 @@ Google.prototype.getNotes = async function getNotes(options) {
     return {
       sender: 'Note to myself',
       receiver: 'Note to myself',
-      title: note.title,
-      content: note.textContent,
+      title: note.title ?? 'No title provided',
+      content: note.textContent ?? 'No content provided',
       creationDate: new Date(file.replaceAll('_', ':').split('.json')[0]),
     } as Message
   }))
