@@ -10,7 +10,6 @@ Google.prototype.getChats = async function getChats(options) {
     participants: conv.conversation.conversation.participant_data.map((participant: any) => participant.fallback_name),
     title: 'None',
   })))
-  console.log(chats)
   return {
     data: chats,
     parsedFiles: [ACCOUNT_CHAT_FILE],
