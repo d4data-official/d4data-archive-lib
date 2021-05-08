@@ -10,7 +10,7 @@ Google.prototype.getChats = async function getChats(options) {
     participants: conv.conversation.conversation.participant_data.map((participant: any) => participant.fallback_name),
     title: 'None',
   })))
-  const chatEvent: Array<Chat> = await Promise.all(rawChats.conversations.map((event: any) => ({
+  const chatEvent: Array<Chat> = await Promise.all(rawChats.events.map((event: any) => ({
     id: event.conversation.conversation_id,
     participants: event.conversation.conversation.participant_data.map((participant: any) => participant.fallback_name),
     title: 'None',
