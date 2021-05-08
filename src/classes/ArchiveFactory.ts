@@ -6,11 +6,11 @@ import Unknown from './Archive/Unknown'
 export default class ArchiveFactory {
   path: string
 
-  outputDir: string
+  outputDir?: string
 
   plugins: Array<Archive>
 
-  constructor(archivePath: string, outputDir: string = OUTPUT_DIR, plugins: Array<Archive> = []) {
+  constructor(archivePath: string, outputDir?: string, plugins: Array<Archive> = []) {
     this.path = archivePath
     this.outputDir = outputDir
     this.plugins = plugins

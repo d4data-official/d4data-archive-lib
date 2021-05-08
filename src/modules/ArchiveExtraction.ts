@@ -1,6 +1,5 @@
 import Path from 'path'
-import fs from 'fs/promises'
-import { createWriteStream } from 'fs'
+import { createWriteStream, promises as fsPromises } from 'fs'
 import yauzl from 'yauzl'
 
 export enum ArchiveFormat {
@@ -72,7 +71,7 @@ async function unzip(filePath: string, outputPath: string, options?: ExtractOpti
   const fileCount = await countFileInZip(filePath)
   let extractedCount = 0
 
-  await fs.mkdir(outputPath, { recursive: true })
+  await fsPromises.mkdir(outputPath, { recursive: true })
   return new Promise((resolve, reject) => {
     yauzl.open(filePath, (yauzlError: any, zipFile: any) => {
       if (yauzlError) reject(yauzlError)
@@ -83,7 +82,7 @@ async function unzip(filePath: string, outputPath: string, options?: ExtractOpti
             if (streamErr) reject(streamErr)
 
             const outputFilePath = Path.resolve(outputPath, entry.fileName)
-            await fs.mkdir(Path.dirname(outputFilePath), { recursive: true })
+            await fsPromises.mkdir(Path.dirname(outputFilePath), { recursive: true })
             const writeStream = createWriteStream(outputFilePath)
 
             readStream.pipe(writeStream)

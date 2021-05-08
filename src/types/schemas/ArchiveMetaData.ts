@@ -1,6 +1,6 @@
 import Services from 'types/Services';
 
-export default interface Archive {
+export default interface ArchiveMetaData {
   /**
    * Archive size in bytes
    */
