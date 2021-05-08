@@ -21,7 +21,7 @@ import {
   Profile,
   Reacted,
   Setting,
-  Task,
+  TaskList,
   Transaction,
   Whereabout,
 } from 'types/schemas'
@@ -32,6 +32,7 @@ import { GetterOptions } from '../../types/standardizer/Standardizer'
 import GetterReturn from '../../types/standardizer/GetterReturn'
 import { MediaType } from '../../types/schemas/Media'
 import Getters from '../../types/standardizer/Getters'
+import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -60,6 +61,19 @@ export default abstract class Standardizer {
    * Get sub-standardizer list of this standardizer service
    */
   abstract get subStandardizers(): Array<Standardizer>
+
+  /**
+   * Return cloned instance of Parser, must be use by getters to keep track of parsed files
+   */
+  newParser(defaultOptions?: ParsingOptions & PaginationOptions): Parser {
+    const newParser = this.parser.clone()
+
+    if (defaultOptions) {
+      newParser.mergeWithDefaultOptions(defaultOptions)
+    }
+
+    return newParser
+  }
 
   async getProfile(options?: GetterOptions): GetterReturn<Profile> {
     return Promise.resolve(null)
@@ -162,7 +176,7 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
-  async getTasks(options?: GetterOptions): GetterReturn<Array<Task>> {
+  async getTasks(options?: GetterOptions): GetterReturn<Array<TaskList>> {
     return Promise.resolve(null)
   }
 
@@ -247,7 +261,7 @@ export default abstract class Standardizer {
       getMedias: data => is<Array<Media>>(data),
       getTransactions: data => is<Array<Transaction>>(data),
       getBrowserData: data => is<BrowserData>(data),
-      getTasks: data => is<Array<Task>>(data),
+      getTasks: data => is<Array<TaskList>>(data),
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
       getMails: data => is<Array<Mail>>(data),
     }
@@ -279,7 +293,7 @@ export default abstract class Standardizer {
       getMedias: data => assertType<Array<Media>>(data),
       getTransactions: data => assertType<Array<Transaction>>(data),
       getBrowserData: data => assertType<BrowserData>(data),
-      getTasks: data => assertType<Array<Task>>(data),
+      getTasks: data => assertType<Array<TaskList>>(data),
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
       getMails: data => assertType<Array<Mail>>(data),
     }

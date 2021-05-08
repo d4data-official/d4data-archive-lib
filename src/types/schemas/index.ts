@@ -20,7 +20,7 @@ export { default as ProfilePicture } from 'types/schemas/ProfilePicture';
 export { default as Reacted } from 'types/schemas/Reacted';
 export { default as Reaction } from 'types/schemas/Reaction';
 export { default as Setting } from 'types/schemas/Setting';
-export { default as Task } from 'types/schemas/Task';
+export { default as TaskList } from 'types/schemas/TaskList';
 export { default as Transaction } from 'types/schemas/Transaction';
 export { default as Whereabout } from 'types/schemas/Whereabout';
 export { default as BrowserData } from 'types/schemas/BrowserData';
