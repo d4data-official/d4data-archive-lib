@@ -5,9 +5,6 @@ import { Connection } from '../../../../../types/schemas';
 const CONNECTIONS_FOLDER = 'Takeout/Compte\ Google/'
 
 Google.prototype.getConnections = async function getConnections(options) {
-  if (!(await this.parser.filesExist([CONNECTIONS_FOLDER]))) {
-    return null
-  }
   const files = await this.parser.listFiles(CONNECTIONS_FOLDER, { extensionWhitelist: ['html'] })
   const connectionFile = await this.parser.parseAsHTML(files[0], options?.parsingOptions)
   const dom = Array.from(connectionFile.window.document.querySelectorAll('table tr')).slice(1);
