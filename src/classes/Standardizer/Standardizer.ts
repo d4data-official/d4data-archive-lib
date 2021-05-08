@@ -188,6 +188,10 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
+  async getNotes(options?: GetterOptions): GetterReturn<Array<TaskList>> {
+    return Promise.resolve(null)
+  }
+
   static get getters() {
     const excludedKeys = ['constructor']
     return Object.getOwnPropertyNames(Standardizer.prototype)
@@ -252,6 +256,7 @@ export default abstract class Standardizer {
       getChatMessages: data => is<Array<ChatMessage>>(data),
       getComments: data => is<Array<Post>>(data),
       getPosts: data => is<Array<Post>>(data),
+      getNotes: data => is<Array<Message>>(data),
       getMessages: data => is<Array<Message>>(data),
       getAPIs: data => is<Array<API>>(data),
       getConnections: data => is<Array<Connection>>(data),
@@ -284,6 +289,7 @@ export default abstract class Standardizer {
       getChatMessages: data => assertType<Array<ChatMessage>>(data),
       getComments: data => assertType<Array<Post>>(data),
       getPosts: data => assertType<Array<Post>>(data),
+      getNotes: data => assertType<Array<Message>>(data),
       getMessages: data => assertType<Array<Message>>(data),
       getAPIs: data => assertType<Array<API>>(data),
       getConnections: data => assertType<Array<Connection>>(data),
