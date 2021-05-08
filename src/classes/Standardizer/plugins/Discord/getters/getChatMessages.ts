@@ -11,6 +11,6 @@ Discord.prototype.getChatMessages = async function getChatMessages(chatId: strin
   }))
   return {
     data: chatMessages,
-    parsedFiles: [messages?.[Number(chatId)]],
+    parsedFiles: parsed,
   }
 }
