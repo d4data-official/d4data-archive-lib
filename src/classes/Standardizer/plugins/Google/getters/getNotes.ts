@@ -21,7 +21,7 @@ Google.prototype.getNotes = async function getNotes(options) {
       receiver: 'Note to myself',
       title: note.title ?? 'No title provided',
       content: note.textContent ?? 'No content provided',
-      creationDate: new Date(file.replaceAll('_', ':').split('.json')[0]),
+      creationDate: new Date(file.split('Takeout/Keep/')[1].replaceAll('_', ':').split('.json')[0]),
     } as Message
   }))
 
