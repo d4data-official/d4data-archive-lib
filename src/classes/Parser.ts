@@ -93,11 +93,11 @@ export default class Parser {
   }
 
   /**
-   * * Checks if files exists
+   * Checks if files exists
    */
   async filesExist(dirPaths: Array<string>): Promise<boolean> {
     const paths = dirPaths.map((relativePath) => this.resolveRelativePath(relativePath))
-    return this.filesExist(paths)
+    return filesExist(paths)
   }
 
   /**
