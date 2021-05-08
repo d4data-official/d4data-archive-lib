@@ -12,7 +12,7 @@ interface GoogleNotes {
 }
 
 Google.prototype.getNotes = async function getNotes(options) {
-  const NOTES_FILES = await (await this.parser.listFiles('Takeout/Keep/')).filter(file => file.includes('.json'))
+  const NOTES_FILES = await this.parser.listFiles('Takeout/Keep/', { extensionWhitelist: ['json'] })
 
   const notes = await Promise.all(NOTES_FILES.map(async file => {
     const note = await this.parser.parseAsJSON<GoogleNotes>(file, options?.parsingOptions)
