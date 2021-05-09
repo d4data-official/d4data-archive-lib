@@ -1,6 +1,5 @@
 import path from 'path'
 import { v4 as uuidv4 } from 'uuid';
-import fs from 'fs';
 import Standardizer, { EXTERNAL_GETTERS_DIR } from '../../Standardizer'
 import Services from '../../../../types/Services'
 import { PipelineStep } from '../../../Pipeline'
