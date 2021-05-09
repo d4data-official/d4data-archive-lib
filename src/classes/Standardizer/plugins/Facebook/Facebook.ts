@@ -1,4 +1,3 @@
-import iconv from 'iconv-lite'
 import path from 'path'
 import Standardizer, { EXTERNAL_GETTERS_DIR } from '../../Standardizer'
 import Services from '../../../../types/Services'
@@ -9,9 +8,12 @@ export const preProcessors: Array<PipelineStep> = [
   async function* utf8Translator(stream) {
     if (stream !== undefined) {
       for await (const chunk of stream) {
-        const encodedStr = iconv.encode(chunk, 'latin1');
-        const decodedStr = iconv.decode(encodedStr, 'utf8');
-        yield decodedStr
+        const chunkStr: string = chunk.toString();
+        const semiFixedStr: string = chunkStr.replaceAll(/\\u00([0-9a-f]{2})/g,
+          (_: any, group: string) => `%${ group.toUpperCase() }`)
+        const fixedStr = decodeURI(semiFixedStr)
+        const newChunk = Buffer.from(fixedStr, 'utf8');
+        yield newChunk
       }
     }
   },
