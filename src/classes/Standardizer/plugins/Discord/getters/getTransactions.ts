@@ -5,7 +5,7 @@ const TRANSACTIONS_FILE = 'account/user.json'
 
 interface DiscordTransaction {
   created_at: string,
-  currency?: string,
+  currency: string,
   description?: string,
   amount: number,
   id: string,
@@ -27,7 +27,7 @@ interface DiscordTransaction {
 
 Discord.prototype.getTransactions = async function getTransactions(options) {
   const transactionsRaw = await this.parser.parseAsJSON(TRANSACTIONS_FILE, options?.parsingOptions)
-  const transactions = transactionsRaw.payments.map((tr: DiscordTransaction) => ({
+  const transactions = transactionsRaw.payments.map((tr: DiscordTransaction) : Transaction => ({
     date: new Date(tr.created_at),
     product: tr.description ?? 'Unknown product',
     currency: tr.currency,
@@ -35,7 +35,7 @@ Discord.prototype.getTransactions = async function getTransactions(options) {
     status: tr.status === 1 ? 'completed' : 'unknown',
     paymentMethod: tr.payment_source?.brand,
     description: tr.description,
-  })) as Array<Transaction>
+  }))
 
   return {
     data: transactions,
