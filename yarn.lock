@@ -285,16 +285,9 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
-"@types/mailparser@^3.0.0":
+"@types/mailparser@^3.0.0", "@types/mailparser@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@types/mailparser/-/mailparser-3.0.2.tgz"
-  integrity sha512-SMmUF6SPLkwBjx7Q4zQzBmAhOYLAUXPAU/QbhHX+k3QQ3vfdaLva5dNkUFT2Weu6kRm+ukX+jAMTI0RnLMi0uw==
-  dependencies:
-    "@types/node" "*"
-
-"@types/mailparser@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@types/mailparser/-/mailparser-3.0.2.tgz#37d8235685fa3653ff27c46709078196aa6cb1ce"
   integrity sha512-SMmUF6SPLkwBjx7Q4zQzBmAhOYLAUXPAU/QbhHX+k3QQ3vfdaLva5dNkUFT2Weu6kRm+ukX+jAMTI0RnLMi0uw==
   dependencies:
     "@types/node" "*"
