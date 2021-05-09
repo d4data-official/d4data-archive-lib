@@ -96,7 +96,7 @@ Google.prototype.getBrowserData = async function getBrowserData(options) {
     ),
     savedForms: rawBrowserData.autoFill?.map((savedForm: GoogleSavedForm) => ({
       useCount: savedForm.use_count,
-      lastUseDate: savedForm.use_date,
+      lastUseDate: new Date(savedForm.use_date),
       firstName: savedForm.name_first?.[0],
       lastName: savedForm.name_last?.[0],
       fullName: savedForm.name_full?.[0],
