@@ -1,7 +1,7 @@
 import Discord from '../Discord'
 import { Connection } from '../../../../../types/schemas'
 
-const BASE_CONNECTIONS_FOLDER = 'activity/reporting/user.json'
+const BASE_CONNECTIONS_FOLDER = 'activity/reporting/'
 
 Discord.prototype.getConnections = async function getConnections(options) {
   const files = await this.parser.listFiles(BASE_CONNECTIONS_FOLDER, { extensionWhitelist: ['.json'] })
