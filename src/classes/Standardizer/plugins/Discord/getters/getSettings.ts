@@ -8,7 +8,7 @@ Discord.prototype.getSettings = async function getSettings(options) {
 
   const settings : Array<Setting> = Object.keys(settingsRaw.settings).map((key) => ({
     name: key,
-    value: settingsRaw.settings[key].toString(),
+    value: settingsRaw.settings?.[key]?.toString(),
   }));
 
   return {
