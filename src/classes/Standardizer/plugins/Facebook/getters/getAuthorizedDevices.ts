@@ -18,7 +18,7 @@ Facebook.prototype.getAuthorizedDevices = async function getAuthorizedDevices(op
   const devices : Array<AuthorizedDevice> = authorizedDevices.recognized_devices.map((device) => ({
     name: device.name,
     ip: device.ip_address,
-    timestamp: new Date(device.created_timestamp * 1000),
+    authorizationDate: new Date(device.created_timestamp * 1000),
   }))
 
   return {
