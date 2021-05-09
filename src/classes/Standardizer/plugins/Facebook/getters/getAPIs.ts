@@ -15,7 +15,7 @@ Facebook.prototype.getAPIs = async function getAPIs(options) {
 
   const apis : Array<API> = APIs.installed_apps.map((thisApi) => ({
     name: thisApi.name,
-    timestamp: new Date(thisApi.added_timestamp * 1000),
+    linkingDate: new Date(thisApi.added_timestamp * 1000),
   }))
 
   return {
