@@ -13,9 +13,9 @@ interface Friends {
 Facebook.prototype.getFriends = async function getFriends(options) {
   const friendList = await this.parser.parseAsJSON<Friends>(ACCOUNT_FRIENDS_FILE, options?.parsingOptions)
 
-  const friends : Array<Contact> = friendList.friends.map((friend) => ({
+  const friends: Array<Contact> = friendList.friends.map((friend) => ({
     displayName: friend.name,
-    addingDate: friend.timestamp,
+    date: new Date(friend.timestamp * 1000),
   }))
 
   return {
