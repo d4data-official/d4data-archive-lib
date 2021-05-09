@@ -21,7 +21,7 @@ Reddit.prototype.getChatMessages = async function getChatMessages(chatId, option
     .filter((message) => message.channel_url === chatId)
     .map((message) => ({
       sender: message.username,
-      text: message.message,
+      content: message.message,
       sendAt: new Date(message.created_at),
     }))
 

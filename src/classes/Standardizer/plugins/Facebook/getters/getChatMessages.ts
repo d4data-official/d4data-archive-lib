@@ -38,7 +38,9 @@ Facebook.prototype.getChatMessages = async function getChatMessages(chatId, opti
 
   const messages = messageList.messages.map((message) => ({
     sender: message.sender_name,
-    text: message.content,
+    content: message.content,
+    type: message.type,
+    sendAt: new Date(message.timestamp_ms),
     reactions: message.reactions?.map((reaction) => ({
       name: reaction.reaction,
     })),

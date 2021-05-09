@@ -7,7 +7,7 @@ Discord.prototype.getChatMessages = async function getChatMessages(chatId: strin
   const parsed = await this.parser.parseAsCSV(messages?.[Number(chatId)], options?.parsingOptions)
   const chatMessages = parsed.map((chat): ChatMessage => ({
     sender: 'You',
-    text: chat.Contents,
+    content: chat.Contents,
   }))
   return {
     data: chatMessages,
