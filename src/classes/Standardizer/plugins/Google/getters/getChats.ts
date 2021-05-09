@@ -7,8 +7,9 @@ Google.prototype.getChats = async function getChats(options) {
   const rawChats = await this.parser.parseAsJSON(ACCOUNT_CHAT_FILE, options?.parsingOptions)
   const chats: Array<Chat> = await Promise.all(rawChats.conversations.map((conv: any) => ({
     id: conv.conversation.conversation_id.id,
-    participants: conv.conversation.conversation.participant_data.map((participant: any) => participant.fallback_name),
-    title: 'None',
+    participants: conv.conversation.conversation.participant_data
+      .map((participant: any) => participant.fallback_name ?? 'Unknown participant'),
+    title: 'Unknown chat',
   })))
   return {
     data: chats,
