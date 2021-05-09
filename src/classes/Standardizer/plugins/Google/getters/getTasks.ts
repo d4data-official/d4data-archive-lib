@@ -1,5 +1,4 @@
 import Google from '../Google'
-import { TaskList } from '../../../../../types/schemas'
 import { Task } from '../../../../../types/schemas/TaskList'
 
 // eslint-disable-next-line
