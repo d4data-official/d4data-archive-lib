@@ -21,7 +21,7 @@ Discord.prototype.getConnections = async function getConnections(options) {
               zipcode: row.region_code,
             },
           },
-          browser: row.browser_user_agent,
+          browser: row.browser,
           timestamp: new Date(row.timestamp),
         })
       })
