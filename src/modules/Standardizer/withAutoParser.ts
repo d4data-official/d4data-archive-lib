@@ -6,10 +6,24 @@ import Parser from '../../classes/Parser'
 
 export type WrappedGetter<T> = (this: Standardizer, parser: Parser, options?: GetterOptions) => Promise<T>
 
-export default function withAutoParser<T>(externalGetter: WrappedGetter<T>): Getter<T> {
-  return async function (this: Standardizer, options?: GetterOptions): GetterReturn<T> {
-    const parser = this.newParser(options?.parsingOptions)
-    const boundGetter = externalGetter.bind(this)
+function withAutoParser<T>(options: GetterOptions, externalGetter: WrappedGetter<T>): Getter<T>;
+function withAutoParser<T>(externalGetter: WrappedGetter<T>): Getter<T>;
+function withAutoParser<T>(
+  optionsOrExternalGetter: GetterOptions | WrappedGetter<T>,
+  externalGetter?: WrappedGetter<T>,
+): Getter<T> {
+  return async function autoParser(this: Standardizer, options?: GetterOptions): GetterReturn<T> {
+    let effectiveOptions: GetterOptions | undefined;
+    let effectiveExternalGetter: WrappedGetter<T>;
+    if (externalGetter instanceof Function) {
+      effectiveOptions = optionsOrExternalGetter as GetterOptions;
+      effectiveExternalGetter = externalGetter
+    } else {
+      effectiveOptions = options;
+      effectiveExternalGetter = optionsOrExternalGetter as WrappedGetter<T>;
+    }
+    const parser = this.newParser(effectiveOptions?.parsingOptions)
+    const boundGetter = effectiveExternalGetter.bind(this)
 
     return {
       data: await boundGetter(parser, options),
@@ -17,3 +31,5 @@ export default function withAutoParser<T>(externalGetter: WrappedGetter<T>): Get
     }
   }
 }
+
+export default withAutoParser
