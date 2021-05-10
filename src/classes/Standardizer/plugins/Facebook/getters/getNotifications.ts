@@ -17,7 +17,7 @@ Facebook.prototype.getNotifications = async function getNotifications(options) {
 
   const notifications : Array<Notification> = notificationList.notifications.map((notification) => ({
     content: notification.text,
-    timestamp: new Date(notification.timestamp * 1000),
+    notificationDate: new Date(notification.timestamp * 1000),
     href: notification.href,
   }));
 

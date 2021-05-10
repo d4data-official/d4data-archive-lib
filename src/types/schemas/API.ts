@@ -8,4 +8,9 @@ export default interface API {
    * date of API linking
    */
   linkingDate?: Date | undefined
+
+  /**
+   * username of the user
+   */
+  username?: string | undefined
 }

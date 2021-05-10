@@ -1,6 +1,7 @@
 # D4Data Archive Lib
 
-![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/d4data-official/archive-lib?include_prereleases)
+[![npm](https://img.shields.io/npm/v/@d4data/archive-lib)](https://www.npmjs.com/package/@d4data/archive-lib)
+[![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/d4data-official/archive-lib?include_prereleases)](https://github.com/d4data-official/archive-lib)
 [![GitHub issues](https://img.shields.io/github/issues-raw/d4data-official/archive-lib)](https://github.com/d4data-official/archive-lib)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/d4data-official/archive-lib)](https://github.com/d4data-official/archive-lib)
 

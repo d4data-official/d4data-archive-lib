@@ -20,3 +20,5 @@ export interface PreprocessorOptions {
 
 export interface ParsingOptions {
 }
+
+export type FullParsingOptions = ParsingOptions & PreprocessorOptions & PaginationOptions

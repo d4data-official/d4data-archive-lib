@@ -1,5 +1,6 @@
 import Facebook from '../Facebook'
 import { Post } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_ACTIVITY_FILE = 'posts/your_posts_1.json'
 
@@ -25,10 +26,10 @@ interface FBPost {
   title: string
 }
 
-Facebook.prototype.getPosts = async function getPosts(options) {
-  const postList = await this.parser.parseAsJSON<Array<FBPost>>(ACCOUNT_ACTIVITY_FILE, options?.parsingOptions)
+Facebook.prototype.getPosts = withAutoParser(async parser => {
+  const postList = await parser.parseAsJSON<Array<FBPost>>(ACCOUNT_ACTIVITY_FILE)
 
-  const posts : Array<Post> = postList.map((post) => {
+  const posts: Array<Post> = postList.map((post) => {
     const externalLink = post?.attachments?.[0]?.data?.[0].external_context?.url
     return {
       creationDate: new Date(post.timestamp * 1000),
@@ -41,8 +42,5 @@ Facebook.prototype.getPosts = async function getPosts(options) {
     }
   })
 
-  return {
-    data: posts,
-    parsedFiles: [ACCOUNT_ACTIVITY_FILE],
-  }
-}
+  return posts
+})
