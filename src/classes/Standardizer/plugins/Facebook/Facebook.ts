@@ -1,5 +1,4 @@
 import path from 'path'
-import { v4 as uuidv4 } from 'uuid';
 import Standardizer, { EXTERNAL_GETTERS_DIR } from '../../Standardizer'
 import Services from '../../../../types/Services'
 import { PipelineStep } from '../../../Pipeline'
@@ -12,15 +11,16 @@ export const preProcessors: Array<PipelineStep> = [
       for await (const chunk of stream) {
         content += chunk.toString();
       }
-      const MAGIC_STRING: string = uuidv4();
       const chunkStr: string = content.toString();
-      const encodedURI: string = chunkStr.replaceAll('%', MAGIC_STRING);
-      const semiFixedStr: string = encodedURI.replaceAll(/\\u00([0-9a-f]{2})/g,
-        (_: any, group: string) => `%${ group.toUpperCase() }`)
-      const fixedStr = semiFixedStr.replaceAll(/(?:%[A-Z0-9]{2})+/g, decodeURI)
-      // eslint-disable-next-line no-control-regex
-      const decodedStr = fixedStr.replaceAll(MAGIC_STRING, '%').replaceAll(/[\u0000-\u001F\u007F-\u009F]/g, '')
-      yield decodedStr
+      const newChunkStr: string = chunkStr.replaceAll(/(?:\\u[0-9a-f]{4})+/g,
+        (match: string) => {
+          const uriEncodedString: string = match.replaceAll(/\\u00([0-9a-f]{2})/g,
+            (_: any, group: string) => `%${ group.toUpperCase() }`);
+          const uriDecodedString: string = decodeURI(uriEncodedString);
+          const formattedString: string = uriDecodedString.replaceAll(/[\u0000-\u001F\u007F-\u009F]/g, '');
+          return formattedString
+        })
+      yield newChunkStr
     }
   },
 ]
