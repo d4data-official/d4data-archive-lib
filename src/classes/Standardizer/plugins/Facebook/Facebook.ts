@@ -17,6 +17,7 @@ export const preProcessors: Array<PipelineStep> = [
           const uriEncodedString: string = match.replaceAll(/\\u00([0-9a-f]{2})/g,
             (_: any, group: string) => `%${ group.toUpperCase() }`);
           const uriDecodedString: string = decodeURI(uriEncodedString);
+          // eslint-disable-next-line no-control-regex
           const formattedString: string = uriDecodedString.replaceAll(/[\u0000-\u001F\u007F-\u009F]/g, '');
           return formattedString
         })
