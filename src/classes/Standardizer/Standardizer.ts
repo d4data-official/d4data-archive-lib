@@ -19,6 +19,7 @@ import {
   Notification,
   Post,
   Profile,
+  RawData,
   Reacted,
   Setting,
   TaskList,
@@ -264,6 +265,7 @@ export default abstract class Standardizer {
       getTasks: data => is<Array<TaskList>>(data),
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
       getMails: data => is<Array<Mail>>(data),
+      getRawData: data => is<RawData>(data),
     }
   }
 
@@ -296,6 +298,7 @@ export default abstract class Standardizer {
       getTasks: data => assertType<Array<TaskList>>(data),
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
       getMails: data => assertType<Array<Mail>>(data),
+      getRawData: data => assertType<RawData>(data),
     }
   }
 }
