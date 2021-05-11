@@ -189,6 +189,10 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
+  /**
+   * Take an absolute or relative (to this Standardizer path) file path and return automatic parsed content.
+   * The adapted parsing function is automatically chosen from file extension.
+   */
   async getRawData(filePath: string, options?: GetterOptions): Promise<any> {
     const absolutePath = path.isAbsolute(filePath) ? filePath : this.parser.resolveRelativePath(filePath)
 
