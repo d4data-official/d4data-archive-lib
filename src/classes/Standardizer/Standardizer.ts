@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import fs, { promises as fsPromises } from 'fs'
+import fs, { constants, promises as fsPromises } from 'fs'
 import path from 'path'
 import {
   API,
@@ -187,6 +187,20 @@ export default abstract class Standardizer {
 
   async getMails(options?: GetterOptions): GetterReturn<Array<Mail>> {
     return Promise.resolve(null)
+  }
+
+  async getRawData(filePath: string, options?: GetterOptions): Promise<any> {
+    const absolutePath = path.isAbsolute(filePath) ? filePath : this.parser.resolveRelativePath(filePath)
+
+    await fs.promises.access(absolutePath, constants.R_OK)
+
+    const stats = await fs.promises.stat(absolutePath)
+
+    if (stats.isDirectory()) {
+      throw new Error('Given path must point to a file')
+    }
+
+    return this.parser.parseFile(filePath, options)
   }
 
   static get getters() {
