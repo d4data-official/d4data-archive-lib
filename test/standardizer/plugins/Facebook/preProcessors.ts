@@ -11,7 +11,7 @@ const test = anyTest as TestInterface<Context>
 
 test('Preprocessors must fix encoding', async t => {
   const pipeline = new Pipeline([
-    Readable.from('Freaky Beats pr\u00c3\u00a9sente : Vortek\'s & Ketamane !'),
+    Readable.from(Buffer.from('Freaky Beats pr\\u00c3\\u00a9sente : Vortek\'s & Ketamane !')),
     ...preProcessors,
   ])
 

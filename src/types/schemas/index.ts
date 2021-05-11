@@ -24,3 +24,4 @@ export { default as TaskList } from 'types/schemas/TaskList';
 export { default as Transaction } from 'types/schemas/Transaction';
 export { default as Whereabout } from 'types/schemas/Whereabout';
 export { default as BrowserData } from 'types/schemas/BrowserData';
+export { default as RawData } from 'types/schemas/RawData';

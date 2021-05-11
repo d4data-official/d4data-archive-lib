@@ -23,6 +23,7 @@ enum Getters {
   TASKS = 'getTasks',
   AUTHORIZED_DEVICES = 'getAuthorizedDevices',
   MAIL = 'getMails',
+  RAW_DATA = 'getRawData',
 }
 
 export default Getters
