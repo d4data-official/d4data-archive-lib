@@ -12,7 +12,8 @@ const { LOCAL_ARCHIVE_DIR } = process.env
 
 type SkippedGetters =
   | Getters.CHAT_MESSAGES
-const skippedGetters = [Getters.CHAT_MESSAGES]
+  | Getters.RAW_DATA
+const skippedGetters = [Getters.CHAT_MESSAGES, Getters.RAW_DATA]
 const getterValidators = Standardizer.getterDataAssertions()
 const parsingOptions = {
   pagination: {

@@ -2,7 +2,7 @@ export default interface Transaction {
   /**
    * date of transaction (timestamp)
    */
-  date?: number | undefined
+  date?: Date | undefined
 
   /**
    * description of transaction
