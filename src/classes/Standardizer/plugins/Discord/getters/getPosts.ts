@@ -1,5 +1,5 @@
 import Discord from '../Discord'
-import { Chat, ChatMessage, Post } from '../../../../../types/schemas'
+import { Chat, Post } from '../../../../../types/schemas'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser';
 
 Discord.prototype.getPosts = withAutoParser(async (parser, options) => {
