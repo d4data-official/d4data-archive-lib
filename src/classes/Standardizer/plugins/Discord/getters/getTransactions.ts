@@ -1,5 +1,6 @@
 import Discord from '../Discord'
 import { Transaction } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const TRANSACTIONS_FILE = 'account/user.json'
 
@@ -25,9 +26,10 @@ interface DiscordTransaction {
   status: number,
 }
 
-Discord.prototype.getTransactions = async function getTransactions(options) {
-  const transactionsRaw = await this.parser.parseAsJSON(TRANSACTIONS_FILE, options?.parsingOptions)
-  const transactions = transactionsRaw.payments.map((tr: DiscordTransaction) : Transaction => ({
+Discord.prototype.getTransactions = withAutoParser(async parser => {
+  const transactionsRaw = await parser.parseAsJSON(TRANSACTIONS_FILE)
+
+  return transactionsRaw.payments.map((tr: DiscordTransaction): Transaction => ({
     date: new Date(tr.created_at),
     product: tr.description ?? 'Unknown product',
     currency: tr.currency,
@@ -36,9 +38,4 @@ Discord.prototype.getTransactions = async function getTransactions(options) {
     paymentMethod: tr.payment_source?.brand,
     description: tr.description,
   }))
-
-  return {
-    data: transactions,
-    parsedFiles: [TRANSACTIONS_FILE],
-  }
-}
+})

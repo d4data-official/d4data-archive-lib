@@ -16,6 +16,7 @@ import {
   Mail,
   Media,
   Message,
+  Note,
   Notification,
   Post,
   Profile,
@@ -34,6 +35,7 @@ import GetterReturn from '../../types/standardizer/GetterReturn'
 import { MediaType } from '../../types/schemas/Media'
 import Getters from '../../types/standardizer/Getters'
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+import RawDataReturn from '../../types/standardizer/RawDataReturn'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -189,11 +191,15 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
+  async getNotes(options?: GetterOptions): GetterReturn<Array<Note>> {
+    return Promise.resolve(null)
+  }
+
   /**
    * Take an absolute or relative (to this Standardizer path) file path and return automatic parsed content.
    * The adapted parsing function is automatically chosen from file extension.
    */
-  async getRawData(filePath: string, options?: GetterOptions): Promise<any> {
+  async getRawData(filePath: string, options?: GetterOptions): Promise<RawDataReturn> {
     const absolutePath = path.isAbsolute(filePath) ? filePath : this.parser.resolveRelativePath(filePath)
 
     await fs.promises.access(absolutePath, constants.R_OK)
@@ -204,7 +210,13 @@ export default abstract class Standardizer {
       throw new Error('Given path must point to a file')
     }
 
-    return this.parser.parseFile(filePath, options)
+    const parsedFileContent = await this.parser.parseFile(filePath, options)
+
+    return {
+      data: parsedFileContent,
+      relativePath: path.relative(this.path, absolutePath),
+      absolutePath,
+    }
   }
 
   static get getters() {
@@ -271,6 +283,7 @@ export default abstract class Standardizer {
       getChatMessages: data => is<Array<ChatMessage>>(data),
       getComments: data => is<Array<Post>>(data),
       getPosts: data => is<Array<Post>>(data),
+      getNotes: data => is<Array<Note>>(data),
       getMessages: data => is<Array<Message>>(data),
       getAPIs: data => is<Array<API>>(data),
       getConnections: data => is<Array<Connection>>(data),
@@ -304,6 +317,7 @@ export default abstract class Standardizer {
       getChatMessages: data => assertType<Array<ChatMessage>>(data),
       getComments: data => assertType<Array<Post>>(data),
       getPosts: data => assertType<Array<Post>>(data),
+      getNotes: data => assertType<Array<Note>>(data),
       getMessages: data => assertType<Array<Message>>(data),
       getAPIs: data => assertType<Array<API>>(data),
       getConnections: data => assertType<Array<Connection>>(data),
