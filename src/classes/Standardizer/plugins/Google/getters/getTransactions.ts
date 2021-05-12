@@ -1,8 +1,8 @@
 import Google from '../Google'
 import { Transaction } from '../../../../../types/schemas'
 
-// eslint-disable-next-line
-const TRANSACTIONS_FOLDER = 'Takeout/Google\ Pay/Transactions\ effectuées\ sur\ Google'
+// Google put specials space characters in some of their archive directory names
+const TRANSACTIONS_FOLDER = 'Takeout/Google Pay/Transactions Google'
 
 interface GoogleTransaction {
   Heure: string,
