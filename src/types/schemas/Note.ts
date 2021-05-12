@@ -2,7 +2,7 @@ export default interface Note {
   /**
    * creation date of the message in timestamp format
    */
-  creationDate: Date
+  creationDate?: Date | undefined
 
   /**
    * Subject of the message

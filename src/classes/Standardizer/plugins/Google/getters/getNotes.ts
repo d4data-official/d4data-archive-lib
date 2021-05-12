@@ -11,6 +11,12 @@ interface GoogleNotes {
   userEditedTimeStampUsec: number
 }
 
+function computeCreationDate(file:string, note:GoogleNotes) {
+  return new Date(
+    file.split('Takeout/Keep/')[1].replaceAll('_', ':').split('.json')[0],
+  ) ?? new Date(note.userEditedTimeStampUsec / 1000)
+}
+
 Google.prototype.getNotes = async function getNotes(options) {
   const noteFiles = await this.parser.listFiles('Takeout/Keep/', { extensionWhitelist: ['json'] })
 
@@ -19,7 +25,7 @@ Google.prototype.getNotes = async function getNotes(options) {
     return {
       title: note.title ?? 'No title provided',
       content: note.textContent ?? 'No content provided',
-      creationDate: new Date(file.split('Takeout/Keep/')[1].replaceAll('_', ':').split('.json')[0]),
+      creationDate: computeCreationDate(file, note),
     } as Note
   }))
 
