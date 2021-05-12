@@ -12,6 +12,11 @@ export default interface Post {
 
   content?: string | undefined
 
+  /**
+   * Link to the post
+   */
+  externalLink?: string | undefined
+
   metaData?: {
     /**
      * Post reactions (ex: likes)
