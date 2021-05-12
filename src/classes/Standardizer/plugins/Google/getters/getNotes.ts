@@ -1,5 +1,5 @@
 import Google from '../Google'
-import { Message } from '../../../../../types/schemas'
+import { Note } from '../../../../../types/schemas'
 
 interface GoogleNotes {
   color: string,
@@ -12,21 +12,19 @@ interface GoogleNotes {
 }
 
 Google.prototype.getNotes = async function getNotes(options) {
-  const NOTES_FILES = await this.parser.listFiles('Takeout/Keep/', { extensionWhitelist: ['json'] })
+  const noteFiles = await this.parser.listFiles('Takeout/Keep/', { extensionWhitelist: ['json'] })
 
-  const notes = await Promise.all(NOTES_FILES.map(async file => {
+  const notes = await Promise.all(noteFiles.map(async file => {
     const note = await this.parser.parseAsJSON<GoogleNotes>(file, options?.parsingOptions)
     return {
-      sender: 'Note to myself',
-      receiver: 'Note to myself',
       title: note.title ?? 'No title provided',
       content: note.textContent ?? 'No content provided',
       creationDate: new Date(file.split('Takeout/Keep/')[1].replaceAll('_', ':').split('.json')[0]),
-    } as Message
+    } as Note
   }))
 
   return {
     data: notes,
-    parsedFiles: NOTES_FILES,
+    parsedFiles: noteFiles,
   }
 }
