@@ -35,6 +35,7 @@ import GetterReturn from '../../types/standardizer/GetterReturn'
 import { MediaType } from '../../types/schemas/Media'
 import Getters from '../../types/standardizer/Getters'
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+import RawDataReturn from '../../types/standardizer/RawDataReturn'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -198,7 +199,7 @@ export default abstract class Standardizer {
    * Take an absolute or relative (to this Standardizer path) file path and return automatic parsed content.
    * The adapted parsing function is automatically chosen from file extension.
    */
-  async getRawData(filePath: string, options?: GetterOptions): Promise<any> {
+  async getRawData(filePath: string, options?: GetterOptions): Promise<RawDataReturn> {
     const absolutePath = path.isAbsolute(filePath) ? filePath : this.parser.resolveRelativePath(filePath)
 
     await fs.promises.access(absolutePath, constants.R_OK)
@@ -209,7 +210,13 @@ export default abstract class Standardizer {
       throw new Error('Given path must point to a file')
     }
 
-    return this.parser.parseFile(filePath, options)
+    const parsedFileContent = await this.parser.parseFile(filePath, options)
+
+    return {
+      data: parsedFileContent,
+      relativePath: path.relative(this.path, absolutePath),
+      absolutePath,
+    }
   }
 
   static get getters() {
