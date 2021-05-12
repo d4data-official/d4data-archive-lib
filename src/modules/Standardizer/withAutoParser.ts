@@ -16,9 +16,14 @@ export default function withAutoParser<T, TT extends unknown[]>(
     const options: GetterOptions = args[args.length - 1] as GetterOptions
     const parser = this.newParser(options?.parsingOptions)
 
-    return {
-      data: await externalGetter.call(this, parser, ...args),
-      parsedFiles: parser.parsedFiles,
+    try {
+      return {
+        data: await externalGetter.call(this, parser, ...args),
+        parsedFiles: parser.parsedFiles,
+      }
+    } catch (e) {
+      console.error(e)
+      return null
     }
   }
 }
