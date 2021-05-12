@@ -1,7 +1,6 @@
 import Google from '../Google'
 import { Mail } from '../../../../../types/schemas'
 
-// eslint-disable-next-line
 const CONNECTIONS_FOLDER = 'Takeout/Mail'
 
 Google.prototype.getMails = async function getMails(options) {
