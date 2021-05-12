@@ -12,6 +12,7 @@ export { default as Location } from 'types/schemas/Location';
 export { default as Mail } from 'types/schemas/Mail';
 export { default as Media } from 'types/schemas/Media';
 export { default as Message } from 'types/schemas/Message';
+export { default as Note } from 'types/schemas/Note';
 export { default as Notification } from 'types/schemas/Notification';
 export { default as Profile } from 'types/schemas/Profile';
 export { default as Post } from 'types/schemas/Post';

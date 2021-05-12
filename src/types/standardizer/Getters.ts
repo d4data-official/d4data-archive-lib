@@ -17,6 +17,7 @@ enum Getters {
   SETTINGS = 'getSettings',
   REACTED = 'getReacted',
   MEDIAS = 'getMedias',
+  NOTES = 'getNotes',
   TRANSACTIONS = 'getTransactions',
   BROWSER_DATA = 'getBrowserData',
   TASKS = 'getTasks',
