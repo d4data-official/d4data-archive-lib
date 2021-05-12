@@ -40,6 +40,7 @@ Facebook.prototype.getChatMessages = withAutoParser(async (parser, chatId) => {
   return messageList.messages.map((message) => ({
     sender: message.sender_name,
     text: message.content,
+    sendAt: new Date(message.timestamp_ms),
     reactions: message.reactions?.map((reaction) => ({
       name: reaction.reaction,
     })),
