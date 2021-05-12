@@ -1,15 +1,14 @@
 import Discord from '../Discord'
 import { Chat, ChatMessage, Post } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser';
 
-Discord.prototype.getPosts = async function getPosts(options) {
-  const channels = await this.parser.findFiles(/channel.json$/, './messages/')
-  const messages = await this.parser.findFiles(/messages.csv$/, './messages/')
+Discord.prototype.getPosts = withAutoParser(async (parser, options) => {
+  const channels = await parser.findFiles(/channel.json$/, './messages/')
+  const messages = await parser.findFiles(/messages.csv$/, './messages/')
   const offset = options?.parsingOptions?.pagination?.offset ?? 0
   const items = options?.parsingOptions?.pagination?.items ?? channels.length
-  const filteredChannels = channels.slice(offset, offset + items)
-  const filteredMessages = messages.slice(offset, offset + items)
-  const findPosts = filteredChannels.map(async (channel, id): Promise<Chat> => {
-    const parsed = await this.parser.parseAsJSON(channel)
+  const findPosts = await Promise.all(channels.map(async (channel, id): Promise<Chat | undefined> => {
+    const parsed = await parser.parseAsJSON(channel)
     if (parsed.type === 0) {
       const tmp = {
         title: parsed?.name ?? 'Private chat',
@@ -18,30 +17,28 @@ Discord.prototype.getPosts = async function getPosts(options) {
       }
       return tmp
     }
-    return {
-      title: '',
-      participants: [],
-      _id: '',
-    }
-  })
+    return undefined
+  }))
+  const processPost = findPosts.filter(item => item !== undefined) as Array<Chat>
   const posts: Array<Post> = []
-  for await (const findPost of findPosts) {
+  for await (const findPost of processPost) {
     // eslint-disable-next-line no-underscore-dangle
     const id = findPost._id
-    if (id !== '') {
-      const parsed = await this.parser.parseAsCSV(filteredMessages?.[Number(id)])
-      const chatMessages = parsed.map((chat): Post => ({
-        sender: 'You',
-        content: chat.Contents,
-        creationDate: chat.Timestamp,
-      }))
-      for (const chatMessage of chatMessages) {
-        posts.push(chatMessage)
+    const parsed = await parser.parseAsCSV(messages?.[Number(id)])
+    const chatMessages = parsed.map((chat): Post => ({
+      sender: 'You',
+      content: chat.Contents,
+      creationDate: chat.Timestamp,
+    }))
+    for (const chatMessage of chatMessages) {
+      posts.push(chatMessage)
+      if (posts.length > items) {
+        break
       }
     }
+    if (posts.length > items) {
+      break
+    }
   }
-  return {
-    data: await Promise.all(posts),
-    parsedFiles: channels,
-  }
-}
+  return posts.slice(offset, offset + items)
+})
