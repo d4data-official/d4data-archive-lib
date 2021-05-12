@@ -16,7 +16,7 @@ To provide this ressources, environment variable are used.
 
 | Name | Value description |
 | ---- | --- |
-| LOCAL_ARCHIVE_DIR | Path to a directory with archives |
+| LOCAL_ARCHIVE_DIR | Path to a directory with unextracted archives |
 
 ### Exemples
 
