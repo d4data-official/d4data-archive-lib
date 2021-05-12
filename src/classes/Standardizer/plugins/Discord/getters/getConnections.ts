@@ -8,23 +8,25 @@ Discord.prototype.getConnections = async function getConnections(options) {
   const connections : Array<Connection> = []
 
   for await (const file of files) {
-    const connectionFile = await this.parser.parseAsJSONL(file, options?.parsingOptions)
-    connectionFile.filter((r) => r.event_type === 'session_start')
-      .forEach((row) => {
-        connections.push({
-          ipAddress: row.ip,
-          location: {
-            relativePosition: {
-              raw: row.city,
-              city: row.city,
-              country: row.country_code,
-              zipcode: row.region_code,
-            },
+    const connectionFile = await this.parser.parseAsJSONL(file, {
+      filter: (unparsedLine) => (unparsedLine.startsWith('{"event_type":"add_reaction"')),
+      ...options?.parsingOptions,
+    })
+    connectionFile.forEach((row) => {
+      connections.push({
+        ipAddress: row.ip,
+        location: {
+          relativePosition: {
+            raw: row.city,
+            city: row.city,
+            country: row.country_code,
+            zipcode: row.region_code,
           },
-          browser: row.browser_user_agent,
-          timestamp: new Date(row.timestamp),
-        })
+        },
+        browser: row.browser_user_agent,
+        timestamp: new Date(row.timestamp),
       })
+    })
   }
 
   return {
