@@ -14,9 +14,9 @@ export default function withAutoParser<T, TT extends unknown[]>(
 ): AutoParserGetter<T, TT> {
   return async function autoParser(this, ...args): GetterReturn<T> {
     const options: GetterOptions = args[args.length - 1] as GetterOptions
-    try {
-      const parser = this.newParser(options?.parsingOptions)
+    const parser = this.newParser(options?.parsingOptions)
 
+    try {
       return {
         data: await externalGetter.call(this, parser, ...args),
         parsedFiles: parser.parsedFiles,
