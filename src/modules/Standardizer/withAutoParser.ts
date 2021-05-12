@@ -22,6 +22,7 @@ export default function withAutoParser<T, TT extends unknown[]>(
         parsedFiles: parser.parsedFiles,
       }
     } catch (e) {
+      console.error(e)
       return null
     }
   }
