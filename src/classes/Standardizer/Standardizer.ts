@@ -16,6 +16,7 @@ import {
   Mail,
   Media,
   Message,
+  Note,
   Notification,
   Post,
   Profile,
@@ -189,6 +190,10 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
+  async getNotes(options?: GetterOptions): GetterReturn<Array<Note>> {
+    return Promise.resolve(null)
+  }
+
   /**
    * Take an absolute or relative (to this Standardizer path) file path and return automatic parsed content.
    * The adapted parsing function is automatically chosen from file extension.
@@ -271,6 +276,7 @@ export default abstract class Standardizer {
       getChatMessages: data => is<Array<ChatMessage>>(data),
       getComments: data => is<Array<Post>>(data),
       getPosts: data => is<Array<Post>>(data),
+      getNotes: data => is<Array<Note>>(data),
       getMessages: data => is<Array<Message>>(data),
       getAPIs: data => is<Array<API>>(data),
       getConnections: data => is<Array<Connection>>(data),
@@ -304,6 +310,7 @@ export default abstract class Standardizer {
       getChatMessages: data => assertType<Array<ChatMessage>>(data),
       getComments: data => assertType<Array<Post>>(data),
       getPosts: data => assertType<Array<Post>>(data),
+      getNotes: data => assertType<Array<Note>>(data),
       getMessages: data => assertType<Array<Message>>(data),
       getAPIs: data => assertType<Array<API>>(data),
       getConnections: data => assertType<Array<Connection>>(data),

@@ -27,7 +27,7 @@ export interface Extension {
 
 export interface SavedForm {
   useCount?: number | undefined
-  lastUseDate?: number | undefined
+  lastUseDate?: Date | undefined
   firstName?: string | undefined
   lastName?: string | undefined
   fullName?: string | undefined
