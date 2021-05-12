@@ -17,8 +17,15 @@ export default function withAutoParser<T, TT extends unknown[]>(
     const parser = this.newParser(options?.parsingOptions)
 
     try {
+      const getterData = await externalGetter.call(this, parser, ...args)
+
+      // Intercept empty array return by getter
+      if (Array.isArray(getterData) && getterData.length === 0) {
+        return null
+      }
+
       return {
-        data: await externalGetter.call(this, parser, ...args),
+        data: getterData,
         parsedFiles: parser.parsedFiles,
       }
     } catch (e) {
