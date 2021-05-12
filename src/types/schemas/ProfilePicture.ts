@@ -6,5 +6,5 @@ export default interface ProfilePicture {
   /**
    * History of contact picture if available
    */
-  history: Array<Media>
+  history?: Array<Media> | undefined
 }

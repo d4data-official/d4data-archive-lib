@@ -10,6 +10,8 @@ import {
 } from '../types/Parsing'
 import listFiles, { OptionsListFiles } from '../modules/Parsing/listFiles'
 import findFiles from '../modules/Parsing/findFiles'
+import filesExist from '../modules/Parsing/filesExist'
+
 import parseDir, { OptionsParseDir } from '../modules/Parsing/parseDir'
 import parseFile, { OptionsParseFile } from '../modules/Parsing/parseFile'
 import parseAsText, { OptionsParseAsText } from '../modules/Parsing/parseAsText'
@@ -88,6 +90,14 @@ export default class Parser {
    */
   resolveRelativePath(relativePath: string) {
     return path.resolve(this.path, relativePath)
+  }
+
+  /**
+   * Checks if files exists
+   */
+  async filesExist(dirPaths: Array<string>): Promise<boolean> {
+    const paths = dirPaths.map((relativePath) => this.resolveRelativePath(relativePath))
+    return filesExist(paths)
   }
 
   /**
