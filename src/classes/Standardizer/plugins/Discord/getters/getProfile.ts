@@ -12,7 +12,7 @@ Discord.prototype.getProfile = async function getProfile(options) {
     mail: profile.email,
     profilePicture: {
       current: {
-        url: `file:///${ path.resolve('package/account/avatar.png') }`,
+        url: `file:///${ path.resolve('account/avatar.png') }`,
         type: MediaType.IMAGE,
       },
       history: [],

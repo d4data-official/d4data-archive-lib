@@ -17,11 +17,13 @@ enum Getters {
   SETTINGS = 'getSettings',
   REACTED = 'getReacted',
   MEDIAS = 'getMedias',
+  NOTES = 'getNotes',
   TRANSACTIONS = 'getTransactions',
   BROWSER_DATA = 'getBrowserData',
   TASKS = 'getTasks',
   AUTHORIZED_DEVICES = 'getAuthorizedDevices',
   MAIL = 'getMails',
+  RAW_DATA = 'getRawData',
 }
 
 export default Getters
