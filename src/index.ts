@@ -5,6 +5,7 @@ import Archive from './classes/Archive/Archive'
 import Standardizer from './classes/Standardizer/Standardizer'
 import StandardizerFactory from './classes/StandardizerFactory'
 import * as ParsingUtils from './modules/Parsing'
+import * as Schemas from './types/schemas'
 
 export default {
   ArchiveFactory,
@@ -12,14 +13,15 @@ export default {
 }
 
 export {
-  // Named export classes
+  // Classes
   ArchiveFactory,
   Archive,
   Standardizer,
   StandardizerFactory,
-  // Named export modules
+  // Modules
   ParsingUtils,
   // Types
   Services,
   Getters,
+  Schemas,
 }
