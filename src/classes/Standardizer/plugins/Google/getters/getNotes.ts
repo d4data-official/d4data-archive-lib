@@ -8,13 +8,13 @@ interface GoogleNotes {
   isArchived: boolean,
   textContent?: string,
   title?: string,
-  userEditedTimeStampUsec: number
+  userEditedTimestampUsec: number
 }
 
 function computeCreationDate(file:string, note:GoogleNotes) {
-  return file.split('Takeout/Keep/')?.[1] && (new Date(
-    file.split('Takeout/Keep/')?.[1]?.replaceAll('_', ':').split('.json')[0],
-  ) ?? new Date(note.userEditedTimeStampUsec / 1000))
+  return file.split('Takeout/Keep/')?.[1]
+    ? new Date(file.split('Takeout/Keep/')?.[1]?.replaceAll('_', ':').split('.json')[0])
+    : new Date(note.userEditedTimestampUsec / 1000)
 }
 
 Google.prototype.getNotes = async function getNotes(options) {
