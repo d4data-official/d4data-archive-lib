@@ -1,5 +1,6 @@
 import Reddit from '../Reddit'
-import { Comment } from '../../../../../types/schemas';
+import { Comment, Post } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const POSTS_FILE = 'posts.csv'
 
@@ -15,10 +16,10 @@ interface RedditPost {
   body?: string
 }
 
-Reddit.prototype.getPosts = async function getPosts(options) {
-  const postList = await this.parser.parseAsCSV<RedditPost>(POSTS_FILE, options?.parsingOptions)
+Reddit.prototype.getPosts = withAutoParser(async parser => {
+  const postList = await parser.parseAsCSV<RedditPost>(POSTS_FILE)
 
-  const posts: Array<Comment> = postList.map((post) => {
+  return postList.map((post): Post => {
     const links = post.url ? [post.url] : undefined
     const userTags = post.subreddit ? [post.subreddit] : undefined
     return {
@@ -31,9 +32,4 @@ Reddit.prototype.getPosts = async function getPosts(options) {
       },
     }
   })
-
-  return {
-    data: posts,
-    parsedFiles: [POSTS_FILE],
-  }
-}
+})
