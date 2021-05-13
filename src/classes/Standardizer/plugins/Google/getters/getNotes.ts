@@ -1,5 +1,6 @@
 import Google from '../Google'
 import { Note } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 interface GoogleNotes {
   color: string,
@@ -17,11 +18,11 @@ function computeCreationDate(file:string, note:GoogleNotes) {
   ) ?? new Date(note.userEditedTimeStampUsec / 1000)
 }
 
-Google.prototype.getNotes = async function getNotes(options) {
-  const noteFiles = await this.parser.listFiles('Takeout/Keep/', { extensionWhitelist: ['json'] })
+Google.prototype.getNotes = withAutoParser(async parser => {
+  const noteFiles = await parser.listFiles('Takeout/Keep/', { extensionWhitelist: ['json'] })
 
   const notes = await Promise.all(noteFiles.map(async file => {
-    const note = await this.parser.parseAsJSON<GoogleNotes>(file, options?.parsingOptions)
+    const note = await parser.parseAsJSON<GoogleNotes>(file)
     return {
       title: note.title ?? 'No title provided',
       content: note.textContent ?? 'No content provided',
@@ -29,8 +30,5 @@ Google.prototype.getNotes = async function getNotes(options) {
     } as Note
   }))
 
-  return {
-    data: notes,
-    parsedFiles: noteFiles,
-  }
-}
+  return notes
+})

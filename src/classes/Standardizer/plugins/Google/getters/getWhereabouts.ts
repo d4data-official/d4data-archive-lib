@@ -1,5 +1,6 @@
 import Google from '../Google'
 import { Whereabout } from '../../../../../types/schemas';
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 // eslint-disable-next-line
 const WHEREABOUTS_FILE = 'Takeout/Historique\ des\ positions/Historique\ des\ positions.json'
@@ -12,11 +13,11 @@ interface GoogleWhereabouts {
   }>
 }
 
-Google.prototype.getWhereabouts = async function getWhereabouts(options) {
-  if (!(await this.parser.filesExist([WHEREABOUTS_FILE]))) {
+Google.prototype.getWhereabouts = withAutoParser(async parser => {
+  if (!(await parser.filesExist([WHEREABOUTS_FILE]))) {
     return null
   }
-  const whereaboutList = await this.parser.parseAsJSON<GoogleWhereabouts>(WHEREABOUTS_FILE, options?.parsingOptions)
+  const whereaboutList = await parser.parseAsJSON<GoogleWhereabouts>(WHEREABOUTS_FILE)
   const whereabouts : Array<Whereabout> = whereaboutList.locations.map((whereabout) => ({
     recordDate: new Date(whereabout.timestampMs),
     location: {
@@ -27,8 +28,5 @@ Google.prototype.getWhereabouts = async function getWhereabouts(options) {
     },
   }))
 
-  return {
-    data: whereabouts,
-    parsedFiles: [WHEREABOUTS_FILE],
-  }
-}
+  return whereabouts
+})
