@@ -13,7 +13,7 @@ interface GoogleNotes {
 
 function computeCreationDate(file:string, note:GoogleNotes) {
   return new Date(
-    file.split('Takeout/Keep/')[1].replaceAll('_', ':').split('.json')[0],
+    file.split('Takeout/Keep/')?.[1]?.replaceAll('_', ':').split('.json')[0],
   ) ?? new Date(note.userEditedTimeStampUsec / 1000)
 }
 
