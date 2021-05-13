@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { AuthorizedDevice } from '../../../../../types/schemas';
 import Google from '../Google';
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
