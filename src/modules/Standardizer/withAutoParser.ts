@@ -7,7 +7,7 @@ export type AutoParserGetter<T, TT extends unknown[]> = (
   this: Standardizer, ...args: [...TT, GetterOptions]) => GetterReturn<T>
 
 export type WrappedGetter<T, TT extends unknown[]> = (
-  this: Standardizer, parser: Parser, ...args: [...TT, GetterOptions]) => Promise<T>
+  this: Standardizer, parser: Parser, ...args: [...TT, GetterOptions]) => Promise<T | null>
 
 export default function withAutoParser<T, TT extends unknown[]>(
   externalGetter: WrappedGetter<T, TT>,
@@ -19,8 +19,11 @@ export default function withAutoParser<T, TT extends unknown[]>(
     try {
       const getterData = await externalGetter.call(this, parser, ...args)
 
-      // Intercept empty array return by getter
-      if (Array.isArray(getterData) && getterData.length === 0) {
+      // Intercept empty array or null return from getter
+      if (
+        (Array.isArray(getterData) && getterData.length === 0)
+        || getterData === null
+      ) {
         return null
       }
 
