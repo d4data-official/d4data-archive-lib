@@ -1,15 +1,11 @@
 import Reddit from '../Reddit'
+import { API } from '../../../../../types/schemas';
 
-Reddit.prototype.getAPIs = async function getAPIs(options) {
-  const APIRawData = await this.parser.parseAsCSV(
-    'twitter.csv',
-    options?.parsingOptions,
-  )
-  const apis = APIRawData.map(api => ({
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
+
+Reddit.prototype.getAPIs = withAutoParser(async parser => {
+  const APIRawData = await parser.parseAsCSV('twitter.csv')
+  return APIRawData.map((api): API => ({
     name: api.username,
   }))
-  return {
-    data: apis,
-    parsedFiles: ['twitter.csv'],
-  }
-}
+})
