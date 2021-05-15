@@ -1,5 +1,6 @@
 import Google from '../Google'
 import { Task } from '../../../../../types/schemas/TaskList'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 // eslint-disable-next-line
 const TASKS_FILE = 'Takeout/Tasks/Tasks.json'
@@ -28,12 +29,12 @@ interface GoogleTasks {
   }>
 }
 
-Google.prototype.getTasks = async function getTasks(options) {
-  if (!(await this.parser.filesExist([TASKS_FILE]))) {
+Google.prototype.getTasks = withAutoParser(async parser => {
+  if (!(await parser.filesExist([TASKS_FILE]))) {
     return null
   }
 
-  const list = await this.parser.parseAsJSON<GoogleTasks>(TASKS_FILE, options?.parsingOptions)
+  const list = await parser.parseAsJSON<GoogleTasks>(TASKS_FILE)
   const taskList = list.items.map((tList) => ({
     title: tList.title,
     updateAt: new Date(tList.updated),
@@ -45,8 +46,5 @@ Google.prototype.getTasks = async function getTasks(options) {
     } as Task)),
   }))
 
-  return {
-    data: taskList,
-    parsedFiles: [TASKS_FILE],
-  }
-}
+  return taskList
+})
