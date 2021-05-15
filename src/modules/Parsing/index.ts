@@ -1,3 +1,4 @@
+export { default as filesExist } from './filesExist'
 export { default as listFiles } from './listFiles'
 export { default as parseDir } from './parseDir'
 export { default as parseFile } from './parseFile'

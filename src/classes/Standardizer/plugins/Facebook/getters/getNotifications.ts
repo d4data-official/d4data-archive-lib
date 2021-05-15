@@ -1,5 +1,6 @@
 import Facebook from '../Facebook'
 import { Notification } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const NOTIFICATIONS_FILE = 'about_you/notifications.json'
 
@@ -12,17 +13,12 @@ interface Notifications {
   }>
 }
 
-Facebook.prototype.getNotifications = async function getNotifications(options) {
-  const notificationList = await this.parser.parseAsJSON<Notifications>(NOTIFICATIONS_FILE, options?.parsingOptions)
+Facebook.prototype.getNotifications = withAutoParser(async parser => {
+  const notificationList = await parser.parseAsJSON<Notifications>(NOTIFICATIONS_FILE)
 
-  const notifications : Array<Notification> = notificationList.notifications.map((notification) => ({
+  return notificationList.notifications.map((notification): Notification => ({
     content: notification.text,
-    timestamp: new Date(notification.timestamp * 1000),
+    notificationDate: new Date(notification.timestamp * 1000),
     href: notification.href,
-  }));
-
-  return {
-    data: notifications,
-    parsedFiles: [NOTIFICATIONS_FILE],
-  }
-}
+  }))
+})

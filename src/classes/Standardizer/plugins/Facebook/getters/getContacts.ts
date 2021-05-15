@@ -1,5 +1,6 @@
 import Facebook from '../Facebook'
 import { Contact } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ADDRESS_BOOK_FILE = 'about_you/your_address_books.json'
 
@@ -14,16 +15,11 @@ interface Contacts {
   }
 }
 
-Facebook.prototype.getContacts = async function getContacts(options) {
-  const contactList = await this.parser.parseAsJSON<Contacts>(ADDRESS_BOOK_FILE, options?.parsingOptions)
+Facebook.prototype.getContacts = withAutoParser(async parser => {
+  const contactList = await parser.parseAsJSON<Contacts>(ADDRESS_BOOK_FILE)
 
-  const contacts : Array<Contact> = contactList.address_book.address_book.map((contact) => ({
+  return contactList.address_book.address_book.map((contact): Contact => ({
     displayName: contact.name,
     date: new Date(contact.created_timestamp * 1000),
   }))
-
-  return {
-    data: contacts,
-    parsedFiles: [ADDRESS_BOOK_FILE],
-  }
-}
+})
