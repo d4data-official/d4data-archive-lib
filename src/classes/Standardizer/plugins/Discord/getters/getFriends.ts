@@ -1,16 +1,14 @@
 import Discord from '../Discord'
 import { Contact } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_FILE = 'account/user.json'
 
-Discord.prototype.getFriends = async function getFriends(options) {
-  const profile = await this.parser.parseAsJSON(ACCOUNT_FILE, options?.parsingOptions)
-  const contact: Array<Contact> = profile.relationships.map((friend: any): Contact => ({
+Discord.prototype.getFriends = withAutoParser(async parser => {
+  const profile = await parser.parseAsJSON(ACCOUNT_FILE)
+
+  return profile.relationships.map((friend: any): Contact => ({
     username: `${ friend.user.username }#${ friend.user.discriminator }`,
     displayName: friend.user.username,
   }))
-  return {
-    data: contact,
-    parsedFiles: [ACCOUNT_FILE],
-  }
-}
+})
