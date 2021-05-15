@@ -1,17 +1,11 @@
 import Discord from '../Discord'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
+import { API } from '../../../../../types/schemas'
 
-Discord.prototype.getAPIs = async function getAPIs(options) {
-  const profileRawData = await this.parser.parseAsJSON(
-    'account/user.json',
-    options?.parsingOptions,
-  )
-  const connections = profileRawData.connections.map((connection: any) => ({
+Discord.prototype.getAPIs = withAutoParser(async parser => {
+  const profileRawData = await parser.parseAsJSON('account/user.json')
+  return profileRawData.connections.map((connection: any):API => ({
     name: connection.type,
     username: connection.name,
   }))
-
-  return {
-    data: connections,
-    parsedFiles: ['account/user.json'],
-  }
-}
+})

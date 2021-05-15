@@ -1,16 +1,16 @@
 import Discord from '../Discord'
 import { Connection } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const BASE_CONNECTIONS_FOLDER = 'activity/reporting/'
 
-Discord.prototype.getConnections = async function getConnections(options) {
-  const files = await this.parser.listFiles(BASE_CONNECTIONS_FOLDER, { extensionWhitelist: ['.json'] })
+Discord.prototype.getConnections = withAutoParser(async parser => {
+  const files = await parser.listFiles(BASE_CONNECTIONS_FOLDER, { extensionWhitelist: ['.json'] })
   const connections : Array<Connection> = []
 
   for await (const file of files) {
-    const connectionFile = await this.parser.parseAsJSONL(file, {
+    const connectionFile = await parser.parseAsJSONL(file, {
       filter: (unparsedLine) => (unparsedLine.startsWith('{"event_type":"session_start"')),
-      ...options?.parsingOptions,
     })
     connectionFile.forEach((row) => {
       connections.push({
@@ -28,9 +28,5 @@ Discord.prototype.getConnections = async function getConnections(options) {
       })
     })
   }
-
-  return {
-    data: connections,
-    parsedFiles: files,
-  }
-}
+  return connections
+})

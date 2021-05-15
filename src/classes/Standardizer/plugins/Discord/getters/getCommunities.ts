@@ -1,15 +1,12 @@
 import Discord from '../Discord'
 import { Community } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const COMMUNITIES_FILE = 'servers/index.json'
 
-Discord.prototype.getCommunities = async function getCommunities(options) {
-  const data = await this.parser.parseAsJSON(COMMUNITIES_FILE, options?.parsingOptions)
-  const communities: Array<Community> = Object.values(data).map((communityName: any): Community => ({
+Discord.prototype.getCommunities = withAutoParser(async parser => {
+  const data = await parser.parseAsJSON(COMMUNITIES_FILE)
+  return Object.values(data).map((communityName: any): Community => ({
     name: communityName,
   }))
-  return {
-    data: communities,
-    parsedFiles: [COMMUNITIES_FILE],
-  }
-}
+})
