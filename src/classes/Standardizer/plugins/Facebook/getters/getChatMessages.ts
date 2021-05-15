@@ -1,4 +1,5 @@
 import Facebook from '../Facebook'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const MESSAGES_INBOX = 'messages/inbox'
 const MESSAGES_ARCHIVE = 'messages/archived_threads'
@@ -26,17 +27,17 @@ interface FBChats {
   thread_path?: string
 }
 
-Facebook.prototype.getChatMessages = async function getChatMessages(chatId, options) {
-  const filesInbox = await this.parser.listFiles(MESSAGES_INBOX).then(
+Facebook.prototype.getChatMessages = withAutoParser(async (parser, chatId) => {
+  const filesInbox = await parser.listFiles(MESSAGES_INBOX).then(
     (paths) => paths.filter((path) => path.endsWith('message_1.json')),
   )
-  const filesArchive = await this.parser.listFiles(MESSAGES_ARCHIVE).then(
+  const filesArchive = await parser.listFiles(MESSAGES_ARCHIVE).then(
     (paths) => paths.filter((path) => path.endsWith('message_1.json')),
   )
   const files = filesInbox.concat(filesArchive)
-  const messageList = await this.parser.parseAsJSON<FBChats>(files[Number(chatId)], options?.parsingOptions)
+  const messageList = await parser.parseAsJSON<FBChats>(files[Number(chatId)])
 
-  const messages = messageList.messages.map((message) => ({
+  return messageList.messages.map((message) => ({
     sender: message.sender_name,
     content: message.content,
     type: message.type,
@@ -45,9 +46,4 @@ Facebook.prototype.getChatMessages = async function getChatMessages(chatId, opti
       name: reaction.reaction,
     })),
   }))
-
-  return {
-    data: messages,
-    parsedFiles: files,
-  }
-}
+})

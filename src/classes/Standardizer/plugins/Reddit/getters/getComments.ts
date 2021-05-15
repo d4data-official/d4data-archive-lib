@@ -1,5 +1,5 @@
 import Reddit from '../Reddit'
-import { Comment } from '../../../../../types/schemas';
+import { Comment } from '../../../../../types/schemas'
 
 const COMMENTS_FILE = 'comments.csv'
 
@@ -18,19 +18,12 @@ interface RedditComment {
 Reddit.prototype.getComments = async function getComments(options) {
   const commentList = await this.parser.parseAsCSV<RedditComment>(COMMENTS_FILE, options?.parsingOptions)
 
-  const comments: Array<Comment> = commentList.map((comment) => {
-    const links = comment.link ? [comment.link] : undefined
-    const userTags = comment.subreddit ? [comment.subreddit] : undefined
-    return {
-      sender: 'You',
-      content: comment?.body,
-      creationDate: new Date(comment.date),
-      metaData: {
-        links,
-        userTags,
-      },
-    }
-  })
+  const comments: Array<Comment> = commentList.map((comment) => ({
+    sender: 'You',
+    content: comment?.body,
+    creationDate: new Date(comment.date),
+    externalLink: comment.link,
+  }))
 
   return {
     data: comments,

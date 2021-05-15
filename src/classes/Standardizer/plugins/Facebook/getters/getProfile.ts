@@ -1,5 +1,6 @@
 import Facebook from '../Facebook'
-import { Profile } from '../../../../../types/schemas';
+import { Profile } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_PROFILE_FILE = 'profile_information/profile_information.json'
 
@@ -45,8 +46,8 @@ interface FBProfile {
   }
 }
 
-Facebook.prototype.getProfile = async function getProfile(options) {
-  const accountDetails = await this.parser.parseAsJSON<FBProfile>(ACCOUNT_PROFILE_FILE, options?.parsingOptions)
+Facebook.prototype.getProfile = withAutoParser(async parser => {
+  const accountDetails = await parser.parseAsJSON<FBProfile>(ACCOUNT_PROFILE_FILE)
 
   const account: Profile = {
     firstName: accountDetails.profile.name.first_name,
@@ -57,8 +58,5 @@ Facebook.prototype.getProfile = async function getProfile(options) {
       accountDetails.profile.birthday.month - 1, accountDetails.profile.birthday.day),
   }
 
-  return {
-    data: account,
-    parsedFiles: [ACCOUNT_PROFILE_FILE],
-  }
-}
+  return account
+})

@@ -29,7 +29,7 @@ interface FBPost {
 Facebook.prototype.getPosts = withAutoParser(async parser => {
   const postList = await parser.parseAsJSON<Array<FBPost>>(ACCOUNT_ACTIVITY_FILE)
 
-  const posts: Array<Post> = postList.map((post) => {
+  return postList.map((post): Post => {
     const externalLink = post?.attachments?.[0]?.data?.[0].external_context?.url
     return {
       creationDate: new Date(post.timestamp * 1000),
@@ -41,6 +41,4 @@ Facebook.prototype.getPosts = withAutoParser(async parser => {
       },
     }
   })
-
-  return posts
 })

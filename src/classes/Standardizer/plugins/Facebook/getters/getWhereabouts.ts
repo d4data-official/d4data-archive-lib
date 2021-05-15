@@ -1,5 +1,6 @@
 import Facebook from '../Facebook'
-import { Whereabout, Location } from '../../../../../types/schemas'
+import { Location, Whereabout } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_WHEREABOUTS_FILE = 'security_and_login_information/where_you\'re_logged_in.json'
 
@@ -16,10 +17,10 @@ interface Sessions {
   }>
 }
 
-Facebook.prototype.getWhereabouts = async function getWhereabouts(options) {
-  const whereaboutList = await this.parser.parseAsJSON<Sessions>(ACCOUNT_WHEREABOUTS_FILE, options?.parsingOptions)
+Facebook.prototype.getWhereabouts = withAutoParser(async parser => {
+  const whereaboutsList = await parser.parseAsJSON<Sessions>(ACCOUNT_WHEREABOUTS_FILE)
 
-  const whereabouts : Array<Whereabout> = whereaboutList.active_sessions.map((session) => ({
+  return whereaboutsList.active_sessions.map((session): Whereabout => ({
     location: {
       relativePosition: {
         raw: session.location,
@@ -27,9 +28,4 @@ Facebook.prototype.getWhereabouts = async function getWhereabouts(options) {
     } as Location,
     recordDate: new Date(session.updated_timestamp * 1000),
   }))
-
-  return {
-    data: whereabouts,
-    parsedFiles: [ACCOUNT_WHEREABOUTS_FILE],
-  }
-}
+})
