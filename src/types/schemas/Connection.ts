@@ -19,5 +19,5 @@ export default interface Connection {
   /**
    * Timestamp of recorded connection
    */
-  timestamp: Date | undefined
+  timestamp: Date
 }

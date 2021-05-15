@@ -1,5 +1,6 @@
 import Facebook from '../Facebook'
 import { Comment } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const COMMENTS_FILE = 'comments/comments.json'
 
@@ -26,10 +27,10 @@ interface FBComments {
   }>
 }
 
-Facebook.prototype.getComments = async function getComments(options) {
-  const commentList = await this.parser.parseAsJSON<FBComments>(COMMENTS_FILE, options?.parsingOptions)
+Facebook.prototype.getComments = withAutoParser(async parser => {
+  const commentList = await parser.parseAsJSON<FBComments>(COMMENTS_FILE)
 
-  const comments : Array<Comment> = commentList.comments.map((comment) => {
+  return commentList.comments.map((comment): Comment => {
     const externalLink = comment?.attachments?.[0]?.data?.[0].media?.uri
     return {
       creationDate: new Date(comment.timestamp * 1000),
@@ -41,9 +42,4 @@ Facebook.prototype.getComments = async function getComments(options) {
       },
     }
   })
-
-  return {
-    data: comments,
-    parsedFiles: [COMMENTS_FILE],
-  }
-}
+})

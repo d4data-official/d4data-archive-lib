@@ -12,14 +12,16 @@ export default {
 }
 
 export {
-  // Named export classes
+  // Classes
   ArchiveFactory,
   Archive,
   Standardizer,
   StandardizerFactory,
-  // Named export modules
+  // Modules
   ParsingUtils,
   // Types
   Services,
   Getters,
 }
+
+export * from './types/schemas'

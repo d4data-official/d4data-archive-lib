@@ -1,5 +1,6 @@
 import Facebook from '../Facebook'
 import { Contact } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_FRIENDS_FILE = 'friends/friends.json'
 
@@ -10,16 +11,11 @@ interface Friends {
   }>
 }
 
-Facebook.prototype.getFriends = async function getFriends(options) {
-  const friendList = await this.parser.parseAsJSON<Friends>(ACCOUNT_FRIENDS_FILE, options?.parsingOptions)
+Facebook.prototype.getFriends = withAutoParser(async parser => {
+  const friendList = await parser.parseAsJSON<Friends>(ACCOUNT_FRIENDS_FILE)
 
-  const friends: Array<Contact> = friendList.friends.map((friend) => ({
+  return friendList.friends.map((friend): Contact => ({
     displayName: friend.name,
     date: new Date(friend.timestamp * 1000),
   }))
-
-  return {
-    data: friends,
-    parsedFiles: [ACCOUNT_FRIENDS_FILE],
-  }
-}
+})

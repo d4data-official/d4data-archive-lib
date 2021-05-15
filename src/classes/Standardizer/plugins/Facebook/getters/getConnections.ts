@@ -1,11 +1,13 @@
 import Facebook from '../Facebook'
 import { Connection } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_ACTIVITY_FILE = 'security_and_login_information/account_activity.json'
 
-Facebook.prototype.getConnections = async function getConnections(options) {
-  const accountActivity = await this.parser.parseAsJSON(ACCOUNT_ACTIVITY_FILE, options?.parsingOptions)
-  const connections: Array<Connection> = accountActivity.account_activity
+Facebook.prototype.getConnections = withAutoParser(async parser => {
+  const accountActivity = await parser.parseAsJSON(ACCOUNT_ACTIVITY_FILE)
+
+  return accountActivity.account_activity
     .map((connection: Record<string, any>): Connection => ({
       ipAddress: connection.ip_address,
       location: {
@@ -18,9 +20,4 @@ Facebook.prototype.getConnections = async function getConnections(options) {
       timestamp: new Date(connection.timestamp * 1000),
       browser: connection.user_agent,
     }))
-
-  return {
-    data: connections,
-    parsedFiles: [ACCOUNT_ACTIVITY_FILE],
-  }
-}
+})
