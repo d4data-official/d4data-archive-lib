@@ -8,16 +8,19 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [15.x]
+        node-version: ['16']
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}        
         
-    - run: npm install
+    - name: Install Yarn
+      run: npm install -g yarn
+        
+    - run: yarn install
       name: Install dependencies
     
-    - run: LOCAL_ARCHIVE_DIR=/archives npm run test
+    - run: LOCAL_ARCHIVE_DIR=/archives yarn test
       name: Run unit tests

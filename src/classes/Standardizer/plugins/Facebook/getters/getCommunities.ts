@@ -1,5 +1,6 @@
 import Facebook from '../Facebook'
 import { Community } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const COMMUNITIES_FILE = 'groups/your_group_membership_activity.json'
 
@@ -10,16 +11,11 @@ interface Communities {
   }>
 }
 
-Facebook.prototype.getCommunities = async function getCommunities(options) {
-  const communityList = await this.parser.parseAsJSON<Communities>(COMMUNITIES_FILE, options?.parsingOptions)
+Facebook.prototype.getCommunities = withAutoParser(async parser => {
+  const communityList = await parser.parseAsJSON<Communities>(COMMUNITIES_FILE)
 
-  const communities : Array<Community> = communityList.groups_joined.map((group) => ({
+  return communityList.groups_joined.map((group): Community => ({
     joinedDate: new Date(group.timestamp * 1000),
     name: group.title,
   }))
-
-  return {
-    data: communities,
-    parsedFiles: [COMMUNITIES_FILE],
-  }
-}
+})

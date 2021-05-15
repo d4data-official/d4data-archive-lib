@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import fs, { promises as fsPromises } from 'fs'
+import fs, { constants, promises as fsPromises } from 'fs'
 import path from 'path'
 import {
   API,
@@ -16,9 +16,11 @@ import {
   Mail,
   Media,
   Message,
+  Note,
   Notification,
   Post,
   Profile,
+  RawData,
   Reacted,
   Setting,
   TaskList,
@@ -33,6 +35,7 @@ import GetterReturn from '../../types/standardizer/GetterReturn'
 import { MediaType } from '../../types/schemas/Media'
 import Getters from '../../types/standardizer/Getters'
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+import RawDataReturn from '../../types/standardizer/RawDataReturn'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -188,6 +191,34 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
+  async getNotes(options?: GetterOptions): GetterReturn<Array<Note>> {
+    return Promise.resolve(null)
+  }
+
+  /**
+   * Take an absolute or relative (to this Standardizer path) file path and return automatic parsed content.
+   * The adapted parsing function is automatically chosen from file extension.
+   */
+  async getRawData(filePath: string, options?: GetterOptions): Promise<RawDataReturn> {
+    const absolutePath = path.isAbsolute(filePath) ? filePath : this.parser.resolveRelativePath(filePath)
+
+    await fs.promises.access(absolutePath, constants.R_OK)
+
+    const stats = await fs.promises.stat(absolutePath)
+
+    if (stats.isDirectory()) {
+      throw new Error('Given path must point to a file')
+    }
+
+    const parsedFileContent = await this.parser.parseFile(filePath, options)
+
+    return {
+      data: parsedFileContent,
+      relativePath: path.relative(this.path, absolutePath),
+      absolutePath,
+    }
+  }
+
   static get getters() {
     const excludedKeys = ['constructor']
     return Object.getOwnPropertyNames(Standardizer.prototype)
@@ -252,6 +283,7 @@ export default abstract class Standardizer {
       getChatMessages: data => is<Array<ChatMessage>>(data),
       getComments: data => is<Array<Post>>(data),
       getPosts: data => is<Array<Post>>(data),
+      getNotes: data => is<Array<Note>>(data),
       getMessages: data => is<Array<Message>>(data),
       getAPIs: data => is<Array<API>>(data),
       getConnections: data => is<Array<Connection>>(data),
@@ -264,6 +296,7 @@ export default abstract class Standardizer {
       getTasks: data => is<Array<TaskList>>(data),
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
       getMails: data => is<Array<Mail>>(data),
+      getRawData: data => is<RawData>(data),
     }
   }
 
@@ -284,6 +317,7 @@ export default abstract class Standardizer {
       getChatMessages: data => assertType<Array<ChatMessage>>(data),
       getComments: data => assertType<Array<Post>>(data),
       getPosts: data => assertType<Array<Post>>(data),
+      getNotes: data => assertType<Array<Note>>(data),
       getMessages: data => assertType<Array<Message>>(data),
       getAPIs: data => assertType<Array<API>>(data),
       getConnections: data => assertType<Array<Connection>>(data),
@@ -296,6 +330,7 @@ export default abstract class Standardizer {
       getTasks: data => assertType<Array<TaskList>>(data),
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
       getMails: data => assertType<Array<Mail>>(data),
+      getRawData: data => assertType<RawData>(data),
     }
   }
 }

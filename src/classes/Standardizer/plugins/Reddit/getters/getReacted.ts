@@ -12,7 +12,10 @@ Reddit.prototype.getReacted = async function getReacted(options) {
   )
   const finalRawData = reactsPostRawData.concat(reactsCommentRawData)
   const reacteds = finalRawData.map((reaction):Reacted => ({
-    type: 'post',
+    entityType: 'externalLink',
+    reaction: {
+      name: reaction.direction,
+    },
     entity: reaction.permalink,
   }))
   return {
