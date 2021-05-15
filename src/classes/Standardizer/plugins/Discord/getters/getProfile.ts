@@ -1,6 +1,5 @@
-import path from 'path'
 import Discord from '../Discord'
-import { Contact, Profile } from '../../../../../types/schemas'
+import { Profile } from '../../../../../types/schemas'
 import { MediaType } from '../../../../../types/schemas/Media'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
