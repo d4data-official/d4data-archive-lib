@@ -1,5 +1,5 @@
 import Reddit from '../Reddit'
-import { Comment, Post } from '../../../../../types/schemas'
+import { Post } from '../../../../../types/schemas'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const POSTS_FILE = 'posts.csv'
