@@ -18,7 +18,7 @@ export default async function parseAsMBOX(pipeline: Pipeline, options?: OptionsP
       ? mail.to.map(t => t?.text)
       : [mail.to?.text ?? 'Unknown']
     return ({
-      from: mail.from?.value[0].address ?? '',
+      from: mail.from?.text ?? 'Unknown',
       to: toAddresses ?? ['Unknown'],
       date: mail.date,
       subject: mail.subject,
