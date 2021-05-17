@@ -1,5 +1,6 @@
 import Reddit from '../Reddit'
 import { Chat } from '../../../../../types/schemas';
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const CHATS_FILE = 'chat_history.csv'
 
@@ -14,17 +15,12 @@ interface RedditChat {
   conversation_type: string,
 }
 
-Reddit.prototype.getChats = async function getChats(options) {
-  const chatList = await this.parser.parseAsCSV<RedditChat>(CHATS_FILE, options?.parsingOptions)
+Reddit.prototype.getChats = withAutoParser(async parser => {
+  const chatList = await parser.parseAsCSV<RedditChat>(CHATS_FILE)
 
-  const chats: Array<Chat> = chatList.map((chat) => ({
+  return chatList.map((chat): Chat => ({
     _id: chat.channel_url,
     title: chat.username,
     participants: [chat.username, 'You'],
   }))
-
-  return {
-    data: chats,
-    parsedFiles: [CHATS_FILE],
-  }
-}
+})

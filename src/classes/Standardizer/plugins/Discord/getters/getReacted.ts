@@ -1,19 +1,18 @@
 import Discord from '../Discord'
 import { Reacted } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
-Discord.prototype.getReacted = async function getReacted(options) {
-  const eventFiles = await this.parser.findFiles(/(tns)|(analytics)/, './activity')
+interface DiscordReacted { guild_id: string; channel_id: any; message_id: any; emoji_name: any; timestamp: string }
+
+Discord.prototype.getReacted = withAutoParser(async parser => {
+  const eventFiles = await parser.findFiles(/(tns)|(analytics)/, './activity')
   if (eventFiles.length === 0) {
-    return {
-      data: [],
-      parsedFiles: [],
-    }
+    return null
   }
-  const reactions = (await this.parser.parseAsJSONL(eventFiles[0], {
-    filter: (unparsedLine) => (unparsedLine.startsWith('{"event_type":"add_reaction"')),
-    ...options?.parsingOptions,
+  const reactions = (await parser.parseAsJSONL(eventFiles[0], {
+    filter: (unparsedLine: string) => (unparsedLine.startsWith('{"event_type":"add_reaction"')),
   }))
-  const reacted = reactions.map((reaction): Reacted => {
+  return reactions.map((reaction: DiscordReacted): Reacted => {
     const guild = reaction?.guild_id ?? '@me'
     return {
       entityType: 'externalLink',
@@ -24,8 +23,4 @@ Discord.prototype.getReacted = async function getReacted(options) {
       },
     }
   })
-  return {
-    data: reacted,
-    parsedFiles: eventFiles,
-  }
-}
+})

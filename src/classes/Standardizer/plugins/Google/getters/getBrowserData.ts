@@ -1,6 +1,7 @@
 import Google from '../Google'
 import { Extension, History, Preference, SavedForm, Theme } from '../../../../../types/schemas/BrowserData'
 import { BrowserData } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 function getStoreUrl(id: string) {
   return id ? `https://chrome.google.com/webstore/detail/TEXT/${ id }` : undefined
@@ -50,16 +51,16 @@ interface GoogleExtension {
   id: string;
 }
 
-Google.prototype.getBrowserData = async function getBrowserData(options) {
-  if (!(await this.parser.filesExist(Object.values(files)))) {
+Google.prototype.getBrowserData = withAutoParser(async parser => {
+  if (!(await parser.filesExist(Object.values(files)))) {
     return null
   }
-  const autoFill = await this.parser.parseAsJSON(files.autofill, options?.parsingOptions)
-  const history = await this.parser.parseAsJSON(files.history, options?.parsingOptions)
-  const dictionary = await this.parser.parseAsCSV(files.dictionary, options?.parsingOptions)
-  const extensions = await this.parser.parseAsJSON(files.extensions, options?.parsingOptions)
-  const searchEngines = await this.parser.parseAsJSON(files.searchEngines, options?.parsingOptions)
-  const syncSettings = await this.parser.parseAsJSON(files.syncSettings, options?.parsingOptions)
+  const autoFill = await parser.parseAsJSON(files.autofill)
+  const history = await parser.parseAsJSON(files.history)
+  const dictionary = await parser.parseAsCSV(files.dictionary)
+  const extensions = await parser.parseAsJSON(files.extensions)
+  const searchEngines = await parser.parseAsJSON(files.searchEngines)
+  const syncSettings = await parser.parseAsJSON(files.syncSettings)
 
   const rawBrowserData = {
     autoFill: autoFill?.['Autofill Profile'],
@@ -121,8 +122,5 @@ Google.prototype.getBrowserData = async function getBrowserData(options) {
     } as Theme,
   }
 
-  return {
-    data: browserData,
-    parsedFiles: Object.values(files),
-  }
-}
+  return browserData
+})

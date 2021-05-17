@@ -1,5 +1,6 @@
 import Reddit from '../Reddit'
 import { Setting } from '../../../../../types/schemas';
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const SETTINGS_FILE = 'user_preferences.csv'
 
@@ -8,16 +9,11 @@ interface RedditSetting {
   value: string
 }
 
-Reddit.prototype.getSettings = async function getSettings(options) {
-  const settingList = await this.parser.parseAsCSV<RedditSetting>(SETTINGS_FILE, options?.parsingOptions)
+Reddit.prototype.getSettings = withAutoParser(async parser => {
+  const settingList = await parser.parseAsCSV<RedditSetting>(SETTINGS_FILE)
 
-  const settings: Array<Setting> = settingList.map((setting) => ({
+  return settingList.map((setting):Setting => ({
     name: setting.preference,
     value: setting.value,
   }))
-
-  return {
-    data: settings,
-    parsedFiles: [SETTINGS_FILE],
-  }
-}
+})
