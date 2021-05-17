@@ -1,19 +1,13 @@
 import { Transaction } from 'types/schemas'
 import Reddit from '../Reddit'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
-Reddit.prototype.getTransactions = async function getTransactions(options) {
-  const transactionsRawData = await this.parser.parseAsCSV(
-    'reddit_gold_information.csv',
-    options?.parsingOptions,
-  )
-  const transactions = transactionsRawData.map((transaction):Transaction => ({
+Reddit.prototype.getTransactions = withAutoParser(async parser => {
+  const transactionsRawData = await parser.parseAsCSV('reddit_gold_information.csv')
+  return transactionsRawData.map((transaction):Transaction => ({
     currency: '$',
     value: transaction.cost,
     date: transaction.date,
     product: transaction.transaction_id,
   }))
-  return {
-    data: transactions,
-    parsedFiles: ['reddit_gold_information.csv'],
-  }
-}
+})
