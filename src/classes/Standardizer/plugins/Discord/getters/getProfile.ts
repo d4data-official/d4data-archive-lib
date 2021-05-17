@@ -1,25 +1,21 @@
-import path from 'path'
 import Discord from '../Discord'
-import { Contact } from '../../../../../types/schemas'
+import { Profile } from '../../../../../types/schemas'
 import { MediaType } from '../../../../../types/schemas/Media'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_FILE = 'account/user.json'
 
-Discord.prototype.getProfile = async function getProfile(options) {
-  const profile = await this.parser.parseAsJSON(ACCOUNT_FILE, options?.parsingOptions)
-  const contact: Contact = {
+Discord.prototype.getProfile = withAutoParser(async parser => {
+  const profile = await parser.parseAsJSON(ACCOUNT_FILE)
+  return {
     displayName: profile.username,
     mail: profile.email,
     profilePicture: {
       current: {
-        url: `file:///${ path.resolve('account/avatar.png') }`,
+        url: `file:///${ parser.resolveRelativePath('account/avatar.png') }`,
         type: MediaType.IMAGE,
       },
       history: [],
     },
-  }
-  return {
-    data: contact,
-    parsedFiles: [ACCOUNT_FILE],
-  }
-}
+  } as Profile
+})

@@ -1,16 +1,12 @@
-import { GetterOptions } from '../../../../../types/standardizer/Standardizer';
 import Discord from '../Discord';
 import { ChatMessage } from '../../../../../types/schemas'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
-Discord.prototype.getChatMessages = async function getChatMessages(chatId: string, options?: GetterOptions) {
-  const messages = await this.parser.findFiles(/messages.csv$/, './messages/')
-  const parsed = await this.parser.parseAsCSV(messages?.[Number(chatId)], options?.parsingOptions)
-  const chatMessages = parsed.map((chat): ChatMessage => ({
+Discord.prototype.getChatMessages = withAutoParser(async (parser, chatId) => {
+  const messages = await parser.findFiles(/messages.csv$/, './messages/')
+  const parsed = await parser.parseAsCSV(messages?.[Number(chatId)])
+  return parsed.map((chat): ChatMessage => ({
     sender: 'You',
     content: chat.Contents,
   }))
-  return {
-    data: chatMessages,
-    parsedFiles: [messages?.[Number(chatId)]],
-  }
-}
+})

@@ -1,15 +1,10 @@
 import Reddit from '../Reddit'
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
+import { Contact } from '../../../../../types/schemas'
 
-Reddit.prototype.getFriends = async function getFriends(options) {
-  const friendsRawData = await this.parser.parseAsCSV(
-    'friends.csv',
-    options?.parsingOptions,
-  )
-  const friends = friendsRawData.map(friend => ({
+Reddit.prototype.getFriends = withAutoParser(async parser => {
+  const friendsRawData = await parser.parseAsCSV('friends.csv')
+  return friendsRawData.map((friend:any):Contact => ({
     displayName: friend.username,
   }))
-  return {
-    data: friends,
-    parsedFiles: ['friends.csv'],
-  }
-}
+})
