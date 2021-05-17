@@ -1,7 +1,6 @@
 import mboxParser, { ParsedMail } from 'mbox-parser'
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
 import Pipeline from '../../classes/Pipeline'
-import { Mail } from '../../types/schemas'
 
 export type OptionsParseAsMBOX = ParsingOptions & PaginationOptions
 
