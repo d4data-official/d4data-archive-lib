@@ -1,21 +1,21 @@
 export default interface Event {
-/**
-   * name of the event
+  /**
+   * Service specific event type/name
    */
-  name?: string | undefined
+  type: string
 
   /**
-   * date and time of the start of the event in timestamp format
+   * Date time at the event occurred
    */
-  startDate?: Date | undefined
+  date: Date
 
   /**
-   * date and time of the end of the event in timestamp format
+   * Target subject of the event extracted from the content if present
    */
-  endDate?: Date | undefined
+  subject?: string
 
   /**
-   * person who will participate to the event
+   * Optional raw data associated with the event, generally specific to the service
    */
-  participants?: Array<string> | undefined
+  extra?: any
 }
