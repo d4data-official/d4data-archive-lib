@@ -34,7 +34,7 @@ export default class Parser {
    */
   readonly parsedFiles: Array<string> = []
 
-  defaultOptions: ParsingOptions & PaginationOptions = {
+  defaultOptions: ParsingOptions & Required<PaginationOptions> = {
     pagination: {
       offset: 0,
       items: 50,
