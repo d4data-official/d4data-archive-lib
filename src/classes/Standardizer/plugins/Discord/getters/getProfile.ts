@@ -9,7 +9,7 @@ Discord.prototype.getProfile = withAutoParser(async parser => {
   const profile = await parser.parseAsJSON(ACCOUNT_FILE)
   return {
     displayName: profile.username,
-    mail: profile.email,
+    mails: profile.email ? [{ mail: profile.email }] : undefined,
     profilePicture: {
       current: {
         url: `file:///${ parser.resolveRelativePath('account/avatar.png') }`,
