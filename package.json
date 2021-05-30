@@ -1,6 +1,7 @@
 {
   "name": "@d4data/archive-lib",
   "description": "Library to extract and normalize data from GDPR personal data archives",
+  "license": "GPL-3.0",
   "version": "0.1.0-alpha.5",
   "repository": {
     "type": "git",
