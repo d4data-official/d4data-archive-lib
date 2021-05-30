@@ -4,6 +4,7 @@ enum Services {
   DISCORD = 'Discord',
   REDDIT = 'Reddit',
   GOOGLE = 'Google',
+  GRAVATAR = 'Gravatar',
 }
 
 export default Services
