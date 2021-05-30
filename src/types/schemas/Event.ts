@@ -5,7 +5,7 @@ export default interface Event {
   type: string
 
   /**
-   * Date time at the event occurred
+   * Date on which the event occurred
    */
   date: Date
 
