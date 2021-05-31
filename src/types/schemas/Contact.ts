@@ -36,15 +36,15 @@ export default interface Contact {
    */
   birthday?: Date | undefined
 
-  /**
-   * Number of phone of a contact
-   */
-  phone?: string | undefined
+  phoneNumbers?: Array<{
+    name?: string
+    phoneNumber: string
+  }> | undefined
 
-  /**
-   * Mail of the contact
-   */
-  mail?: string | undefined
+  mails?: Array<{
+    name?: string
+    mail: string
+  }> | undefined
 
   /**
    * Since when the contact is in the conctact list of the owner
