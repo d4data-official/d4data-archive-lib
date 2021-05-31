@@ -1,4 +1,5 @@
 import ProfilePicture from 'types/schemas/ProfilePicture'
+import { RelativePosition } from './Location'
 
 export default interface Contact {
   /**
@@ -36,6 +37,11 @@ export default interface Contact {
    */
   birthday?: Date | undefined
 
+  /**
+   * Description / biography of contact
+   */
+  description?: string | undefined
+
   phoneNumbers?: Array<{
     name?: string
     phoneNumber: string
@@ -44,6 +50,16 @@ export default interface Contact {
   mails?: Array<{
     name?: string
     mail: string
+  }> | undefined
+
+  addresses?: Array<{
+    name?: string
+    address: RelativePosition
+  }> | undefined
+
+  websites?: Array<{
+    name: string
+    url: string
   }> | undefined
 
   /**
