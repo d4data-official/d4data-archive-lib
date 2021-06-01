@@ -5,7 +5,7 @@ import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 const BASE_CONNECTIONS_FOLDER = 'activity/reporting/'
 
 Discord.prototype.getConnections = withAutoParser(async parser => {
-  const files = await parser.listFiles(BASE_CONNECTIONS_FOLDER, { extensionWhitelist: ['.json'] })
+  const files = await parser.listFiles(BASE_CONNECTIONS_FOLDER, { extensionWhitelist: ['json'] })
   const connections : Array<Connection> = []
 
   for await (const file of files) {
