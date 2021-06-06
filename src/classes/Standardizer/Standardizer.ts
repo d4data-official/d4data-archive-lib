@@ -220,6 +220,24 @@ export default abstract class Standardizer {
   }
 
   /**
+   * Call all getters (one item pagination) and return which ones are implemented
+   */
+  async getAvailableGetters(): Promise<Array<Getters>> {
+    const allGettersData = await this.callAllGetters({
+      parsingOptions: {
+        pagination: {
+          offset: 0,
+          items: 1,
+        },
+      },
+    })
+
+    return Object.entries(allGettersData)
+      .filter(([name, data]) => data !== null)
+      .map(([name, data]) => name) as Array<Getters>
+  }
+
+  /**
    * Call all getters with given options and return a map of results
    */
   async callAllGetters(
