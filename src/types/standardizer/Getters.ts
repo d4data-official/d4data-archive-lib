@@ -23,6 +23,7 @@ enum Getters {
   TASKS = 'getTasks',
   AUTHORIZED_DEVICES = 'getAuthorizedDevices',
   MAIL = 'getMails',
+  EVENTS = 'getEvents',
   RAW_DATA = 'getRawData',
 }
 
