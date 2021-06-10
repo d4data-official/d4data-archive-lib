@@ -12,6 +12,7 @@ import {
   Community,
   Connection,
   Contact,
+  Event,
   Following,
   Mail,
   Media,
@@ -195,6 +196,10 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
+  async getEvents(options?: GetterOptions): GetterReturn<Array<Event>> {
+    return Promise.resolve(null)
+  }
+
   /**
    * Take an absolute or relative (to this Standardizer path) file path and return automatic parsed content.
    * The adapted parsing function is automatically chosen from file extension.
@@ -296,6 +301,7 @@ export default abstract class Standardizer {
       getTasks: data => is<Array<TaskList>>(data),
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
       getMails: data => is<Array<Mail>>(data),
+      getEvents: data => is<Array<Event>>(data),
       getRawData: data => is<RawData>(data),
     }
   }
@@ -330,6 +336,7 @@ export default abstract class Standardizer {
       getTasks: data => assertType<Array<TaskList>>(data),
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
       getMails: data => assertType<Array<Mail>>(data),
+      getEvents: data => assertType<Array<Event>>(data),
       getRawData: data => assertType<RawData>(data),
     }
   }
