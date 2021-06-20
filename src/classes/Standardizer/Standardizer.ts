@@ -276,6 +276,7 @@ export default abstract class Standardizer {
       getTasks: await this.getTasks(options),
       getAuthorizedDevices: await this.getAuthorizedDevices(options),
       getMails: await this.getMails(options),
+      getEvents: await this.getEvents(options),
     }
   }
 
