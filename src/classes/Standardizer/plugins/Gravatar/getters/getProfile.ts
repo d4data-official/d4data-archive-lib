@@ -100,5 +100,5 @@ Gravatar.prototype.getProfile = withAutoParser(async parser => {
     },
   }
 
-  return profile
+  return { data: profile }
 })

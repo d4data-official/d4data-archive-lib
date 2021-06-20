@@ -19,8 +19,10 @@ Gravatar.prototype.getAPIs = withAutoParser(async parser => {
     return null
   }
 
-  return rawData.accounts.map((account): API => ({
+  const APIs = rawData.accounts.map((account): API => ({
     name: account.shortname,
     username: account.username,
   }))
+
+  return { data: APIs }
 })
