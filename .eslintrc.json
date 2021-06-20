@@ -27,6 +27,7 @@
     "no-use-before-define": ["error", {"functions": false, "classes": true, "variables": true}],
     "import/no-named-as-default-member": "off",
     "no-continue": "off",
+    "no-underscore-dangle": "off",
     "@typescript-eslint/no-shadow": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-use-before-define": "off",

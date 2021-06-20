@@ -32,11 +32,11 @@ import { assertType, is } from 'typescript-is'
 import Services from '../../types/Services'
 import Parser from '../Parser'
 import { GetterOptions } from '../../types/standardizer/Standardizer'
-import GetterReturn from '../../types/standardizer/GetterReturn'
+import GetterReturn, { GetterData } from '../../types/standardizer/GetterReturn'
 import { MediaType } from '../../types/schemas/Media'
-import Getters from '../../types/standardizer/Getters'
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
 import RawDataReturn from '../../types/standardizer/RawDataReturn'
+import Getters from '../../types/standardizer/Getters'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -221,6 +221,62 @@ export default abstract class Standardizer {
       data: parsedFileContent,
       relativePath: path.relative(this.path, absolutePath),
       absolutePath,
+    }
+  }
+
+  /**
+   * Call all getters (one item pagination) and return which ones are implemented
+   */
+  async getAvailableGetters(): Promise<Array<Getters>> {
+    const allGettersData = await this.callAllGetters({
+      parsingOptions: {
+        pagination: {
+          offset: 0,
+          items: 1,
+        },
+      },
+    })
+
+    return Object.entries(allGettersData)
+      .filter(([name, data]) => data !== null)
+      .map(([name, data]) => name) as Array<Getters>
+  }
+
+  /**
+   * Call all getters with given options and return a map of results
+   */
+  async callAllGetters(
+    options?: GetterOptions,
+  ): Promise<Record<Exclude<Getters, Getters.RAW_DATA>, GetterData<any>>> {
+    const chats = await this.getChats(options)
+    const chatMessages = chats?.data.length ? await this.getChatMessages(chats.data[0]._id!) : null
+
+    return {
+      getProfile: await this.getProfile(options),
+      getFriends: await this.getFriends(options),
+      getFollowings: await this.getFollowings(options),
+      getFollowers: await this.getFollowers(options),
+      getContacts: await this.getContacts(options),
+      getWhereabouts: await this.getWhereabouts(options),
+      getNotifications: await this.getNotifications(options),
+      getChats: chats,
+      getChatMessages: chatMessages,
+      getComments: await this.getMessages(options),
+      getPosts: await this.getPosts(options),
+      getNotes: await this.getNotes(options),
+      getMessages: await this.getMessages(options),
+      getAPIs: await this.getAPIs(options),
+      getConnections: await this.getConnections(options),
+      getCommunities: await this.getCommunities(options),
+      getSettings: await this.getSettings(options),
+      getReacted: await this.getReacted(options),
+      getMedias: await this.getMedias(options),
+      getTransactions: await this.getTransactions(options),
+      getBrowserData: await this.getBrowserData(options),
+      getTasks: await this.getTasks(options),
+      getAuthorizedDevices: await this.getAuthorizedDevices(options),
+      getMails: await this.getMails(options),
+      getEvents: await this.getEvents(options),
     }
   }
 
