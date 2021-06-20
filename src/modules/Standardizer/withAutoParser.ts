@@ -1,13 +1,20 @@
 import Standardizer from '../../classes/Standardizer/Standardizer'
 import { GetterOptions } from '../../types/standardizer/Standardizer'
-import GetterReturn from '../../types/standardizer/GetterReturn'
+import GetterReturn, { GetterData } from '../../types/standardizer/GetterReturn'
 import Parser from '../../classes/Parser'
 
+export type GetterDataWithAutoParser<T> = Omit<NonNullable<GetterData<T>>, 'parsedFiles'> | null
+
 export type AutoParserGetter<T, TT extends unknown[]> = (
-  this: Standardizer, ...args: [...TT, GetterOptions]) => GetterReturn<T>
+  this: Standardizer,
+  ...args: [...TT, GetterOptions]
+) => GetterReturn<T>
 
 export type WrappedGetter<T, TT extends unknown[]> = (
-  this: Standardizer, parser: Parser, ...args: [...TT, GetterOptions]) => Promise<T | null>
+  this: Standardizer,
+  parser: Parser,
+  ...args: [...TT, GetterOptions]
+) => Promise<GetterDataWithAutoParser<T>>
 
 export default function withAutoParser<T, TT extends unknown[]>(
   externalGetter: WrappedGetter<T, TT>,
@@ -20,15 +27,13 @@ export default function withAutoParser<T, TT extends unknown[]>(
       const getterData = await externalGetter.call(this, parser, ...args)
 
       // Intercept empty array or null return from getter
-      if (
-        (Array.isArray(getterData) && getterData.length === 0)
-        || getterData === null
-      ) {
+      if (getterData === null || (Array.isArray(getterData.data) && getterData.data.length === 0)) {
         return null
       }
 
       return {
-        data: getterData,
+        data: getterData.data,
+        statistics: getterData.statistics,
         parsedFiles: parser.parsedFiles,
       }
     } catch (e) {
