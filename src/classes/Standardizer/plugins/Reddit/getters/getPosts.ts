@@ -17,9 +17,9 @@ interface RedditPost {
 }
 
 Reddit.prototype.getPosts = withAutoParser(async parser => {
-  const postList = await parser.parseAsCSV<RedditPost>(POSTS_FILE)
+  const rawPosts = await parser.parseAsCSV<RedditPost>(POSTS_FILE)
 
-  return postList.map((post): Post => {
+  const posts = rawPosts.map((post): Post => {
     const links = post.url ? [post.url] : undefined
     const userTags = post.subreddit ? [post.subreddit] : undefined
     return {
@@ -32,4 +32,6 @@ Reddit.prototype.getPosts = withAutoParser(async parser => {
       },
     }
   })
+
+  return { data: posts }
 })

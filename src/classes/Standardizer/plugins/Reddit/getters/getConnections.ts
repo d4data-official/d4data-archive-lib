@@ -1,5 +1,5 @@
 import Reddit from '../Reddit'
-import { Connection } from '../../../../../types/schemas';
+import { Connection } from '../../../../../types/schemas'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const CONNECTIONS_FILE = 'ip_logs.csv'
@@ -10,10 +10,12 @@ interface RedditConnection {
 }
 
 Reddit.prototype.getConnections = withAutoParser(async parser => {
-  const connectionList = await parser.parseAsCSV<RedditConnection>(CONNECTIONS_FILE)
+  const rawConnections = await parser.parseAsCSV<RedditConnection>(CONNECTIONS_FILE)
 
-  return connectionList.slice(1).map((connection): Connection => ({
+  const connections = rawConnections.slice(1).map((connection): Connection => ({
     ipAddress: connection.ip,
     timestamp: new Date(connection.date),
   }))
+
+  return { data: connections }
 })

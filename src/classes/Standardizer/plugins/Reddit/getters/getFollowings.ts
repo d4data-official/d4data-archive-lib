@@ -1,5 +1,5 @@
 import Reddit from '../Reddit'
-import { Community, Following } from '../../../../../types/schemas';
+import { Community, Following } from '../../../../../types/schemas'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const FOLLOWINGS_FILE = 'subscribed_subreddits.csv'
@@ -9,12 +9,14 @@ interface RedditFollowing {
 }
 
 Reddit.prototype.getFollowings = withAutoParser(async parser => {
-  const followingList = await parser.parseAsCSV<RedditFollowing>(FOLLOWINGS_FILE)
+  const rawFollowings = await parser.parseAsCSV<RedditFollowing>(FOLLOWINGS_FILE)
 
-  return followingList.map((following) : Following => ({
+  const followings = rawFollowings.map((following): Following => ({
     type: 'community',
     entity: {
       name: following.subreddit,
     } as Community,
   }))
+
+  return { data: followings }
 })

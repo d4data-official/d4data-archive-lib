@@ -13,8 +13,10 @@ Reddit.prototype.getProfile = withAutoParser(async parser => {
   const accountDetails = await parser.parseAsCSV<RedditProfile>(ACCOUNT_PROFILE_FILE)
   const mail = accountDetails[5]?.value
 
-  return {
+  const profile: Profile = {
     displayName: accountDetails[0]?.value,
     mails: mail ? [{ mail }] : undefined,
-  } as Profile
+  }
+
+  return { data: profile }
 })
