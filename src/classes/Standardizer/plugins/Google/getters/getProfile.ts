@@ -1,6 +1,6 @@
 import Google from '../Google'
-import { Media, Profile, ProfilePicture } from '../../../../../types/schemas';
-import { MediaType } from '../../../../../types/schemas/Media';
+import { Media, Profile, ProfilePicture } from '../../../../../types/schemas'
+import { MediaType } from '../../../../../types/schemas/Media'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_PROFILE_FOLDER = 'Takeout/Profil'
@@ -36,13 +36,14 @@ Google.prototype.getProfile = withAutoParser(async parser => {
   }
   const accountDetails = await parser.parseAsJSON<GoogleProfile>(ACCOUNT_PROFILE_FILE)
   const birthday = accountDetails?.birthday ? new Date(accountDetails.birthday) : undefined
+  const mail = accountDetails?.emails?.[0]?.value
 
   const account: Profile = {
     firstName: accountDetails?.name?.givenName,
     lastName: accountDetails?.name?.familyName,
     displayName: accountDetails?.displayName,
     gender: accountDetails?.gender?.type,
-    mail: accountDetails?.emails?.[0]?.value,
+    mails: mail ? [{ mail }] : undefined,
     birthday,
     profilePicture: {
       current: {

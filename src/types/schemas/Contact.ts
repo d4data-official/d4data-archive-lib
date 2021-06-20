@@ -1,4 +1,5 @@
 import ProfilePicture from 'types/schemas/ProfilePicture'
+import { RelativePosition } from './Location'
 
 export default interface Contact {
   /**
@@ -37,14 +38,29 @@ export default interface Contact {
   birthday?: Date | undefined
 
   /**
-   * Number of phone of a contact
+   * Description / biography of contact
    */
-  phone?: string | undefined
+  description?: string | undefined
 
-  /**
-   * Mail of the contact
-   */
-  mail?: string | undefined
+  phoneNumbers?: Array<{
+    name?: string
+    phoneNumber: string
+  }> | undefined
+
+  mails?: Array<{
+    name?: string
+    mail: string
+  }> | undefined
+
+  addresses?: Array<{
+    name?: string
+    address: RelativePosition
+  }> | undefined
+
+  websites?: Array<{
+    name: string
+    url: string
+  }> | undefined
 
   /**
    * Since when the contact is in the conctact list of the owner
