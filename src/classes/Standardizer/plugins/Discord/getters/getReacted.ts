@@ -2,7 +2,13 @@ import Discord from '../Discord'
 import { Reacted } from '../../../../../types/schemas'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
-interface DiscordReacted { guild_id: string; channel_id: any; message_id: any; emoji_name: any; timestamp: string }
+interface DiscordReacted {
+  guild_id: string;
+  channel_id: any;
+  message_id: any;
+  emoji_name: any;
+  timestamp: string
+}
 
 Discord.prototype.getReacted = withAutoParser(async parser => {
   const eventFiles = await parser.findFiles(/(tns)|(analytics)/, './activity')
@@ -12,7 +18,7 @@ Discord.prototype.getReacted = withAutoParser(async parser => {
   const reactions = (await parser.parseAsJSONL(eventFiles[0], {
     filter: (unparsedLine: string) => (unparsedLine.startsWith('{"event_type":"add_reaction"')),
   }))
-  return reactions.map((reaction: DiscordReacted): Reacted => {
+  const reactedList = reactions.map((reaction: DiscordReacted): Reacted => {
     const guild = reaction?.guild_id ?? '@me'
     return {
       entityType: 'externalLink',
@@ -23,4 +29,6 @@ Discord.prototype.getReacted = withAutoParser(async parser => {
       },
     }
   })
+
+  return { data: reactedList }
 })

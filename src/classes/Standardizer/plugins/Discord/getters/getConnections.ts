@@ -6,7 +6,7 @@ const BASE_CONNECTIONS_FOLDER = 'activity/reporting/'
 
 Discord.prototype.getConnections = withAutoParser(async parser => {
   const files = await parser.listFiles(BASE_CONNECTIONS_FOLDER, { extensionWhitelist: ['json'] })
-  const connections : Array<Connection> = []
+  const connections: Array<Connection> = []
 
   for await (const file of files) {
     const connectionFile = await parser.parseAsJSONL(file, {
@@ -28,5 +28,6 @@ Discord.prototype.getConnections = withAutoParser(async parser => {
       })
     })
   }
-  return connections
+
+  return { data: connections }
 })

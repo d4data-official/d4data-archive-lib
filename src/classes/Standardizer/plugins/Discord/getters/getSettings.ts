@@ -5,10 +5,12 @@ import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 const SETTINGS_FILE = 'account/user.json'
 
 Discord.prototype.getSettings = withAutoParser(async parser => {
-  const settingsRaw = await parser.parseAsJSON(SETTINGS_FILE)
+  const rawSettings = await parser.parseAsJSON(SETTINGS_FILE)
 
-  return Object.keys(settingsRaw.settings).map((key) : Setting => ({
+  const settings = Object.keys(rawSettings.settings).map((key): Setting => ({
     name: key,
-    value: settingsRaw.settings?.[key]?.toString(),
+    value: rawSettings.settings?.[key]?.toString(),
   }))
+
+  return { data: settings }
 })

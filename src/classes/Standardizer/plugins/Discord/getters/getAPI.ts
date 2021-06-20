@@ -4,8 +4,10 @@ import { API } from '../../../../../types/schemas'
 
 Discord.prototype.getAPIs = withAutoParser(async parser => {
   const profileRawData = await parser.parseAsJSON('account/user.json')
-  return profileRawData.connections.map((connection: any):API => ({
+  const APIs = profileRawData.connections.map((connection: any): API => ({
     name: connection.type,
     username: connection.name,
   }))
+
+  return { data: APIs }
 })

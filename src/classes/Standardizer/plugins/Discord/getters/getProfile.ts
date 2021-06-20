@@ -1,15 +1,15 @@
 import Discord from '../Discord'
-import { Profile } from '../../../../../types/schemas'
+import { Contact } from '../../../../../types/schemas'
 import { MediaType } from '../../../../../types/schemas/Media'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_FILE = 'account/user.json'
 
 Discord.prototype.getProfile = withAutoParser(async parser => {
-  const profile = await parser.parseAsJSON(ACCOUNT_FILE)
-  return {
-    displayName: profile.username,
-    mails: profile.email ? [{ mail: profile.email }] : undefined,
+  const rawProfile = await parser.parseAsJSON(ACCOUNT_FILE)
+  const profile: Contact = {
+    displayName: rawProfile.username,
+    mails: rawProfile.email ? [{ mail: rawProfile.email }] : undefined,
     profilePicture: {
       current: {
         url: `file:///${ parser.resolveRelativePath('account/avatar.png') }`,
@@ -17,5 +17,7 @@ Discord.prototype.getProfile = withAutoParser(async parser => {
       },
       history: [],
     },
-  } as Profile
+  }
+
+  return { data: profile }
 })

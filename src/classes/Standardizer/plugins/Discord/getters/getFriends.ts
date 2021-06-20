@@ -5,10 +5,12 @@ import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 const ACCOUNT_FILE = 'account/user.json'
 
 Discord.prototype.getFriends = withAutoParser(async parser => {
-  const profile = await parser.parseAsJSON(ACCOUNT_FILE)
+  const rawProfile = await parser.parseAsJSON(ACCOUNT_FILE)
 
-  return profile.relationships.map((friend: any): Contact => ({
+  const friends = rawProfile.relationships.map((friend: any): Contact => ({
     username: `${ friend.user.username }#${ friend.user.discriminator }`,
     displayName: friend.user.username,
   }))
+
+  return { data: friends }
 })

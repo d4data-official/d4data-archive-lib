@@ -1,6 +1,6 @@
 import Discord from '../Discord'
 import { Chat, Post } from '../../../../../types/schemas'
-import withAutoParser from '../../../../../modules/Standardizer/withAutoParser';
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 Discord.prototype.getPosts = withAutoParser(async (parser, options) => {
   const channels = await parser.findFiles(/channel.json$/, './messages/')
@@ -40,5 +40,5 @@ Discord.prototype.getPosts = withAutoParser(async (parser, options) => {
       break
     }
   }
-  return posts.slice(offset, offset + items)
+  return { data: posts.slice(offset, offset + items) }
 })
