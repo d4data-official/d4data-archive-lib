@@ -1,6 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
-import { AuthorizedDevice } from '../../../../../types/schemas';
-import Google from '../Google';
+import { AuthorizedDevice } from '../../../../../types/schemas'
+import Google from '../Google'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 Google.prototype.getAuthorizedDevices = withAutoParser(async parser => {
@@ -17,5 +17,6 @@ Google.prototype.getAuthorizedDevices = withAutoParser(async parser => {
       name: modele!,
       authorizationDate: new Date(timeList[index]!),
     }))
-  return authorizedDevices
+
+  return { data: authorizedDevices }
 })

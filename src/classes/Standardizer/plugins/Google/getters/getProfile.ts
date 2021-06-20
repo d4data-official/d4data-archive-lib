@@ -53,5 +53,5 @@ Google.prototype.getProfile = withAutoParser(async parser => {
     } as ProfilePicture,
   }
 
-  return account
+  return { data: account }
 })

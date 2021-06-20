@@ -46,5 +46,5 @@ Google.prototype.getTasks = withAutoParser(async parser => {
     } as Task)),
   }))
 
-  return taskList
+  return { data: taskList }
 })

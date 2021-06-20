@@ -1,5 +1,5 @@
 import Google from '../Google'
-import { Connection } from '../../../../../types/schemas';
+import { Connection } from '../../../../../types/schemas'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 // eslint-disable-next-line
@@ -8,7 +8,7 @@ const CONNECTIONS_FOLDER = 'Takeout/Compte\ Google/'
 Google.prototype.getConnections = withAutoParser(async parser => {
   const files = await parser.listFiles(CONNECTIONS_FOLDER, { extensionWhitelist: ['html'] })
   const connectionFile = await parser.parseAsHTML(files[0])
-  const connectionList = Array.from(connectionFile.window.document.querySelectorAll('table tr')).slice(1);
+  const connectionList = Array.from(connectionFile.window.document.querySelectorAll('table tr')).slice(1)
 
   const connections = connectionList.map((td) => {
     const browser = td.querySelector('td:nth-of-type(4n)') !== null
@@ -22,5 +22,5 @@ Google.prototype.getConnections = withAutoParser(async parser => {
     } as Connection
   })
 
-  return connections
+  return { data: connections }
 })

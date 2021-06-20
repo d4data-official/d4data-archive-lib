@@ -14,7 +14,7 @@ interface GoogleTransaction {
   Produit: string,
 }
 
-const currencies = ['EUR', 'USD'];
+const currencies = ['EUR', 'USD']
 
 Google.prototype.getTransactions = withAutoParser(async parser => {
   const files = await parser.listFiles(TRANSACTIONS_FOLDER, { extensionWhitelist: ['csv'] })
@@ -34,5 +34,5 @@ Google.prototype.getTransactions = withAutoParser(async parser => {
         } as Transaction))),
     )).flat()
 
-  return transactions
+  return { data: transactions }
 })

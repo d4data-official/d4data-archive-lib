@@ -122,5 +122,5 @@ Google.prototype.getBrowserData = withAutoParser(async parser => {
     } as Theme,
   }
 
-  return browserData
+  return { data: browserData }
 })
