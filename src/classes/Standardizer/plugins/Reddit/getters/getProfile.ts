@@ -1,5 +1,5 @@
 import Reddit from '../Reddit'
-import { Profile } from '../../../../../types/schemas';
+import { Profile } from '../../../../../types/schemas'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const ACCOUNT_PROFILE_FILE = 'statistics.csv'
@@ -11,9 +11,10 @@ interface RedditProfile {
 
 Reddit.prototype.getProfile = withAutoParser(async parser => {
   const accountDetails = await parser.parseAsCSV<RedditProfile>(ACCOUNT_PROFILE_FILE)
+  const mail = accountDetails[5]?.value
 
   return {
     displayName: accountDetails[0]?.value,
-    mail: accountDetails[5]?.value,
+    mails: mail ? [{ mail }] : undefined,
   } as Profile
 })
