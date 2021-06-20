@@ -18,9 +18,9 @@ interface Sessions {
 }
 
 Facebook.prototype.getWhereabouts = withAutoParser(async parser => {
-  const whereaboutsList = await parser.parseAsJSON<Sessions>(ACCOUNT_WHEREABOUTS_FILE)
+  const rawWhereabouts = await parser.parseAsJSON<Sessions>(ACCOUNT_WHEREABOUTS_FILE)
 
-  return whereaboutsList.active_sessions.map((session): Whereabout => ({
+  const whereabouts = rawWhereabouts.active_sessions.map((session): Whereabout => ({
     location: {
       relativePosition: {
         raw: session.location,
@@ -28,4 +28,6 @@ Facebook.prototype.getWhereabouts = withAutoParser(async parser => {
     } as Location,
     recordDate: new Date(session.updated_timestamp * 1000),
   }))
+
+  return { data: whereabouts }
 })

@@ -37,7 +37,7 @@ Facebook.prototype.getChats = withAutoParser(async parser => {
   )
   const files = filesInbox.concat(filesArchive)
 
-  return await Promise.all(
+  const chats = await Promise.all(
     files.map((file, index) => parser.parseAsJSON<FBChats>(file)
       .then((chat): Chat => ({
         _id: index.toString(),
@@ -45,4 +45,6 @@ Facebook.prototype.getChats = withAutoParser(async parser => {
         participants: chat.participants.map((participant) => participant.name),
       }))),
   )
+
+  return { data: chats }
 })

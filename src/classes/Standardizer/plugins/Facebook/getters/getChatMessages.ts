@@ -37,7 +37,7 @@ Facebook.prototype.getChatMessages = withAutoParser(async (parser, chatId) => {
   const files = filesInbox.concat(filesArchive)
   const messageList = await parser.parseAsJSON<FBChats>(files[Number(chatId)])
 
-  return messageList.messages.map((message) => ({
+  const chatMessages = messageList.messages.map((message) => ({
     sender: message.sender_name,
     text: message.content,
     sendAt: new Date(message.timestamp_ms),
@@ -45,4 +45,6 @@ Facebook.prototype.getChatMessages = withAutoParser(async (parser, chatId) => {
       name: reaction.reaction,
     })),
   }))
+
+  return { data: chatMessages }
 })

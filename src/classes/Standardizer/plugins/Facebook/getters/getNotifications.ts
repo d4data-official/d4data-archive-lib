@@ -14,11 +14,13 @@ interface Notifications {
 }
 
 Facebook.prototype.getNotifications = withAutoParser(async parser => {
-  const notificationList = await parser.parseAsJSON<Notifications>(NOTIFICATIONS_FILE)
+  const rawNotifications = await parser.parseAsJSON<Notifications>(NOTIFICATIONS_FILE)
 
-  return notificationList.notifications.map((notification): Notification => ({
+  const notifications = rawNotifications.notifications.map((notification): Notification => ({
     content: notification.text,
     notificationDate: new Date(notification.timestamp * 1000),
     href: notification.href,
   }))
+
+  return { data: notifications }
 })

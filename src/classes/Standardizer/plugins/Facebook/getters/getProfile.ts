@@ -47,17 +47,17 @@ interface FBProfile {
 }
 
 Facebook.prototype.getProfile = withAutoParser(async parser => {
-  const accountDetails = await parser.parseAsJSON<FBProfile>(ACCOUNT_PROFILE_FILE)
-  const mail = accountDetails.profile?.emails?.emails?.[0]
+  const rawAccount = await parser.parseAsJSON<FBProfile>(ACCOUNT_PROFILE_FILE)
+  const mail = rawAccount.profile?.emails?.emails?.[0]
 
   const account: Profile = {
-    firstName: accountDetails.profile.name.first_name,
-    lastName: accountDetails.profile.name.last_name,
-    gender: accountDetails.profile?.gender?.pronoun,
+    firstName: rawAccount.profile.name.first_name,
+    lastName: rawAccount.profile.name.last_name,
+    gender: rawAccount.profile?.gender?.pronoun,
     mails: mail ? [{ mail }] : undefined,
-    birthday: new Date(accountDetails.profile.birthday.year,
-      accountDetails.profile.birthday.month - 1, accountDetails.profile.birthday.day),
+    birthday: new Date(rawAccount.profile.birthday.year,
+      rawAccount.profile.birthday.month - 1, rawAccount.profile.birthday.day),
   }
 
-  return account
+  return { data: account }
 })

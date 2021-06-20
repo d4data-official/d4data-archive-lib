@@ -28,9 +28,9 @@ interface FBComments {
 }
 
 Facebook.prototype.getComments = withAutoParser(async parser => {
-  const commentList = await parser.parseAsJSON<FBComments>(COMMENTS_FILE)
+  const rawComments = await parser.parseAsJSON<FBComments>(COMMENTS_FILE)
 
-  return commentList.comments.map((comment): Comment => {
+  const comments = rawComments.comments.map((comment): Comment => {
     const externalLink = comment?.attachments?.[0]?.data?.[0].media?.uri
     return {
       creationDate: new Date(comment.timestamp * 1000),
@@ -42,4 +42,6 @@ Facebook.prototype.getComments = withAutoParser(async parser => {
       },
     }
   })
+
+  return { data: comments }
 })

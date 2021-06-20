@@ -16,10 +16,12 @@ interface Contacts {
 }
 
 Facebook.prototype.getContacts = withAutoParser(async parser => {
-  const contactList = await parser.parseAsJSON<Contacts>(ADDRESS_BOOK_FILE)
+  const rawContacts = await parser.parseAsJSON<Contacts>(ADDRESS_BOOK_FILE)
 
-  return contactList.address_book.address_book.map((contact): Contact => ({
+  const contacts = rawContacts.address_book.address_book.map((contact): Contact => ({
     displayName: contact.name,
     date: new Date(contact.created_timestamp * 1000),
   }))
+
+  return { data: contacts }
 })

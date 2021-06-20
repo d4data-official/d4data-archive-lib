@@ -52,5 +52,5 @@ Facebook.prototype.getReacted = withAutoParser(async parser => {
     },
   }))
 
-  return likedPages.concat(likedPosts)
+  return { data: likedPages.concat(likedPosts) }
 })

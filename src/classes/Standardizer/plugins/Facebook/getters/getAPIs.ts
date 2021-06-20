@@ -12,10 +12,12 @@ interface APIS {
 }
 
 Facebook.prototype.getAPIs = withAutoParser(async parser => {
-  const APIs = await parser.parseAsJSON<APIS>(APIS_FILE)
+  const rawAPIs = await parser.parseAsJSON<APIS>(APIS_FILE)
 
-  return APIs.installed_apps.map((thisApi): API => ({
+  const APIs = rawAPIs.installed_apps.map((thisApi): API => ({
     name: thisApi.name,
     linkingDate: new Date(thisApi.added_timestamp * 1000),
   }))
+
+  return { data: APIs }
 })
