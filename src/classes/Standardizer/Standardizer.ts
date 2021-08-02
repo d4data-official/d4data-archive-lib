@@ -21,7 +21,6 @@ import {
   Notification,
   Post,
   Profile,
-  RawData,
   Reacted,
   Setting,
   TaskList,
@@ -348,7 +347,7 @@ export default abstract class Standardizer {
    */
   async callAllGetters(
     options?: GetterOptions,
-  ): Promise<Record<Exclude<Getters, Getters.RAW_DATA>, GetterData<any>>> {
+  ): Promise<Record<Getters, GetterData<any>>> {
     const chats = await this.getChats(options)
     const chatMessages = chats?.data.length ? await this.getChatMessages(chats.data[0]._id!) : null
 
@@ -459,7 +458,6 @@ export default abstract class Standardizer {
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
       getMails: data => is<Array<Mail>>(data),
       getEvents: data => is<Array<Event>>(data),
-      getRawData: data => is<RawData>(data),
     }
   }
 
@@ -494,7 +492,6 @@ export default abstract class Standardizer {
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
       getMails: data => assertType<Array<Mail>>(data),
       getEvents: data => assertType<Array<Event>>(data),
-      getRawData: data => assertType<RawData>(data),
     }
   }
 }

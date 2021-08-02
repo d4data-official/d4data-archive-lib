@@ -1,4 +1,4 @@
-import { RawData } from '../schemas'
+export type RawData = any
 
 export default interface RawDataReturn {
   data: RawData

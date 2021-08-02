@@ -24,7 +24,6 @@ enum Getters {
   AUTHORIZED_DEVICES = 'getAuthorizedDevices',
   MAIL = 'getMails',
   EVENTS = 'getEvents',
-  RAW_DATA = 'getRawData',
 }
 
 export default Getters
