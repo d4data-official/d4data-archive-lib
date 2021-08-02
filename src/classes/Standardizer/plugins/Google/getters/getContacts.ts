@@ -9,7 +9,7 @@ const CONTACT_FILE_VCF = 'Takeout/Contacts/Tous les contacts/Tous les contacts.v
 Google.prototype.getContacts = withAutoParser(async parser => {
   if (!(await parser.filesExist([CONTACT_FILE_VCF]))) {
     const rawContacts = await parser.parseAsCSV(CONTACT_FILE_CSV)
-    const contacts: any = rawContacts.map((contact: any): Contact => ({
+    const contacts: Contact[] = rawContacts.map((contact): Contact => ({
       displayName: contact?.Name,
       firstName: contact['Given Name'],
       lastName: contact['Family Name'],
@@ -27,4 +27,5 @@ Google.prototype.getContacts = withAutoParser(async parser => {
     }))
     return contacts
   }
+  return null
 })
