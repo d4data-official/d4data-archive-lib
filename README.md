@@ -20,5 +20,5 @@ Supported services :
 
 ## Usage
 
-See [examples](doc/examples/README.md)
+See [examples](docs/examples/README.md)
 

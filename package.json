@@ -20,6 +20,7 @@
     "test": "ava --timeout=5m -v",
     "test:cov": "nyc npm run test",
     "debug": "cross-env NODE_ENV=test ts-node --project debug/tsconfig.json -C ttypescript --transpile-only -- debug/debug.ts",
+    "doc:generate": "typedoc src/index.ts --out docs/api/html",
     "prepare": "husky install",
     "prepublishOnly": "npm run lint && npm run build"
   },
@@ -71,7 +72,8 @@
     "nyc": "^15.1.0",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0",
-    "ttypescript": "^1.5.12"
+    "ttypescript": "^1.5.12",
+    "typedoc": "^0.21.5"
   },
   "keywords": [
     "d4data",
