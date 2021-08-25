@@ -11,14 +11,15 @@ Library to extract and normalize data from GDPR personal data archives.
 
 Supported services :
 
-- Facebook
-- Google
-- Discord
-- Reddit
+- [Facebook](https://www.facebook.com)
+- [Google](https://www.google.com)
+- [Discord](https://www.discord.com)
+- [Reddit](https://www.reddit.com)
+- [Gravatar](https://www.gravatar.com)
 
 *Supported service data may not be fully extracted.*
 
 ## Usage
 
-See [examples](doc/examples/README.md)
+See [examples](docs/examples/README.md)
 
