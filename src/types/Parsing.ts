@@ -22,3 +22,14 @@ export interface ParsingOptions {
 }
 
 export type FullParsingOptions = ParsingOptions & PreprocessorOptions & PaginationOptions
+
+export interface ParsingPaginationInfo {
+  offset: number
+  items: number
+  total: number
+}
+
+export interface ParsingReturn<T> {
+  pagination: ParsingPaginationInfo
+  data: T
+}
