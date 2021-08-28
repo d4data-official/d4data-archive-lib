@@ -4,7 +4,7 @@ import {
   FilterOptions,
   FullParsingOptions,
   PaginationOptions,
-  ParsingOptions,
+  ParsingOptions, ParsingReturn,
   Preprocessor,
   PreprocessorOptions,
 } from '../types/Parsing'
@@ -154,7 +154,7 @@ export default class Parser {
    * Parse Text (txt) file from given path
    * Throw error if can't access file or if parsing fail
    */
-  async parseAsText(relativeFilePath: string, options?: OptionsParseAsText & PreprocessorOptions): Promise<string> {
+  async parseAsText(relativeFilePath: string, options?: OptionsParseAsText & PreprocessorOptions): Promise<ParsingReturn<string>> {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsText(
@@ -170,7 +170,7 @@ export default class Parser {
   async parseAsJSON<T = any>(
     relativeFilePath: string,
     options?: OptionsParseAsJSON & PreprocessorOptions,
-  ): Promise<T> {
+  ): Promise<ParsingReturn<T>> {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsJSON(
@@ -186,7 +186,7 @@ export default class Parser {
   async parseAsJSONL<T = any>(
     relativeFilePath: string,
     options?: OptionsParseAsJSONL & PreprocessorOptions,
-  ): Promise<Array<T>> {
+  ): Promise<ParsingReturn<Array<T>>> {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsJSONL(
@@ -199,7 +199,7 @@ export default class Parser {
    * Parse HTML file from given path
    * Throw error if can't access file or if parsing fail
    */
-  async parseAsHTML(relativeFilePath: string, options?: OptionsParseAsHTML & PreprocessorOptions): Promise<JSDOM> {
+  async parseAsHTML(relativeFilePath: string, options?: OptionsParseAsHTML & PreprocessorOptions): Promise<ParsingReturn<JSDOM>> {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsHTML(
@@ -215,7 +215,7 @@ export default class Parser {
   async parseAsCSV<T = any>(
     relativeFilePath: string,
     options?: OptionsParseAsCSV & PreprocessorOptions,
-  ): Promise<Array<T>> {
+  ): Promise<ParsingReturn<Array<T>>> {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsCSV(
@@ -228,7 +228,7 @@ export default class Parser {
    * Parse MBOX file from given path
    * Throw error if can't access file or if parsing fail
    */
-  async parseAsMBOX(relativeFilePath: string, options?: OptionsParseAsMBOX & PreprocessorOptions): Promise<Array<any>> {
+  async parseAsMBOX(relativeFilePath: string, options?: OptionsParseAsMBOX & PreprocessorOptions): Promise<ParsingReturn<Array<any>>> {
     const mergedOptions = this.mergeOptions(options)
 
     return parseAsMBOX(

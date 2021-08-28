@@ -1,5 +1,5 @@
 import mboxParser, { ParsedMail } from 'mbox-parser'
-import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+import { PaginationOptions, ParsingOptions, ParsingReturn } from '../../types/Parsing'
 import Pipeline from '../../classes/Pipeline'
 import { Mail } from '../../types/schemas'
 
@@ -8,13 +8,13 @@ export type OptionsParseAsMBOX = ParsingOptions & PaginationOptions
 /**
  * Parse given Pipeline result stream as MBOX format
  */
-export default async function parseAsMBOX(pipeline: Pipeline, options?: OptionsParseAsMBOX): Promise<Array<Mail>> {
+export default async function parseAsMBOX(pipeline: Pipeline, options?: OptionsParseAsMBOX): Promise<ParsingReturn<Array<Mail>>> {
   const mboxFile = await mboxParser(pipeline.run(), {
     pageSize: options?.pagination?.items ?? 50,
     pageNumber: 1, // tmp
   })
 
-  return mboxFile.map((mail: ParsedMail) => {
+  const data = mboxFile.map((mail: ParsedMail) => {
     const toAddresses = Array.isArray(mail.to)
       ? mail.to.map(t => t?.text)
       : [mail.to?.text ?? 'Unknown']
@@ -27,4 +27,12 @@ export default async function parseAsMBOX(pipeline: Pipeline, options?: OptionsP
       attachments: [], // tmp
     })
   })
+  return {
+    data,
+    pagination: {
+      total: 0,
+      offset: options?.pagination?.offset ?? 0,
+      items: data.length,
+    },
+  }
 }
