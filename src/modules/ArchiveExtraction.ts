@@ -1,10 +1,13 @@
 import Path from 'path'
+import decompress from 'decompress'
+import decompressTargz from 'decompress-targz'
 import { createWriteStream, promises as fsPromises } from 'fs'
 import yauzl from 'yauzl'
 
 export enum ArchiveFormat {
   ZIP = 'zip',
   UNKNOWN = 'unknown',
+  TARGZ = 'tar.gz',
 }
 
 export interface ExtractOptions {
@@ -16,18 +19,22 @@ export interface ExtractOptions {
  * Identify archive file format
  */
 export async function identifyArchiveFormat(path: string): Promise<ArchiveFormat> {
-  const extensions: Array<[ArchiveFormat, Array<string>]> = [
+  const extensions = [
     [ArchiveFormat.ZIP, ['zip']],
-  ]
-  const fileExtension = path.split('.').pop()!
+    [ArchiveFormat.TARGZ, ['tar.gz']],
+  ];
+  const explode = path.split('.')
+  const fileExtension = path.split('.').pop();
 
   for (const [format, extList] of extensions) {
-    if (extList.includes(fileExtension)) {
-      return format
+    const extCount = extList[0].split('.').length
+    const fullExt = explode.slice(explode.length - extCount, explode.length).join('')
+    const composedExtension = explode.length > 1 ? fullExt : ''
+    if (extList.includes(<string>fileExtension) || (composedExtension !== '' && extList.includes(composedExtension))) {
+      return format;
     }
   }
-
-  return ArchiveFormat.UNKNOWN
+  return ArchiveFormat.UNKNOWN;
 }
 
 export default async function extractArchive(
@@ -98,5 +105,19 @@ async function unzip(filePath: string, outputPath: string, options?: ExtractOpti
       zipFile.on('close', () => resolve(outputPath))
       zipFile.on('error', (error: any) => reject(error))
     })
+  })
+}
+
+async function unTarGz(filePath: string, outputPath: string, options?: ExtractOptions) {
+  decompress(filePath, outputPath, {
+    plugins: [
+      decompressTargz(),
+    ],
+    map: file => {
+      console.log(file.path)
+      return file
+    },
+  }).then(() => {
+    console.log('done')
   })
 }

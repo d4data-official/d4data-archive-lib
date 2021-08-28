@@ -43,7 +43,10 @@
     }
   },
   "dependencies": {
+    "@types/decompress": "^4.2.4",
     "cross-env": "^7.0.3",
+    "decompress": "^4.2.1",
+    "decompress-targz": "^4.1.1",
     "dotenv": "^8.2.0",
     "jsdom": "^16.5.1",
     "mailparser": "^3.2.0",
