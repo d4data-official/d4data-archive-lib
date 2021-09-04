@@ -1,6 +1,5 @@
 import Path from 'path'
-import decompress from 'decompress'
-import decompressTargz from 'decompress-targz'
+import tar, { ReadEntry } from 'tar'
 import { createWriteStream, promises as fsPromises } from 'fs'
 import yauzl from 'yauzl'
 
@@ -21,6 +20,7 @@ export interface ExtractOptions {
 export async function identifyArchiveFormat(path: string): Promise<ArchiveFormat> {
   const extensions = [
     [ArchiveFormat.ZIP, ['zip']],
+    [ArchiveFormat.TARGZ, ['tgz']],
     [ArchiveFormat.TARGZ, ['tar.gz']],
   ];
   const explode = path.split('.')
@@ -31,7 +31,7 @@ export async function identifyArchiveFormat(path: string): Promise<ArchiveFormat
     const fullExt = explode.slice(explode.length - extCount, explode.length).join('')
     const composedExtension = explode.length > 1 ? fullExt : ''
     if (extList.includes(<string>fileExtension) || (composedExtension !== '' && extList.includes(composedExtension))) {
-      return format;
+      return <ArchiveFormat>format;
     }
   }
   return ArchiveFormat.UNKNOWN;
@@ -46,6 +46,9 @@ export default async function extractArchive(
   switch (format) {
     case ArchiveFormat.ZIP:
       await unzip(path, outputPath, options)
+      break
+    case ArchiveFormat.TARGZ:
+      await unTarGz(path, outputPath, options)
       break
     default:
       throw new Error('Unknown Format')
@@ -109,15 +112,24 @@ async function unzip(filePath: string, outputPath: string, options?: ExtractOpti
 }
 
 async function unTarGz(filePath: string, outputPath: string, options?: ExtractOptions) {
-  decompress(filePath, outputPath, {
-    plugins: [
-      decompressTargz(),
-    ],
-    map: file => {
-      console.log(file.path)
-      return file
+  let entries = 0
+  tar.t(
+    {
+      file: filePath,
+      onentry() {
+        entries += 1
+      },
     },
-  }).then(() => {
-    console.log('done')
-  })
+  )
+  let read = 0
+  tar.x(
+    {
+      file: filePath,
+      cwd: outputPath,
+      onentry: (entry) => {
+        options?.onProgress?.(entry.path, read, entries)
+        read += 1
+      },
+    },
+  ).then(() => options?.onProgress?.('', read, entries))
 }
