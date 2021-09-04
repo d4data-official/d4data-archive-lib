@@ -26,7 +26,7 @@ Google.prototype.getTransactions = withAutoParser(async parser => {
         .map((transaction: GoogleTransaction) => ({
           date: new Date(transaction.Heure),
           description: transaction.Description,
-          value: parseFloat(transaction.Montant.replace(',', '.')),
+          value: parseFloat(transaction?.Montant?.replace(',', '.')) ?? 0,
           currency: currencies.filter((currency) => (transaction.Montant.includes(currency)))[0],
           paymentMethod: transaction['Mode de paiement'],
           status: transaction['État'],
