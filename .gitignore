@@ -4,3 +4,4 @@ dist/
 .env
 .nyc_output/
 .idea/
+docs/api

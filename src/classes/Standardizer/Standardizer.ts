@@ -21,7 +21,6 @@ import {
   Notification,
   Post,
   Profile,
-  RawData,
   Reacted,
   Setting,
   TaskList,
@@ -37,6 +36,7 @@ import { MediaType } from '../../types/schemas/Media'
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
 import RawDataReturn from '../../types/standardizer/RawDataReturn'
 import Getters from '../../types/standardizer/Getters'
+import StatisticGetterReturn from '../../types/standardizer/StatisticGetterReturn'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -200,6 +200,106 @@ export default abstract class Standardizer {
     return Promise.resolve(null)
   }
 
+  // Statistics getters
+
+  async getProfileStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getFriendsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getFollowingsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getFollowersStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getContactsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getWhereaboutsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getNotificationsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getChatsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getCommentsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getPostsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getMessagesStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getAPIsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getConnectionsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getCommunitiesStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getSettingsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getReactedStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getMediasStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getTransactionsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getBrowserDataStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getTasksStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getAuthorizedDevicesStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getMailsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getNotesStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getEventsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  // ------------------
+
   /**
    * Take an absolute or relative (to this Standardizer path) file path and return automatic parsed content.
    * The adapted parsing function is automatically chosen from file extension.
@@ -247,7 +347,7 @@ export default abstract class Standardizer {
    */
   async callAllGetters(
     options?: GetterOptions,
-  ): Promise<Record<Exclude<Getters, Getters.RAW_DATA>, GetterData<any>>> {
+  ): Promise<Record<Getters, GetterData<any>>> {
     const chats = await this.getChats(options)
     const chatMessages = chats?.data.length ? await this.getChatMessages(chats.data[0]._id!) : null
 
@@ -358,7 +458,6 @@ export default abstract class Standardizer {
       getAuthorizedDevices: data => is<Array<AuthorizedDevice>>(data),
       getMails: data => is<Array<Mail>>(data),
       getEvents: data => is<Array<Event>>(data),
-      getRawData: data => is<RawData>(data),
     }
   }
 
@@ -393,7 +492,6 @@ export default abstract class Standardizer {
       getAuthorizedDevices: data => assertType<Array<AuthorizedDevice>>(data),
       getMails: data => assertType<Array<Mail>>(data),
       getEvents: data => assertType<Array<Event>>(data),
-      getRawData: data => assertType<RawData>(data),
     }
   }
 }
