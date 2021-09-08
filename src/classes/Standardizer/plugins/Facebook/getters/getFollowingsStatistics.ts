@@ -3,7 +3,6 @@ import { StatisticType } from '../../../../../types/schemas/Statistic'
 
 Facebook.prototype.getFollowingsStatistics = async function getFollowingsStatistics() {
   let Nyear = 1
-  let NbContact = 0
   const followingData = await this.getFollowings({
     parsingOptions: {
       pagination: {
@@ -18,9 +17,6 @@ Facebook.prototype.getFollowingsStatistics = async function getFollowingsStatist
   }
   followingData.data.forEach((entry) => {
     const end = new Date(new Date().setFullYear(new Date().getFullYear() + Nyear))
-    if (entry.type === 'contact') {
-      NbContact += 1
-    }
     for (Nyear; entry.followedSince! < end; Nyear += 1) {
       Nyear += 1
       break
