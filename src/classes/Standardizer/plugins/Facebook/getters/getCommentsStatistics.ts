@@ -16,14 +16,12 @@ Facebook.prototype.getCommentsStatistics = async function getCommentsStatistics(
     return null
   }
   commentsData.data.forEach((entry) => {
-    const end = new Date(new Date().setFullYear(new Date().getFullYear() + Nyear))
-    for (Nyear; entry.creationDate < end; Nyear += 1) {
+    const end = new Date(new Date().setFullYear(new Date().getFullYear() - Nyear)).getTime()
+    for (Nyear; entry.creationDate.getTime() < end; Nyear += 1) {
       Nyear += 1
+      break
     }
   })
-
-  console.log((commentsData.data.length / Nyear))
-  console.log(lastcomments)
   return {
     statistics: [
       {
