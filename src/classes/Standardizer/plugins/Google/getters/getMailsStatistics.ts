@@ -16,18 +16,17 @@ Google.prototype.getMailsStatistics = async function getMailsStatistics() {
     return null
   }
   mailsData.data.forEach((entry) => {
-    const end = new Date(new Date().setFullYear(new Date().getFullYear() + Nyear))
+    const end = new Date(new Date().setFullYear(new Date().getFullYear() - Nyear))
     for (Nyear; entry.date! < end; Nyear += 1) {
       Nyear += 1
+      break
     }
   })
-
-  console.log((mailsData.data.length / Nyear))
   return {
     statistics: [
       {
         type: StatisticType.NUMBER,
-        value: (mailsData.data.length / Nyear),
+        value: (mailsData.data.length / Nyear).toFixed(2),
         name: 'mails over Time',
       },
     ],
