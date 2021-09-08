@@ -27,7 +27,7 @@ Reddit.prototype.getFriendsStatistics = async function getFriendsStatistics() {
     statistics: [
       {
         type: StatisticType.NUMBER,
-        value: (FriendData.data.length / Nyear),
+        value: (FriendData.data.length / Nyear).toFixed(2),
         name: 'Friend over Time',
       },
       {
