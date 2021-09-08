@@ -16,7 +16,7 @@ Facebook.prototype.getFollowingsStatistics = async function getFollowingsStatist
     return null
   }
   followingData.data.forEach((entry) => {
-    const end = new Date(new Date().setFullYear(new Date().getFullYear() + Nyear))
+    const end = new Date(new Date().setFullYear(new Date().getFullYear() - Nyear))
     for (Nyear; entry.followedSince! < end; Nyear += 1) {
       Nyear += 1
       break
@@ -26,7 +26,7 @@ Facebook.prototype.getFollowingsStatistics = async function getFollowingsStatist
     statistics: [
       {
         type: StatisticType.NUMBER,
-        value: (followingData.data.length / Nyear),
+        value: (followingData.data.length / Nyear).toFixed(2),
         name: 'Following over Time',
       },
     ],
