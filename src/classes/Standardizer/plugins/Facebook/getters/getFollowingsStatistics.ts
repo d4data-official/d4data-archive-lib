@@ -23,6 +23,7 @@ Facebook.prototype.getFollowingsStatistics = async function getFollowingsStatist
     }
     for (Nyear; entry.followedSince! < end; Nyear += 1) {
       Nyear += 1
+      break
     }
   })
 
@@ -33,16 +34,6 @@ Facebook.prototype.getFollowingsStatistics = async function getFollowingsStatist
         type: StatisticType.NUMBER,
         value: (followingData.data.length / Nyear),
         name: 'Following over Time',
-      },
-      {
-        type: StatisticType.NUMBER,
-        value: (NbContact / followingData.data.length) * 100,
-        name: 'Contact pourcentage',
-      },
-      {
-        type: StatisticType.NUMBER,
-        value: ((NbContact / followingData.data.length) - 1) * -100,
-        name: 'Community pourcentage',
       },
     ],
     parsedFiles: followingData?.parsedFiles ?? [],
