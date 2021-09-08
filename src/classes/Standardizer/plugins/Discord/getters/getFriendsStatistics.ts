@@ -17,19 +17,17 @@ Discord.prototype.getFriendsStatistics = async function getFriendsStatistics() {
   }
   const lastFriend = Date.now() - new Date(Math.max(...FriendData.data.map(x => x.date!.getTime()))).getTime()
   FriendData.data.forEach((entry) => {
-    const end = new Date(new Date().setFullYear(new Date().getFullYear() + Nyear))
+    const end = new Date(new Date().setFullYear(new Date().getFullYear() - Nyear))
     for (Nyear; entry.date! < end; Nyear += 1) {
       Nyear += 1
+      break
     }
   })
-
-  console.log((FriendData.data.length / Nyear))
-  console.log(lastFriend)
   return {
     statistics: [
       {
         type: StatisticType.NUMBER,
-        value: (FriendData.data.length / Nyear),
+        value: (FriendData.data.length / Nyear).toFixed(2),
         name: 'Friend over Time',
       },
       {
