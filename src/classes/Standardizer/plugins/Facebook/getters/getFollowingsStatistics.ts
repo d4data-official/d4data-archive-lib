@@ -26,8 +26,6 @@ Facebook.prototype.getFollowingsStatistics = async function getFollowingsStatist
       break
     }
   })
-
-  console.log((followingData.data.length / Nyear))
   return {
     statistics: [
       {
