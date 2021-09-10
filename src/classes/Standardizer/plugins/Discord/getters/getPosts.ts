@@ -1,6 +1,6 @@
 import Discord from '../Discord'
 import { Chat, Post } from '../../../../../types/schemas'
-import withAutoParser from '../../../../../modules/Standardizer/withAutoParser';
+import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 Discord.prototype.getPosts = withAutoParser(async (parser, options) => {
   const channels = await parser.findFiles(/channel.json$/, './messages/')
@@ -8,7 +8,8 @@ Discord.prototype.getPosts = withAutoParser(async (parser, options) => {
   const offset = options?.parsingOptions?.pagination?.offset ?? 0
   const items = options?.parsingOptions?.pagination?.items ?? channels.length
   const findPosts = await Promise.all(channels.map(async (channel, id): Promise<Chat | undefined> => {
-    const parsed = await parser.parseAsJSON(channel)
+    const { data: parsed } = await parser.parseAsJSON(channel)
+
     if (parsed.type === 0) {
       const tmp = {
         title: parsed?.name ?? 'Private chat',
@@ -24,7 +25,7 @@ Discord.prototype.getPosts = withAutoParser(async (parser, options) => {
   for await (const findPost of processPost) {
     // eslint-disable-next-line no-underscore-dangle
     const id = findPost._id
-    const parsed = await parser.parseAsCSV(messages?.[Number(id)])
+    const { data: parsed } = await parser.parseAsCSV(messages?.[Number(id)])
     const chatMessages = parsed.map((chat): Post => ({
       sender: 'You',
       content: chat.Contents,
