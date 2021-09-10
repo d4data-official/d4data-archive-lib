@@ -6,9 +6,9 @@ export type OptionsParseAsText = ParsingOptions
 /**
  * Parse given Pipeline result stream as Text format
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default async function parseAsText(
   pipeline: Pipeline,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   options?: OptionsParseAsText,
 ): Promise<ParsingReturn<string>> {
   return {

@@ -7,9 +7,9 @@ export type OptionsParseAsHTML = ParsingOptions
 /**
  * Parse given Pipeline result stream as HTML format
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default async function parseAsHTML(
   pipeline: Pipeline,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   options?: OptionsParseAsHTML,
 ): Promise<ParsingReturn<JSDOM>> {
   const completeData = await pipeline.toString()
