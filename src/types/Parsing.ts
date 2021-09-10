@@ -30,6 +30,6 @@ export interface ParsingPaginationInfo {
 }
 
 export interface ParsingReturn<T> {
-  pagination: ParsingPaginationInfo
+  pagination: ParsingPaginationInfo | null
   data: T
 }
