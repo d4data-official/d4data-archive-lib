@@ -12,7 +12,7 @@ Gravatar.prototype.getAPIs = withAutoParser(async parser => {
     return null
   }
 
-  const fileContent: GravatarRawData = await parser.parseAsJSON(jsonFilePath)
+  const { data: fileContent } = await parser.parseAsJSON<GravatarRawData>(jsonFilePath)
   const rawData = fileContent.entry[0]
 
   if (!rawData) {
