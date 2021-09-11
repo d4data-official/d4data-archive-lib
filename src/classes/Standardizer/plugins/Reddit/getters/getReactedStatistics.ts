@@ -18,9 +18,10 @@ Reddit.prototype.getReactedStatistics = async function getReactedStatistics() {
     return null
   }
   reactedData.data.forEach((entry) => {
-    const end = new Date(new Date().setFullYear(new Date().getFullYear() + Nyear))
+    const end = new Date(new Date().setFullYear(new Date().getFullYear() - Nyear))
     for (Nyear; entry.reaction.reactionDate! < end; Nyear += 1) {
       Nyear += 1
+      break
     }
     if (entry.reaction.name === 'up') {
       up += 1
@@ -28,22 +29,21 @@ Reddit.prototype.getReactedStatistics = async function getReactedStatistics() {
       down += 1
     }
   })
-  console.log((reactedData.data.length / Nyear))
   return {
     statistics: [
       {
         type: StatisticType.NUMBER,
-        value: (reactedData.data.length / Nyear),
+        value: (reactedData.data.length / Nyear).toFixed(2),
         name: 'reacted over Time',
       },
       {
         type: StatisticType.NUMBER,
-        value: (up / reactedData.data.length),
+        value: ((up / reactedData.data.length) * 100).toFixed(2),
         name: 'Up reacted over Time',
       },
       {
         type: StatisticType.NUMBER,
-        value: (down / reactedData.data.length),
+        value: ((down / reactedData.data.length) * 100).toFixed(2),
         name: 'Down reacted over Time',
       },
     ],

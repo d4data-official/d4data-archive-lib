@@ -9,8 +9,6 @@ Facebook.prototype.getReactedStatistics = async function getReactedStatistics() 
   let sorry = 0
   let love = 0
   let anger = 0
-  let post = 0
-  let community = 0
   const reactedData = await this.getReacted({
     parsingOptions: {
       pagination: {
@@ -24,14 +22,10 @@ Facebook.prototype.getReactedStatistics = async function getReactedStatistics() 
     return null
   }
   reactedData.data.forEach((entry) => {
-    const end = new Date(new Date().setFullYear(new Date().getFullYear() + Nyear))
+    const end = new Date(new Date().setFullYear(new Date().getFullYear() - Nyear))
     for (Nyear; entry.reaction.reactionDate! < end; Nyear += 1) {
       Nyear += 1
-    }
-    if (entry.entityType === 'post') {
-      post += 1
-    } else {
-      community += 1
+      break
     }
     switch (entry.reaction.name) {
       case 'HAHA': {
@@ -54,59 +48,52 @@ Facebook.prototype.getReactedStatistics = async function getReactedStatistics() 
         sorry += 1
         break
       }
+      case 'LIKE': {
+        like += 1
+        break
+      }
       default: {
         like += 1
         break
       }
     }
   })
-  console.log((reactedData.data.length / Nyear))
   return {
     statistics: [
       {
         type: StatisticType.NUMBER,
-        value: (reactedData.data.length / Nyear),
+        value: (reactedData.data.length / Nyear).toFixed(2),
         name: 'reacted over Time',
       },
       {
         type: StatisticType.NUMBER,
-        value: (like / reactedData.data.length),
+        value: ((like / reactedData.data.length) * 100).toFixed(2),
         name: 'Like emoji reacted over Time',
       },
       {
         type: StatisticType.NUMBER,
-        value: (love / reactedData.data.length),
+        value: ((love / reactedData.data.length) * 100).toFixed(2),
         name: 'Love emoji reacted over Time',
       },
       {
         type: StatisticType.NUMBER,
-        value: (anger / reactedData.data.length),
+        value: ((anger / reactedData.data.length) * 100).toFixed(2),
         name: 'Anger emoji reacted over Time',
       },
       {
         type: StatisticType.NUMBER,
-        value: (wow / reactedData.data.length),
+        value: ((wow / reactedData.data.length) * 100).toFixed(2),
         name: 'Wow emoji reacted over Time',
       },
       {
         type: StatisticType.NUMBER,
-        value: (laugh / reactedData.data.length),
+        value: ((laugh / reactedData.data.length) * 100).toFixed(2),
         name: 'Laugh emoji reacted over Time',
       },
       {
         type: StatisticType.NUMBER,
-        value: (sorry / reactedData.data.length),
+        value: ((sorry / reactedData.data.length) * 100).toFixed(2),
         name: 'Sorry emoji reacted over Time',
-      },
-      {
-        type: StatisticType.NUMBER,
-        value: (post / reactedData.data.length),
-        name: 'Post reacted over Time',
-      },
-      {
-        type: StatisticType.NUMBER,
-        value: (community / reactedData.data.length),
-        name: 'Community reacted over Time',
       },
     ],
     parsedFiles: reactedData?.parsedFiles ?? [],
