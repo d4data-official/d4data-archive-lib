@@ -27,7 +27,7 @@ interface FBPost {
 }
 
 Facebook.prototype.getPosts = withAutoParser(async parser => {
-  const postList = await parser.parseAsJSON<Array<FBPost>>(ACCOUNT_ACTIVITY_FILE)
+  const { data: postList } = await parser.parseAsJSON<Array<FBPost>>(ACCOUNT_ACTIVITY_FILE)
 
   return postList.map((post): Post => {
     const externalLink = post?.attachments?.[0]?.data?.[0].external_context?.url

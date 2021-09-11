@@ -26,8 +26,8 @@ interface PostsLiked {
 }
 
 Facebook.prototype.getReacted = withAutoParser(async parser => {
-  const likedPageList = await parser.parseAsJSON<PagesLiked>(LIKED_PAGES_FILE)
-  const likedPostList = await parser.parseAsJSON<PostsLiked>(LIKED_POSTS_FILE)
+  const { data: likedPageList } = await parser.parseAsJSON<PagesLiked>(LIKED_PAGES_FILE)
+  const { data: likedPostList } = await parser.parseAsJSON<PostsLiked>(LIKED_POSTS_FILE)
 
   const likedPages = likedPageList.page_likes.map((like): Reacted => ({
     entityType: 'community',

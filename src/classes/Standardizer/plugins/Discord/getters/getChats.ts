@@ -9,7 +9,8 @@ Discord.prototype.getChats = withAutoParser(async (parser, options) => {
   const filteredChannels = channels.slice(offset, offset + items)
 
   return Promise.all(filteredChannels.map(async (channel, id): Promise<Chat> => {
-    const parsed = await parser.parseAsJSON(channel)
+    const { data: parsed } = await parser.parseAsJSON(channel)
+
     return {
       title: parsed?.name ?? 'Private chat',
       _id: (id + offset).toString(),

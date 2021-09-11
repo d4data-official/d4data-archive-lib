@@ -11,7 +11,10 @@ export type OptionsParseAsCSV = ParsingOptions & PaginationOptions & OptionsCSV
 /**
  * Parse given Pipeline result stream as CSV format
  */
-export default async function parseAsCSV<T = any>(pipeline: Pipeline, options?: OptionsParseAsCSV): Promise<ParsingReturn<Array<T>>> {
+export default async function parseAsCSV<T = any>(
+  pipeline: Pipeline,
+  options?: OptionsParseAsCSV,
+): Promise<ParsingReturn<Array<T>>> {
   const stream = pipeline.run()
   const content: Array<T> = []
   const items = options?.pagination?.items ?? Infinity
