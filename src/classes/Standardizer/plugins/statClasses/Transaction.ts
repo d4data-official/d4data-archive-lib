@@ -40,7 +40,7 @@ export default class Calculator {
          * }
          */
     chunk.forEach(transaction => {
-      if (this.currency.indexOf(transaction.currency) == -1) {
+      if (this.currency.indexOf(transaction.currency) === -1) {
         this.currency.push(transaction.currency)
         this.calendars.push({})
       }
