@@ -1,5 +1,6 @@
 import Reddit from '../Reddit'
 import Calculator from '../../statClasses/Transaction';
+import { StatisticType } from '../../../../../types/schemas/Statistic';
 
 Reddit.prototype.getTransactionsStatistics = async function getTransactionsStatistics() {
   const calculator = new Calculator()
@@ -23,7 +24,11 @@ Reddit.prototype.getTransactionsStatistics = async function getTransactionsStati
   return {
     statistics: [
       calculator.total,
-      calculator.average,
+      {
+        type: StatisticType.RANKING,
+        name: 'AverageMonth',
+        value: await calculator.averages,
+      },
     ],
     parsedFiles: chunk?.parsedFiles ?? [],
   }
