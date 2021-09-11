@@ -13,7 +13,7 @@ Reddit.prototype.getSettings = withAutoParser(async parser => {
   const { data: settingList } = await parser.parseAsCSV<RedditSetting>(SETTINGS_FILE)
 
   return settingList.map((setting): Setting => ({
-    name: setting.preference,
+    key: setting.preference,
     value: setting.value,
   }))
 })
