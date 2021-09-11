@@ -65,7 +65,7 @@ export default class Calculator {
     }
   }
 
-  get averages() {
+  get average() {
     return this.buildStat()
   }
 
