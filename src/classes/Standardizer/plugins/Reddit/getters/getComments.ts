@@ -17,9 +17,9 @@ interface RedditComment {
 }
 
 Reddit.prototype.getComments = withAutoParser(async parser => {
-  const commentList = await parser.parseAsCSV<RedditComment>(COMMENTS_FILE)
+  const { data: commentList } = await parser.parseAsCSV<RedditComment>(COMMENTS_FILE)
 
-  return commentList.map((comment) :Comment => ({
+  return commentList.map((comment): Comment => ({
     sender: 'You',
     content: comment?.body,
     creationDate: new Date(comment.date),
