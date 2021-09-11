@@ -12,7 +12,7 @@ interface Followings {
 }
 
 Facebook.prototype.getFollowings = withAutoParser(async parser => {
-  const followingList = await parser.parseAsJSON<Followings>(FOLLOWINGS_FILE)
+  const { data: followingList } = await parser.parseAsJSON<Followings>(FOLLOWINGS_FILE)
 
   return followingList.following.map((pageFollowed): Following => ({
     type: 'community',

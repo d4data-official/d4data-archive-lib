@@ -17,7 +17,7 @@ interface RedditPost {
 }
 
 Reddit.prototype.getPosts = withAutoParser(async parser => {
-  const postList = await parser.parseAsCSV<RedditPost>(POSTS_FILE)
+  const { data: postList } = await parser.parseAsCSV<RedditPost>(POSTS_FILE)
 
   return postList.map((post): Post => {
     const links = post.url ? [post.url] : undefined

@@ -1,5 +1,5 @@
 import Reddit from '../Reddit'
-import { Message } from '../../../../../types/schemas';
+import { Message } from '../../../../../types/schemas'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const MESSAGES_FILE = 'messages.csv'
@@ -17,9 +17,9 @@ interface RedditMessage {
 }
 
 Reddit.prototype.getMessages = withAutoParser(async parser => {
-  const messageList = await parser.parseAsCSV<RedditMessage>(MESSAGES_FILE)
+  const { data: messageList } = await parser.parseAsCSV<RedditMessage>(MESSAGES_FILE)
 
-  return messageList.map((message):Message => ({
+  return messageList.map((message): Message => ({
     creationDate: new Date(message.date),
     sender: message.from,
     receiver: message.to,
