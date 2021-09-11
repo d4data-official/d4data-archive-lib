@@ -22,6 +22,7 @@ export default class Calculator {
     chunk.forEach(notification => {
       const { calendar } = this
       const date = moment(notification.notificationDate)
+      // eslint-disable-next-line no-prototype-builtins
       if (!calendar.hasOwnProperty(date.format('YYYY-MM'))) {
         calendar[date.format('YYYY-MM')] = Array.from(new Array(date.daysInMonth()), () => 0)
       }

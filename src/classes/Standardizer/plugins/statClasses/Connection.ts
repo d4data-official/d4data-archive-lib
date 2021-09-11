@@ -21,6 +21,7 @@ export default class Calculator {
 
   private updateRanking(chunk: Array<Connection>) {
     chunk.forEach(connection => {
+      // eslint-disable-next-line no-prototype-builtins
       if (!this.ip.hasOwnProperty(connection.ipAddress)) {
         this.ip[connection.ipAddress] = 1
       } else {
@@ -28,6 +29,7 @@ export default class Calculator {
       }
       const location = connection.location?.relativePosition?.city
       if (!location) return
+      // eslint-disable-next-line no-prototype-builtins
       if (!this.location.hasOwnProperty(location)) {
         this.location[location] = 1
       } else {
@@ -66,6 +68,7 @@ export default class Calculator {
     chunk.forEach(connection => {
       const { calendar } = this
       const date = moment(connection.timestamp)
+      // eslint-disable-next-line no-prototype-builtins
       if (!calendar.hasOwnProperty(date.format('YYYY-MM'))) {
         calendar[date.format('YYYY-MM')] = Array.from(new Array(date.daysInMonth()), () => 0)
       }

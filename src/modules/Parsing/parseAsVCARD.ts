@@ -8,7 +8,8 @@ export type OptionsParseAsVCARD = ParsingOptions
 /**
  * Parse given Pipeline result stream as VCARD format
  */
-export default async function parseAsVCARD(pipeline: Pipeline, options?: OptionsParseAsVCARD): Promise<ParsingReturn<any>> {
+export default async function parseAsVCARD(pipeline: Pipeline, options?: OptionsParseAsVCARD):
+Promise<ParsingReturn<any>> {
   return {
     pagination: {
       total: 1,
