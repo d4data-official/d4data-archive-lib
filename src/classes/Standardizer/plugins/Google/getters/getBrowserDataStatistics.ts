@@ -1,6 +1,6 @@
 import moment from 'moment'
 import Google from '../Google'
-import { StatisticType } from '../../../../../types/schemas/Statistic'
+import Statistic, { StatisticType } from '../../../../../types/schemas/Statistic'
 import { BrowserData } from '../../../../../types/schemas'
 
 export type UniqueWebsites = Record<string, number>
@@ -86,35 +86,39 @@ Google.prototype.getBrowserDataStatistics = async function getBrowserDataStatist
 
   const statisticsClass = new BrowserDataStats(browserData?.data)
 
+  const historyDuration = statisticsClass.getHistoryDuration()?.toISOString()
+
+  const statistics: Array<Statistic> = [
+    {
+      type: StatisticType.NUMBER,
+      value: statisticsClass.historyCount,
+      name: 'History entries',
+    },
+    {
+      type: StatisticType.NUMBER,
+      value: statisticsClass.historyUniqueWebsitesCount,
+      name: 'Visited websites',
+    },
+    {
+      type: StatisticType.RANKING,
+      value: statisticsClass.getHistoryTopWebsites().websites.map(website => ({
+        value: website.count,
+        label: website.domain,
+      })),
+      name: 'Top websites',
+    },
+  ]
+
+  if (historyDuration) {
+    statistics.push({
+      type: StatisticType.DURATION,
+      value: historyDuration,
+      name: 'Of history',
+    })
+  }
+
   return {
-    statistics: [
-      {
-        type: StatisticType.NUMBER,
-        value: statisticsClass.historyCount,
-        name: 'History entries',
-      },
-      {
-        type: StatisticType.NUMBER,
-        value: statisticsClass.historyUniqueWebsitesCount,
-        name: 'Visited websites',
-        description: '',
-      },
-      {
-        type: StatisticType.DURATION,
-        value: statisticsClass.getHistoryDuration()?.asMilliseconds() ?? 0,
-        name: 'Of history',
-        description: '',
-      },
-      {
-        type: StatisticType.RANKING,
-        value: statisticsClass.getHistoryTopWebsites().websites.map(website => ({
-          value: website.count,
-          label: website.domain,
-        })),
-        name: 'Top websites',
-        description: '',
-      },
-    ],
+    statistics,
     parsedFiles: browserData?.parsedFiles ?? [],
   }
 }
