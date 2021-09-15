@@ -10,7 +10,7 @@ interface RedditProfile {
 }
 
 Reddit.prototype.getProfile = withAutoParser(async parser => {
-  const accountDetails = await parser.parseAsCSV<RedditProfile>(ACCOUNT_PROFILE_FILE)
+  const { data: accountDetails } = await parser.parseAsCSV<RedditProfile>(ACCOUNT_PROFILE_FILE)
   const mail = accountDetails[5]?.value
 
   return {

@@ -12,7 +12,7 @@ interface Friends {
 }
 
 Facebook.prototype.getFriends = withAutoParser(async parser => {
-  const friendList = await parser.parseAsJSON<Friends>(ACCOUNT_FRIENDS_FILE)
+  const { data: friendList } = await parser.parseAsJSON<Friends>(ACCOUNT_FRIENDS_FILE)
 
   return friendList.friends.map((friend): Contact => ({
     displayName: friend.name,

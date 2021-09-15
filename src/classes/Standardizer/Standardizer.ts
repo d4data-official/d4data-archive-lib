@@ -36,6 +36,7 @@ import { MediaType } from '../../types/schemas/Media'
 import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
 import RawDataReturn from '../../types/standardizer/RawDataReturn'
 import Getters from '../../types/standardizer/Getters'
+import StatisticGetterReturn from '../../types/standardizer/StatisticGetterReturn'
 
 export const PLUGINS_DIR = 'plugins'
 export const EXTERNAL_GETTERS_DIR = 'getters'
@@ -198,6 +199,110 @@ export default abstract class Standardizer {
   async getEvents(options?: GetterOptions): GetterReturn<Array<Event>> {
     return Promise.resolve(null)
   }
+
+  // Statistics getters
+
+  async getGlobalStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getProfileStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getFriendsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getFollowingsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getFollowersStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getContactsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getWhereaboutsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getNotificationsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getChatsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getCommentsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getPostsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getMessagesStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getAPIsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getConnectionsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getCommunitiesStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getSettingsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getReactedStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getMediasStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getTransactionsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getBrowserDataStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getTasksStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getAuthorizedDevicesStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getMailsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getNotesStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  async getEventsStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
+  // ------------------
 
   /**
    * Take an absolute or relative (to this Standardizer path) file path and return automatic parsed content.
