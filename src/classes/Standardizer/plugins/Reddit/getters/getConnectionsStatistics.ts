@@ -19,7 +19,7 @@ Reddit.prototype.getConnectionsStatistics = async function getConnectionsStatist
     })
     calculator.process_record(chunk?.data ?? [])
     offset += size
-  } while (chunk?.data?.length === 50)
+  } while (chunk?.data?.length === size)
 
   return {
     statistics: [

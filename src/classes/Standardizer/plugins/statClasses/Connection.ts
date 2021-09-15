@@ -68,9 +68,10 @@ export default class Calculator {
     chunk.forEach(connection => {
       const { calendar } = this
       const date = moment(connection.timestamp)
+      if (!date.isValid()) return
       // eslint-disable-next-line no-prototype-builtins
       if (!calendar.hasOwnProperty(date.format('YYYY-MM'))) {
-        calendar[date.format('YYYY-MM')] = Array.from(new Array(date.daysInMonth()), () => 0)
+        calendar[date.format('YYYY-MM')] = Array.from(new Array(date.daysInMonth() ?? 0), () => 0)
       }
       calendar[date.format('YYYY-MM')][date.date() - 1] += 1
     })
@@ -87,6 +88,6 @@ export default class Calculator {
       sum = sum.concat(calendar[month])
     })
     const nb = sum.length
-    return sum.reduce((a, b) => a + b, 0) / nb
+    return (sum.reduce((a, b) => a + b, 0) / nb) || 0
   }
 }

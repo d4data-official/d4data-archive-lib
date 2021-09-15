@@ -46,6 +46,7 @@ export default class Calculator {
       }
       const calendar = this.calendars[this.currency.indexOf(transaction.currency)]
       const date = moment(transaction.date)
+      if (!date.isValid()) return
       // eslint-disable-next-line no-prototype-builtins
       if (!calendar.hasOwnProperty(date.format('YYYY-MM'))) {
         calendar[date.format('YYYY-MM')] = Array.from(new Array(date.daysInMonth()), () => [])
@@ -94,6 +95,6 @@ export default class Calculator {
       calendar[month] /= nb
       sum += calendar[month]
     })
-    return sum /= Object.keys(calendar).length
+    return (sum /= Object.keys(calendar).length) || 0
   }
 }

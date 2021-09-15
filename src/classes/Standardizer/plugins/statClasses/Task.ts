@@ -39,6 +39,7 @@ export default class Calculator {
       taskList.tasks.forEach(task => {
         const { calendar } = this
         const date = moment(task.createdAt)
+        if (!date.isValid()) return
         // eslint-disable-next-line no-prototype-builtins
         if (!calendar.hasOwnProperty(date.format('YYYY-MM'))) {
           calendar[date.format('YYYY-MM')] = Array.from(new Array(date.daysInMonth()), () => 0)
@@ -63,6 +64,6 @@ export default class Calculator {
       sum.push(calendar[month].reduce((a: number, b: number) => a + b, 0))
     })
     const nb = sum.length
-    return sum.reduce((a, b) => a + b, 0) / nb
+    return (sum.reduce((a, b) => a + b, 0) / nb) || 0
   }
 }
