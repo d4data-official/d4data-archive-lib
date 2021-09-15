@@ -1,3 +1,4 @@
+import moment from 'moment'
 import Discord from '../Discord'
 import { StatisticType } from '../../../../../types/schemas/Statistic'
 
@@ -32,7 +33,7 @@ Discord.prototype.getFriendsStatistics = async function getFriendsStatistics() {
       },
       {
         type: StatisticType.DURATION,
-        value: lastFriend,
+        value: moment.duration(lastFriend).toISOString(),
         name: 'Time since Last Friends added',
       },
     ],
