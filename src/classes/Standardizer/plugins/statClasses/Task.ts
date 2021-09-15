@@ -64,6 +64,7 @@ export default class Calculator {
       sum.push(calendar[month].reduce((a: number, b: number) => a + b, 0))
     })
     const nb = sum.length
-    return (sum.reduce((a, b) => a + b, 0) / nb) || 0
+    const av = (sum.reduce((a, b) => a + b, 0) / nb) || 0
+    return Math.trunc(av * 100) / 100
   }
 }
