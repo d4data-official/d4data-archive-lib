@@ -4362,6 +4362,11 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
+vdata-parser@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/vdata-parser/-/vdata-parser-0.1.5.tgz#e57cf30065cf69d29a9d822e85fd2734c686bcfd"
+  integrity sha1-5XzzAGXPadKanYIuhf0nNMaGvP0=
+
 verror@1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/verror/-/verror-1.10.0.tgz"
