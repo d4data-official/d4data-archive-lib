@@ -7,10 +7,12 @@ export enum StatisticType {
   RANKING = 'ranking',
 }
 
-export type RankingStatisticValue = Array<{
+export type RankingStatisticItemValue = {
   value: number | string | boolean
   label?: string
-}>
+}
+
+export type RankingStatisticValue = Array<RankingStatisticItemValue>
 
 export default interface Statistic {
   type: StatisticType
