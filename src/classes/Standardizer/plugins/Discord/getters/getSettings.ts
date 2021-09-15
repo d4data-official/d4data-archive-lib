@@ -8,7 +8,7 @@ Discord.prototype.getSettings = withAutoParser(async parser => {
   const { data: settingsRaw } = await parser.parseAsJSON(SETTINGS_FILE)
 
   return Object.keys(settingsRaw.settings).map((key): Setting => ({
-    name: key,
+    key,
     value: settingsRaw.settings?.[key]?.toString(),
   }))
 })
