@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom'
-import { ParsingOptions } from '../../types/Parsing'
+import { ParsingOptions, ParsingReturn } from '../../types/Parsing'
 import Pipeline from '../../classes/Pipeline'
 
 export type OptionsParseAsHTML = ParsingOptions
@@ -7,8 +7,14 @@ export type OptionsParseAsHTML = ParsingOptions
 /**
  * Parse given Pipeline result stream as HTML format
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function parseAsHTML(pipeline: Pipeline, options?: OptionsParseAsHTML): Promise<JSDOM> {
+export default async function parseAsHTML(
+  pipeline: Pipeline,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  options?: OptionsParseAsHTML,
+): Promise<ParsingReturn<JSDOM>> {
   const completeData = await pipeline.toString()
-  return new JSDOM(completeData)
+  return {
+    data: new JSDOM(completeData),
+    pagination: null,
+  }
 }
