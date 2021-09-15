@@ -13,7 +13,7 @@ interface AuthorizedDevices {
 }
 
 Facebook.prototype.getAuthorizedDevices = withAutoParser(async parser => {
-  const authorizedDevices = await parser
+  const { data: authorizedDevices } = await parser
     .parseAsJSON<AuthorizedDevices>(AUTHORIZED_DEVICES_FILE)
 
   return authorizedDevices.recognized_devices.map((device): AuthorizedDevice => ({

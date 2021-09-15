@@ -5,7 +5,7 @@ import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 const ACCOUNT_ACTIVITY_FILE = 'security_and_login_information/account_activity.json'
 
 Facebook.prototype.getConnections = withAutoParser(async parser => {
-  const accountActivity = await parser.parseAsJSON(ACCOUNT_ACTIVITY_FILE)
+  const { data: accountActivity } = await parser.parseAsJSON(ACCOUNT_ACTIVITY_FILE)
 
   return accountActivity.account_activity
     .map((connection: Record<string, any>): Connection => ({
