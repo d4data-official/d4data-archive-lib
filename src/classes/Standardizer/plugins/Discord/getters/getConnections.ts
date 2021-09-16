@@ -24,7 +24,7 @@ Discord.prototype.getConnections = withAutoParser(async parser => {
           },
         },
         browser: row.browser,
-        timestamp: new Date(row.timestamp),
+        timestamp: new Date(row.timestamp.slice(1, -1)),
       })
     })
   }
