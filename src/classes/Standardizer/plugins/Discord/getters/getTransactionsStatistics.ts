@@ -26,7 +26,7 @@ Discord.prototype.getTransactionsStatistics = async function getTransactionsStat
       calculator.total,
       {
         type: StatisticType.RANKING,
-        name: 'AverageMonth',
+        name: 'Daily average',
         value: await calculator.averages,
       },
     ],

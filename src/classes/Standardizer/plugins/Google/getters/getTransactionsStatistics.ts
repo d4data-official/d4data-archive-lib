@@ -26,7 +26,7 @@ Google.prototype.getTransactionsStatistics = async function getTransactionsStati
       calculator.total,
       {
         type: StatisticType.RANKING,
-        name: 'AverageMonth',
+        name: 'Daily average',
         value: await calculator.averages,
       },
     ],
