@@ -95,6 +95,7 @@ export default class Calculator {
       calendar[month] /= nb
       sum += calendar[month]
     })
-    return (sum /= Object.keys(calendar).length) || 0
+    const av = (sum /= Object.keys(calendar).length) || 0
+    return Math.trunc(av * 100) / 100
   }
 }

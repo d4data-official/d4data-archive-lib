@@ -24,7 +24,7 @@ Google.prototype.getConnectionsStatistics = async function getConnectionsStatist
   return {
     statistics: [
       {
-        name: 'Monthly Average',
+        name: 'Monthly average',
         type: StatisticType.NUMBER,
         value: await calculator.average,
         description: 'average number of connections per month',

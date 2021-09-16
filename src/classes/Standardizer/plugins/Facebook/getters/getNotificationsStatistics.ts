@@ -24,7 +24,7 @@ Facebook.prototype.getNotificationsStatistics = async function getNotificationsS
   return {
     statistics: [
       {
-        name: 'Daily Average',
+        name: 'Monthly Average',
         type: StatisticType.NUMBER,
         value: await calculator.average,
         description: 'average number of notifications per day',
