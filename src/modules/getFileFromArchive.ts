@@ -1,5 +1,7 @@
 import yauzl from 'yauzl'
 import { Stream } from 'stream'
+import tar from 'tar';
+import { createReadStream } from 'fs';
 import { ArchiveFormat, identifyArchiveFormat } from './ArchiveExtraction'
 
 const handlers: Array<{ format: ArchiveFormat, handler: Function }> = [
@@ -61,5 +63,24 @@ export async function getFileFromZIP(
       zipfile.on('error', error => reject(error))
       zipfile.on('end', () => resolve(result))
     })
+  })
+}
+
+export async function getFileFromTGZ(
+  archivePath: string,
+  relativePathList: Array<string>,
+): Promise<Array<Stream | undefined>> {
+  return new Promise((resolve, reject) => {
+    const streams: Array<Stream | undefined> = new Array(relativePathList.length)
+    streams.fill(undefined)
+    tar.x(
+      {
+        file: archivePath,
+        onentry: (entry: any) => {
+          const idx = relativePathList.findIndex(path => path === entry.fileName)
+          if (idx !== -1) streams[idx] = createReadStream(entry.path)
+        },
+      }, relativePathList,
+    ).then(() => resolve(streams))
   })
 }

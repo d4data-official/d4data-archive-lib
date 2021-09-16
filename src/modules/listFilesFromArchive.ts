@@ -1,5 +1,6 @@
 import yauzl from 'yauzl'
 import path from 'path'
+import tar, { FileStat } from 'tar';
 import { FilterOptions } from '../types/Parsing'
 import { ArchiveFormat, identifyArchiveFormat } from './ArchiveExtraction'
 
@@ -74,5 +75,20 @@ export async function listFilesFromArchiveZip(
       zipFile.on('error', error => reject(error))
       zipFile.on('end', () => resolve(fileList))
     })
+  })
+}
+
+export async function listFilesFromArchiveTGZ(
+  archivePath: string,
+  relativeDirPath: string,
+  options?: OptionsListFilesFromArchive,
+): Promise<Array<string>> {
+  return new Promise<Array<string>>((resolve, reject) => {
+    const files: string[] = []
+    tar.t({ file: archivePath,
+      onentry(entry: any) {
+        files.push(entry.path)
+        if (!entry.meta) resolve(files)
+      } }, [])
   })
 }

@@ -1,5 +1,5 @@
 import Path from 'path'
-import tar, { ReadEntry } from 'tar'
+import tar from 'tar'
 import { createWriteStream, promises as fsPromises } from 'fs'
 import yauzl from 'yauzl'
 
@@ -126,7 +126,7 @@ async function unTarGz(filePath: string, outputPath: string, options?: ExtractOp
     {
       file: filePath,
       cwd: outputPath,
-      onentry: (entry) => {
+      onentry: (entry: any) => {
         options?.onProgress?.(entry.path, read, entries)
         read += 1
       },
