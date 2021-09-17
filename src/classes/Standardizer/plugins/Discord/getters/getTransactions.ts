@@ -27,7 +27,7 @@ interface DiscordTransaction {
 }
 
 Discord.prototype.getTransactions = withAutoParser(async parser => {
-  const transactionsRaw = await parser.parseAsJSON(TRANSACTIONS_FILE)
+  const { data: transactionsRaw } = await parser.parseAsJSON(TRANSACTIONS_FILE)
 
   return transactionsRaw.payments.map((tr: DiscordTransaction): Transaction => ({
     date: new Date(tr.created_at),
