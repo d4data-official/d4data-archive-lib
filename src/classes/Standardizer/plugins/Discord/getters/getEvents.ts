@@ -18,7 +18,7 @@ Discord.prototype.getEvents = async function (options) {
       continue
     }
 
-    const parsedEvents = await this.parser.parseAsJSONL<DiscordEvent>(filePath, {
+    const { data: parsedEvents } = await this.parser.parseAsJSONL<DiscordEvent>(filePath, {
       pagination: {
         offset,
         items: items - parsedEventCounter,

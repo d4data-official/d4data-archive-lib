@@ -3,8 +3,9 @@ import Reddit from '../Reddit'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 Reddit.prototype.getTransactions = withAutoParser(async parser => {
-  const transactionsRawData = await parser.parseAsCSV('reddit_gold_information.csv')
-  return transactionsRawData.map((transaction):Transaction => ({
+  const { data: transactionsRawData } = await parser.parseAsCSV('reddit_gold_information.csv')
+
+  return transactionsRawData.map((transaction): Transaction => ({
     currency: '$',
     value: transaction.cost,
     date: transaction.date,
