@@ -7,6 +7,7 @@ export enum ArchiveFormat {
   ZIP = 'zip',
   UNKNOWN = 'unknown',
   TARGZ = 'tar.gz',
+  TAR = 'tar',
 }
 
 export interface ExtractOptions {
@@ -22,6 +23,7 @@ export async function identifyArchiveFormat(path: string): Promise<ArchiveFormat
     [ArchiveFormat.ZIP, ['zip']],
     [ArchiveFormat.TARGZ, ['tgz']],
     [ArchiveFormat.TARGZ, ['tar.gz']],
+    [ArchiveFormat.TAR, ['tar']],
   ];
   const explode = path.split('.')
   const fileExtension = path.split('.').pop();

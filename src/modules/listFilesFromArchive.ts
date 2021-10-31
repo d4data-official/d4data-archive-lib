@@ -1,6 +1,7 @@
 import yauzl from 'yauzl'
 import path from 'path'
 import tar, { FileStat } from 'tar';
+import fs from 'fs'
 import { FilterOptions } from '../types/Parsing'
 import { ArchiveFormat, identifyArchiveFormat } from './ArchiveExtraction'
 
@@ -10,6 +11,8 @@ export type OptionsListFilesFromArchive = FilterOptions & {
 
 const handlers: Array<{ format: ArchiveFormat, handler: Function }> = [
   { format: ArchiveFormat.ZIP, handler: listFilesFromArchiveZip },
+  { format: ArchiveFormat.TARGZ, handler: listFilesFromArchiveTGZ },
+  { format: ArchiveFormat.TAR, handler: listFilesFromArchiveTGZ },
 ]
 
 /**
@@ -85,10 +88,11 @@ export async function listFilesFromArchiveTGZ(
 ): Promise<Array<string>> {
   return new Promise<Array<string>>((resolve, reject) => {
     const files: string[] = []
-    tar.t({ file: archivePath,
-      onentry(entry: any) {
+    fs.createReadStream(archivePath)
+      .pipe(tar.t({}, [relativeDirPath]))
+      .on('close', () => resolve(files))
+      .on('entry', (entry) => {
         files.push(entry.path)
-        if (!entry.meta) resolve(files)
-      } }, [])
+      })
   })
 }
