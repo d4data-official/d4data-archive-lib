@@ -1,5 +1,5 @@
 import Google from '../Google'
-import { Contact, ProfilePicture, Media } from '../../../../../types/schemas'
+import { Contact } from '../../../../../types/schemas'
 import { MediaType } from '../../../../../types/schemas/Media'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
@@ -11,19 +11,19 @@ Google.prototype.getContacts = withAutoParser(async parser => {
     const rawContacts = await parser.parseAsCSV(CONTACT_FILE_CSV)
     const contacts: Contact[] = rawContacts.data.map((contact): Contact => ({
       displayName: contact?.Name,
-      firstName: contact['Given Name'],
-      lastName: contact['Family Name'],
+      firstName: contact?.['Given Name'],
+      lastName: contact?.['Family Name'],
       nickname: contact?.Nickname,
       gender: contact?.Gender,
       birthday: contact?.Birthday ? new Date(contact.Birthday) : undefined,
-      phoneNumbers: contact['Phone 1 - Value'],
-      mails: contact['E-mail 1 - Value'],
+      phoneNumbers: contact?.['Phone 1 - Value'],
+      mails: contact?.['E-mail 1 - Value'],
       profilePicture: {
         current: {
           url: contact?.Photo,
           type: MediaType.IMAGE,
-        } as Media,
-      } as ProfilePicture,
+        },
+      },
     }))
     return contacts
   }
