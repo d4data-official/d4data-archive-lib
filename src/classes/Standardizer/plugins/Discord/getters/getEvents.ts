@@ -9,6 +9,7 @@ export type DiscordEvent = Record<string, any> & {
 
 Discord.prototype.getEvents = async function (options) {
   let parsedEventCounter = 0
+  let total = 0
 
   const {
     items,
@@ -32,7 +33,10 @@ Discord.prototype.getEvents = async function (options) {
       continue
     }
 
-    const { data: parsedEvents } = await this.parser.parseAsJSONL<DiscordEvent>(filePath, {
+    const {
+      data: parsedEvents,
+      pagination,
+    } = await this.parser.parseAsJSONL<DiscordEvent>(filePath, {
       pagination: {
         offset,
         items: items - parsedEventCounter,
@@ -41,6 +45,7 @@ Discord.prototype.getEvents = async function (options) {
     parsedEventCounter += parsedEvents.length
 
     rawEvents.push(parsedEvents)
+    total += pagination?.total ?? 0
   }
 
   const events: Array<Event> = rawEvents.flat()
@@ -54,5 +59,10 @@ Discord.prototype.getEvents = async function (options) {
   return {
     data: events,
     parsedFiles: filePathList,
+    pagination: {
+      offset: options?.parsingOptions?.pagination?.offset ?? 0,
+      items: events.length,
+      total,
+    },
   }
 }
