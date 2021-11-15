@@ -34,7 +34,7 @@ Google.prototype.getProfile = withAutoParser(async parser => {
   if (!(await parser.filesExist([ACCOUNT_PROFILE_FILE]))) {
     return null
   }
-  const accountDetails = await parser.parseAsJSON<GoogleProfile>(ACCOUNT_PROFILE_FILE)
+  const { data: accountDetails } = await parser.parseAsJSON<GoogleProfile>(ACCOUNT_PROFILE_FILE)
   const birthday = accountDetails?.birthday ? new Date(accountDetails.birthday) : undefined
   const mail = accountDetails?.emails?.[0]?.value
 

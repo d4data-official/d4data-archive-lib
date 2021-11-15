@@ -1,11 +1,13 @@
 export default interface Setting {
-  /**
-   * name of setting
-   */
-  name: string
+  // Key/internal name of setting
+  key: string
 
-  /**
-   * value of setting
-   */
+  // Value of setting
   value?: string | undefined
+
+  // User friendly name of setting
+  friendlyName?: string | undefined
+
+  // Description of what the setting is to help the user
+  description?: string | undefined
 }

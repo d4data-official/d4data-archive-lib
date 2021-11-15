@@ -28,7 +28,7 @@ interface FBComments {
 }
 
 Facebook.prototype.getComments = withAutoParser(async parser => {
-  const commentList = await parser.parseAsJSON<FBComments>(COMMENTS_FILE)
+  const { data: commentList } = await parser.parseAsJSON<FBComments>(COMMENTS_FILE)
 
   return commentList.comments.map((comment): Comment => {
     const externalLink = comment?.attachments?.[0]?.data?.[0].media?.uri

@@ -55,12 +55,12 @@ Google.prototype.getBrowserData = withAutoParser(async parser => {
   if (!(await parser.filesExist(Object.values(files)))) {
     return null
   }
-  const autoFill = await parser.parseAsJSON(files.autofill)
-  const history = await parser.parseAsJSON(files.history)
-  const dictionary = await parser.parseAsCSV(files.dictionary)
-  const extensions = await parser.parseAsJSON(files.extensions)
-  const searchEngines = await parser.parseAsJSON(files.searchEngines)
-  const syncSettings = await parser.parseAsJSON(files.syncSettings)
+  const { data: autoFill } = await parser.parseAsJSON(files.autofill)
+  const { data: history } = await parser.parseAsJSON(files.history)
+  const { data: dictionary } = await parser.parseAsCSV(files.dictionary)
+  const { data: extensions } = await parser.parseAsJSON(files.extensions)
+  const { data: searchEngines } = await parser.parseAsJSON(files.searchEngines)
+  const { data: syncSettings } = await parser.parseAsJSON(files.syncSettings)
 
   const rawBrowserData = {
     autoFill: autoFill?.['Autofill Profile'],
