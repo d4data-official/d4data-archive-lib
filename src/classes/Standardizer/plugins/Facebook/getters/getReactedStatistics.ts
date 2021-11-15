@@ -63,7 +63,7 @@ Facebook.prototype.getReactedStatistics = async function getReactedStatistics() 
       {
         type: StatisticType.NUMBER,
         value: (reactedData.data.length / Nyear).toFixed(2),
-        name: 'reacted over Time',
+        name: 'reactions over Time',
       },
       {
         type: StatisticType.NUMBER,
