@@ -202,6 +202,10 @@ export default abstract class Standardizer {
 
   // Statistics getters
 
+  async getGlobalStatistics(): StatisticGetterReturn {
+    return Promise.resolve(null)
+  }
+
   async getProfileStatistics(): StatisticGetterReturn {
     return Promise.resolve(null)
   }

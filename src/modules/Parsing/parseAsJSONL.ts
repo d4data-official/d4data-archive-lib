@@ -1,5 +1,5 @@
 import readline from 'readline'
-import { PaginationOptions, ParsingOptions } from '../../types/Parsing'
+import { PaginationOptions, ParsingOptions, ParsingReturn } from '../../types/Parsing'
 import Pipeline from '../../classes/Pipeline'
 
 export interface OptionsJSONL {
@@ -17,7 +17,7 @@ export type OptionsParseAsJSONL = ParsingOptions & PaginationOptions & OptionsJS
 export default async function parseAsJSONL<T = any>(
   pipeline: Pipeline,
   options?: OptionsParseAsJSONL,
-): Promise<Array<T>> {
+): Promise<ParsingReturn<Array<T>>> {
   let i = 0
   const offset = options?.pagination?.offset ?? 0
   const itemLimit = options?.pagination?.items ?? Infinity
@@ -28,30 +28,29 @@ export default async function parseAsJSONL<T = any>(
   })
 
   rl.on('line', (line) => {
+    i += 1
     if (!(options?.filter?.(line) ?? true)) {
       return
     }
-
-    if (i < offset) {
-      i += 1
+    if (i <= offset) {
       return
     }
-
     if (content.length >= itemLimit) {
-      stream.destroy()
-      rl.close()
       return
     }
-
     const parsedItem = JSON.parse(line)
-
     content.push(options?.transform?.(parsedItem) ?? parsedItem)
-
-    i += 1
   })
 
-  return new Promise<Array<T>>((resolve, reject) => {
-    rl.on('close', () => resolve(content))
+  return new Promise<ParsingReturn<Array<T>>>((resolve, reject) => {
+    rl.on('close', () => resolve({
+      pagination: {
+        offset: options?.pagination?.offset ?? 0,
+        items: content.length,
+        total: i,
+      },
+      data: content,
+    }))
     stream.on('error', (e) => reject(e))
   })
 }

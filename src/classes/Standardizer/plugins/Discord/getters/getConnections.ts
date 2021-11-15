@@ -6,10 +6,10 @@ const BASE_CONNECTIONS_FOLDER = 'activity/reporting/'
 
 Discord.prototype.getConnections = withAutoParser(async parser => {
   const files = await parser.listFiles(BASE_CONNECTIONS_FOLDER, { extensionWhitelist: ['json'] })
-  const connections : Array<Connection> = []
+  const connections: Array<Connection> = []
 
   for await (const file of files) {
-    const connectionFile = await parser.parseAsJSONL(file, {
+    const { data: connectionFile } = await parser.parseAsJSONL(file, {
       filter: (unparsedLine) => (unparsedLine.startsWith('{"event_type":"session_start"')),
     })
     connectionFile.forEach((row) => {
@@ -24,7 +24,7 @@ Discord.prototype.getConnections = withAutoParser(async parser => {
           },
         },
         browser: row.browser,
-        timestamp: new Date(row.timestamp),
+        timestamp: new Date(row.timestamp.slice(1, -1)),
       })
     })
   }

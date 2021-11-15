@@ -39,7 +39,7 @@ Facebook.prototype.getChats = withAutoParser(async parser => {
 
   return await Promise.all(
     files.map((file, index) => parser.parseAsJSON<FBChats>(file)
-      .then((chat): Chat => ({
+      .then(({ data: chat }): Chat => ({
         _id: index.toString(),
         title: chat.title ?? 'Unknown name',
         participants: chat.participants.map((participant) => participant.name),

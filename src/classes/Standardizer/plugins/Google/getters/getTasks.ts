@@ -34,7 +34,7 @@ Google.prototype.getTasks = withAutoParser(async parser => {
     return null
   }
 
-  const list = await parser.parseAsJSON<GoogleTasks>(TASKS_FILE)
+  const { data: list } = await parser.parseAsJSON<GoogleTasks>(TASKS_FILE)
   const taskList = list.items.map((tList) => ({
     title: tList.title,
     updateAt: new Date(tList.updated),

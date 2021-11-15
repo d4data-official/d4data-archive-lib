@@ -17,7 +17,7 @@ export default class Gravatar extends Archive {
       return false
     }
 
-    const fileContent = await parseAsJSON(await Pipeline.fromArchive(this.path, jsonFilePath))
+    const { data: fileContent } = await parseAsJSON(await Pipeline.fromArchive(this.path, jsonFilePath))
     const profileUrl: string | undefined = fileContent?.entry?.[0]?.profileUrl
 
     if (profileUrl?.startsWith('http://gravatar.com')) {

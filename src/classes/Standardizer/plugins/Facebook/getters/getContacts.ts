@@ -16,7 +16,7 @@ interface Contacts {
 }
 
 Facebook.prototype.getContacts = withAutoParser(async parser => {
-  const contactList = await parser.parseAsJSON<Contacts>(ADDRESS_BOOK_FILE)
+  const { data: contactList } = await parser.parseAsJSON<Contacts>(ADDRESS_BOOK_FILE)
 
   return contactList.address_book.address_book.map((contact): Contact => ({
     displayName: contact.name,
