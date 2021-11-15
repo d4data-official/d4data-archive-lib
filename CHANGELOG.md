@@ -4,6 +4,11 @@
 
 None
 
+## [0.1.0-alpha.8](https://github.com/d4data-official/archive-lib/releases/tag/v0.1.0-alpha.8) (2021-11-04)
+
+- Add some statistics
+- Some bugs fix
+
 ## [0.1.0-alpha.7](https://github.com/d4data-official/archive-lib/releases/tag/v0.1.0-alpha.7) (2021-09-15)
 
 ### Features

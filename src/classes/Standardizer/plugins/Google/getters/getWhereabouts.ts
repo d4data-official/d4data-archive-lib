@@ -22,8 +22,8 @@ Google.prototype.getWhereabouts = withAutoParser(async parser => {
     recordDate: new Date(whereabouts.timestampMs),
     location: {
       absolutePosition: {
-        latitude: whereabouts.latitudeE7,
-        longitude: whereabouts.longitudeE7,
+        latitude: (whereabouts.latitudeE7 / 10000000),
+        longitude: (whereabouts.longitudeE7 / 10000000),
       },
     },
   }))
