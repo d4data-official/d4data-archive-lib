@@ -12,7 +12,7 @@ interface Communities {
 }
 
 Facebook.prototype.getCommunities = withAutoParser(async parser => {
-  const communityList = await parser.parseAsJSON<Communities>(COMMUNITIES_FILE)
+  const { data: communityList } = await parser.parseAsJSON<Communities>(COMMUNITIES_FILE)
 
   return communityList.groups_joined.map((group): Community => ({
     joinedDate: new Date(group.timestamp * 1000),
