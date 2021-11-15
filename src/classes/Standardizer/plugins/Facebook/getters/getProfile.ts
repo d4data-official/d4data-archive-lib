@@ -47,7 +47,7 @@ interface FBProfile {
 }
 
 Facebook.prototype.getProfile = withAutoParser(async parser => {
-  const accountDetails = await parser.parseAsJSON<FBProfile>(ACCOUNT_PROFILE_FILE)
+  const { data: accountDetails } = await parser.parseAsJSON<FBProfile>(ACCOUNT_PROFILE_FILE)
   const mail = accountDetails.profile?.emails?.emails?.[0]
 
   const account: Profile = {
