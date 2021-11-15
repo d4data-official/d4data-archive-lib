@@ -12,7 +12,7 @@ interface APIS {
 }
 
 Facebook.prototype.getAPIs = withAutoParser(async parser => {
-  const APIs = await parser.parseAsJSON<APIS>(APIS_FILE)
+  const { data: APIs } = await parser.parseAsJSON<APIS>(APIS_FILE)
 
   return APIs.installed_apps.map((thisApi): API => ({
     name: thisApi.name,
