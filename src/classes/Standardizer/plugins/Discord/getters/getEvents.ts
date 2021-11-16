@@ -1,5 +1,6 @@
 import Discord from '../Discord'
 import { Event } from '../../../../../types/schemas'
+import PaginationManager from '../../../../PaginationManager'
 
 export type DiscordEvent = Record<string, any> & {
   event_type: string
@@ -8,13 +9,9 @@ export type DiscordEvent = Record<string, any> & {
 }
 
 Discord.prototype.getEvents = async function (options) {
-  let parsedEventCounter = 0
-  let total = 0
-
-  const {
-    items,
-    offset,
-  } = options?.parsingOptions?.pagination ?? this.parser.defaultOptions.pagination
+  const paginationManager = new PaginationManager(
+    options?.parsingOptions?.pagination ?? this.parser.defaultOptions.pagination,
+  )
 
   const filePathList = await this.parser.findFiles(/(analytics|modeling|reporting|tns)\/events-.*\.json$/, 'activity/')
     .catch(error => {
@@ -29,23 +26,19 @@ Discord.prototype.getEvents = async function (options) {
   const rawEvents: Array<Array<DiscordEvent>> = []
 
   for await (const filePath of filePathList) {
-    if (items - parsedEventCounter <= 0) {
-      continue
-    }
-
+    console.log('paginationManager.nextPagination:', paginationManager.nextPagination)
     const {
       data: parsedEvents,
       pagination,
-    } = await this.parser.parseAsJSONL<DiscordEvent>(filePath, {
-      pagination: {
-        offset,
-        items: items - parsedEventCounter,
-      },
-    })
-    parsedEventCounter += parsedEvents.length
+    } = await this.parser.parseAsJSONL<DiscordEvent>(filePath, { pagination: paginationManager.nextPagination })
 
-    rawEvents.push(parsedEvents)
-    total += pagination?.total ?? 0
+    if (paginationManager.remainingItems > 0) {
+      rawEvents.push(parsedEvents)
+    }
+
+    if (pagination) {
+      paginationManager.pushPagination(pagination)
+    }
   }
 
   const events: Array<Event> = rawEvents.flat()
@@ -59,10 +52,6 @@ Discord.prototype.getEvents = async function (options) {
   return {
     data: events,
     parsedFiles: filePathList,
-    pagination: {
-      offset: options?.parsingOptions?.pagination?.offset ?? 0,
-      items: events.length,
-      total,
-    },
+    pagination: paginationManager.paginationResult,
   }
 }
