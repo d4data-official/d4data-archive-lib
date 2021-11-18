@@ -26,7 +26,6 @@ Discord.prototype.getEvents = async function (options) {
   const rawEvents: Array<Array<DiscordEvent>> = []
 
   for await (const filePath of filePathList) {
-    console.log('paginationManager.nextPagination:', paginationManager.nextPagination)
     const {
       data: parsedEvents,
       pagination,
