@@ -1,4 +1,5 @@
 import { PipelineStep } from '../classes/Pipeline'
+import Pagination from './Pagination'
 
 export type Preprocessor = PipelineStep
 
@@ -8,10 +9,7 @@ export interface FilterOptions {
 }
 
 export interface PaginationOptions {
-  pagination?: {
-    offset: number
-    items: number
-  }
+  pagination?: Pagination
 }
 
 export interface PreprocessorOptions {
@@ -24,8 +22,11 @@ export interface ParsingOptions {
 export type FullParsingOptions = ParsingOptions & PreprocessorOptions & PaginationOptions
 
 export interface ParsingPaginationInfo {
+  // Items count to skip in process
   offset: number
+  // Items limit to process
   items: number
+  // Items count that can be processed
   total: number
 }
 
