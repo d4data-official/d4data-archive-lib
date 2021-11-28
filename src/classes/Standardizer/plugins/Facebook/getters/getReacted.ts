@@ -1,5 +1,5 @@
 import Facebook from '../Facebook'
-import { Community, Reacted } from '../../../../../types/schemas'
+import { Community, Post, Reacted } from '../../../../../types/schemas'
 import withAutoParser from '../../../../../modules/Standardizer/withAutoParser'
 
 const LIKED_PAGES_FILE = 'likes_and_reactions/pages.json'
@@ -43,8 +43,8 @@ Facebook.prototype.getReacted = withAutoParser(async parser => {
   const likedPosts = likedPostList.reactions.map((reaction): Reacted => ({
     entityType: 'post',
     entity: {
-      name: reaction.title,
-    } as Community,
+      title: reaction.title,
+    } as Post,
     reaction: {
       name: reaction.data[0].reaction.reaction,
       description: reaction.title,
