@@ -4,6 +4,10 @@
 
 None
 
+## [0.1.0-alpha.10](https://github.com/d4data-official/archive-lib/releases/tag/v0.1.0-alpha.10) (2021-12-1)
+
+- Fix date parsing for Google Whereabouts
+
 ## [0.1.0-alpha.9](https://github.com/d4data-official/archive-lib/releases/tag/v0.1.0-alpha.9) (2021-11-29)
 
 - Some bug fixes
