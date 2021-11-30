@@ -1,6 +1,6 @@
 import yauzl from 'yauzl'
-import tar from 'tar';
-import fs from 'fs';
+import tar from 'tar'
+import fs from 'fs'
 import { ArchiveFormat, identifyArchiveFormat } from './ArchiveExtraction'
 
 const handlers: Array<{ format: ArchiveFormat, handler: Function }> = [
@@ -68,5 +68,6 @@ export async function archiveFileExistTGZ(
           finds[idx] = true
         }
       })
+      .on('error', err => reject(err))
   })
 }
