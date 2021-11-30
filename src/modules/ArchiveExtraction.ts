@@ -6,7 +6,7 @@ import yauzl from 'yauzl'
 export enum ArchiveFormat {
   ZIP = 'zip',
   UNKNOWN = 'unknown',
-  TARGZ = 'tar.gz',
+  TARGZ = 'targz',
   TAR = 'tar',
 }
 
@@ -24,19 +24,19 @@ export async function identifyArchiveFormat(path: string): Promise<ArchiveFormat
     [ArchiveFormat.TARGZ, ['tgz']],
     [ArchiveFormat.TARGZ, ['tar.gz']],
     [ArchiveFormat.TAR, ['tar']],
-  ];
+  ]
   const explode = path.split('.')
-  const fileExtension = path.split('.').pop();
+  const fileExtension = path.split('.').pop()
 
   for (const [format, extList] of extensions) {
     const extCount = extList[0].split('.').length
     const fullExt = explode.slice(explode.length - extCount, explode.length).join('')
     const composedExtension = explode.length > 1 ? fullExt : ''
     if (extList.includes(<string>fileExtension) || (composedExtension !== '' && extList.includes(composedExtension))) {
-      return <ArchiveFormat>format;
+      return <ArchiveFormat>format
     }
   }
-  return ArchiveFormat.UNKNOWN;
+  return ArchiveFormat.UNKNOWN
 }
 
 export default async function extractArchive(
@@ -115,23 +115,25 @@ async function unzip(filePath: string, outputPath: string, options?: ExtractOpti
 
 async function unTarGz(filePath: string, outputPath: string, options?: ExtractOptions) {
   let entries = 0
+  let read = 0
+
   tar.t(
     {
       file: filePath,
-      onentry() {
-        entries += 1
-      },
+      onentry: () => entries += 1,
     },
   )
-  let read = 0
-  tar.x(
+
+  await fsPromises.mkdir(outputPath, { recursive: true })
+
+  return tar.x(
     {
       file: filePath,
       cwd: outputPath,
       onentry: (entry: any) => {
-        options?.onProgress?.(entry.path, read, entries)
         read += 1
+        options?.onProgress?.(entry.path, read, entries)
       },
     },
-  ).then(() => options?.onProgress?.('', read, entries))
+  )
 }
