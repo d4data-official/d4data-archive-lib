@@ -19,7 +19,7 @@ Google.prototype.getWhereabouts = withAutoParser(async parser => {
   }
   const { data: rawWhereaboutsList } = await parser.parseAsJSON<GoogleWhereabouts>(WHEREABOUTS_FILE)
   const whereaboutsList: Array<Whereabout> = rawWhereaboutsList.locations.map((whereabouts) => ({
-    recordDate: new Date(whereabouts.timestampMs),
+    recordDate: new Date(parseInt(whereabouts.timestampMs, 10)),
     location: {
       absolutePosition: {
         latitude: (whereabouts.latitudeE7 / 10000000),
