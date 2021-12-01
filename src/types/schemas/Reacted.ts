@@ -12,7 +12,7 @@ export default interface Reacted {
   /**
    * entity
    */
-  entity: Media | Post | Community | string
+  entity: Media | Partial<Post> | Community | string
 
   /**
    * Interface of property
