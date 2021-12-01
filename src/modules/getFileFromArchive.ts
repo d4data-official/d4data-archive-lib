@@ -1,9 +1,14 @@
 import yauzl from 'yauzl'
 import { Stream } from 'stream'
+import tar from 'tar'
+import fs from 'fs'
+import os from 'os'
+import path from 'path'
 import { ArchiveFormat, identifyArchiveFormat } from './ArchiveExtraction'
 
 const handlers: Array<{ format: ArchiveFormat, handler: Function }> = [
   { format: ArchiveFormat.ZIP, handler: getFileFromZIP },
+  { format: ArchiveFormat.TARGZ, handler: getFileFromTGZ },
 ]
 
 export default async function getFileFromArchive(
@@ -61,5 +66,31 @@ export async function getFileFromZIP(
       zipfile.on('error', error => reject(error))
       zipfile.on('end', () => resolve(result))
     })
+  })
+}
+
+export async function getFileFromTGZ(
+  archivePath: string,
+  relativePathList: Array<string>,
+): Promise<Array<Stream | undefined>> {
+  return new Promise((resolve, reject) => {
+    const streams: Array<Stream | undefined | string> = Array(relativePathList.length).fill(undefined)
+
+    fs.createReadStream(archivePath)
+      .pipe(
+        tar.x({
+          C: os.tmpdir(),
+        }, relativePathList),
+      )
+      .on('entry', (entry) => {
+        console.log(entry.path)
+        const idx = relativePathList.findIndex(path => path === entry.path)
+        if (idx !== -1) streams[idx] = path.join(os.tmpdir(), entry.path)
+      })
+      .on('close', () => {
+        streams.forEach((stream, i) => streams[i] = stream ? fs.createReadStream(<string>(stream)) : undefined)
+        resolve(<Array<Stream | undefined>>(streams))
+      })
+      .on('error', err => reject(err))
   })
 }

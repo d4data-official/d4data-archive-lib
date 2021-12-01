@@ -1,8 +1,11 @@
 import yauzl from 'yauzl'
+import tar from 'tar'
+import fs from 'fs'
 import { ArchiveFormat, identifyArchiveFormat } from './ArchiveExtraction'
 
 const handlers: Array<{ format: ArchiveFormat, handler: Function }> = [
   { format: ArchiveFormat.ZIP, handler: archiveFileExistZIP },
+  { format: ArchiveFormat.TARGZ, handler: archiveFileExistTGZ },
 ]
 
 export default async function archiveFileExist(
@@ -46,5 +49,25 @@ export async function archiveFileExistZIP(
       zipFile.on('error', error => reject(error))
       zipFile.on('end', () => resolve(result))
     })
+  })
+}
+
+export async function archiveFileExistTGZ(
+  archivePath: string,
+  relativePathList: Array<string>,
+): Promise<Array<boolean>> {
+  return new Promise<Array<boolean>>((resolve, reject) => {
+    const finds: boolean[] = new Array(relativePathList.length)
+    finds.fill(false)
+    fs.createReadStream(archivePath)
+      .pipe(tar.t({}, relativePathList))
+      .on('close', () => resolve(finds))
+      .on('entry', (entry) => {
+        const idx = relativePathList.findIndex(path => path === entry.path)
+        if (idx !== -1) {
+          finds[idx] = true
+        }
+      })
+      .on('error', err => reject(err))
   })
 }
