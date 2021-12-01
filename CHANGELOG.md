@@ -4,6 +4,11 @@
 
 None
 
+## [0.1.0-alpha.11](https://github.com/d4data-official/archive-lib/releases/tag/v0.1.0-alpha.11) (2021-12-1)
+
+- Add support for TAR archives
+- Fix entity type in Reacted type
+
 ## [0.1.0-alpha.10](https://github.com/d4data-official/archive-lib/releases/tag/v0.1.0-alpha.10) (2021-12-1)
 
 - Fix date parsing for Google Whereabouts
