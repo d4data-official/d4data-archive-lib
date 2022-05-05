@@ -43,12 +43,12 @@
     }
   },
   "dependencies": {
+    "@d4data/mbox-parser": "^1.0.1",
     "@types/tar": "^4.0.5",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "jsdom": "^16.5.1",
     "mailparser": "^3.2.0",
-    "mbox-parser": "^1.0.1",
     "moment": "^2.29.1",
     "papaparse": "^5.3.0",
     "tar": "^6.1.11",

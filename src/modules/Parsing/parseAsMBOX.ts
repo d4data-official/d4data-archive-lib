@@ -1,4 +1,4 @@
-import mboxParser, { ParsedMail } from 'mbox-parser'
+import mboxParser, { ParsedMail } from '@d4data/mbox-parser'
 import { PaginationOptions, ParsingOptions, ParsingReturn } from '../../types/Parsing'
 import Pipeline from '../../classes/Pipeline'
 import { Mail } from '../../types/schemas'
